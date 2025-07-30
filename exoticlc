@@ -44,10 +44,7 @@ local finished = false
 
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/scripts/refs/heads/main/antianimator"))()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/scripts/refs/heads/main/antiragdoll"))()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/scripts/refs/heads/main/exoticlc"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/scripts/refs/heads/main/antivoid"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/scripts/refs/heads/main/exoticlc"))()
 end)
 
 repeat task.wait() until finished
@@ -59,7 +56,6 @@ repeat task.wait() until finished
 -- the character
 
 -- yield is if the fling function will yield
-
 -- you can put your converted script under here
 
 -- loadstring(game:HttpGet("https://raw.githubusercontent.com/sparezirt/Script/refs/heads/main/.github/Modded/krystal.txt"))()
