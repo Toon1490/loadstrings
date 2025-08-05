@@ -4,7 +4,7 @@ local Character = nil
 
 if Reanimate == "Hatless" then
 local Hatless = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/reanim"))()
-Character = Hatless.FakeCharacter
+Character = Hatless.currentfakechar
 elseif getgenv().Framework == "Krypton" then
 KryptonConfiguration = {
 WaitTime = 0.251,
