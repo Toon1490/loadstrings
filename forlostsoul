@@ -1,0 +1,7 @@
+local plr = game.Players.LocalPlayer.Character
+local non = "non"
+local fake = game.Players.LocalPlayer.Name.. "_fake"
+game.Workspace[non].TORSO:Destroy()
+game.Workspace[non].HEAD:Destroy()
+game.Workspace[non]["Left Leg"].Darkness:Destroy()
+game.Workspace[non]["Left Arm"].Darkness:Destroy()
