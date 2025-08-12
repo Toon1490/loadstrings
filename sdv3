@@ -1,7 +1,3 @@
-
-
-
-
 local sound69 = Instance.new("Sound",game:GetService("RunService"))
 sound69.Looped = true
 sound69.Name = "danc"
