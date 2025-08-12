@@ -16,7 +16,7 @@ character, it will still wait the respawn time, but your character wont be dead.
 Requires: replicatesignal function
 Enable if you want the feature
 ]]
-settings["Hide HumanoidRootPart"] = false --[[ Enabled by default. when enabled, your chat bubble or name tag
+settings["Hide HumanoidRootPart"] = true --[[ Enabled by default. when enabled, your chat bubble or name tag
 will not appear above your character, but you will have your character immortal in the Fencing arena.
 ]]
 settings["PermaDeath fake character"] = false --[[When enabled, when you die when the reanimate is on, you
@@ -28,7 +28,7 @@ So you can run r15 scripts. This does not make the reanimate itself work with R1
 settings["Click Fling"] = true --[[When enabled, will attempt to fling a player
 when you click its character.]]
 
-settings["Hide RootPart Distance"] = CFrame.new(0, -495, 0) --[[Change the numbers, higher the number,
+settings["Hide RootPart Distance"] = CFrame.new(0, -498.5, 0) --[[Change the numbers, higher the number,
 further away therootpart will hide (when Hide HumanoidRootPart is ON)
 If you wanted to it to be at 1000, 1000, 100 you set it to CFrame.new(1000, 1000, 100)
 ]]
@@ -49,8 +49,7 @@ local finished = false
 
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/sdv2"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/scripts/refs/heads/main/antivoid"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/sdv2"))()
 end)
 
 repeat task.wait() until finished
