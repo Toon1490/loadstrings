@@ -1,4 +1,33 @@
+local sound69 = Instance.new("Sound",game:GetService("RunService"))
+sound69.Looped = true
+sound69.Name = "danc"
+sound69.Playing = true
+sound69.Volume = 6
 
+
+if not isfolder("song") then 
+    makefolder("song")
+    end
+
+local customasset = function(id)
+        if exploit ~= "CaetSploit" then
+        idwithoutthatbit= string.gsub(id,"song/","")
+        if not isfile(id) then 
+         writefile(id,game:HttpGet("https://github.com/Toon1490/music/raw/refs/heads/main/"..idwithoutthatbit))
+        end
+       repeat task.wait() until isfile(id)
+    end
+        local s = Instance.new("Sound")
+        s.Parent = game:GetService("RunService")
+        s.SoundId = getcustomasset(id)
+        task.spawn(function()
+            task.wait(1)
+            s:Destroy()
+        end)
+        return s.SoundId
+    end
+
+sound69.SoundId = customasset("song/LVL%20DEATH%20(SDV2).mp3")
 
 non = game.Players.LocalPlayer.Character
 playerss = non
