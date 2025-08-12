@@ -1,4 +1,4 @@
-local source = game:GetObjects("rbxassetid://5390158029")[1]["lost soul"]
+
 
 
 
@@ -201,7 +201,7 @@ function addtochat(name,msg)
 end
 
 run:BindToRenderStep(username..userid.."partmaintain",Enum.RenderPriority.Camera.Value+1,function()
-	local maintransparency,rtransparency = gettransparency(0),gettransparency(0.5)
+	local maintransparency,rtransparency = gettransparency(0),gettransparency(1)
 	if checkpart(c,v3(1,1,1),Enum.CollisionFidelity.Box,c3(0,0,0),Enum.Material.SmoothPlastic,1,false) then
 		if table.find(partexclusion,c) then
 			table.remove(partexclusion,table.find(partexclusion,c))
@@ -358,7 +358,7 @@ run:BindToRenderStep(username..userid.."partmaintain",Enum.RenderPriority.Camera
 		debris:AddItem(chat,0)
 		chat = backups.t:Clone()
 		chat.Color = c3()
-		chat.Transparency = 0.5
+		chat.Transparency = 0
 		chat.Size = v3(8.625,5,0.125)
 		chat.Name = randomstring()
 		chat.Parent = game.Players.LocalPlayer.Character
