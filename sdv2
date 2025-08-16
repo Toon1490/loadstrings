@@ -4,6 +4,10 @@ sound69.Name = "danc"
 sound69.Playing = true
 sound69.Volume = 3
 
+local lol = math.random(1,2)
+if lol == 2 then 
+lol = true 
+end
 
 if not isfolder("song") then 
     makefolder("song")
@@ -27,7 +31,13 @@ local customasset = function(id)
         return s.SoundId
     end
 
-sound69.SoundId = customasset("song/LVL%20DEATH%20(SDV2).mp3")
+--sound69.SoundId = customasset("song/In%20Aisles%201.mp3")
+
+if lol ~= true then 
+            sound69.SoundId = customasset("song/LVL%20DEATH%20(SDV2).mp3")
+                else 
+                      sound69.SoundId = customasset("song/MindlessV2.mp3")  
+                end
 
 non = game.Players.LocalPlayer.Character
 playerss = non
