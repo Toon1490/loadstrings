@@ -67,7 +67,7 @@ return function()
 	end
 	
 	do -- Settings
-		Global.Fling = Character.Humanoid.RigType == Enum.HumanoidRigType.R15 and 'LowerTorso' or Global.Reanimation == "PermaDeath" and 'HumanoidRootPart' or 'Right Arm'
+		Global.Fling = Character.Humanoid.RigType = Global.Reanimation == "PermaDeath"
 		Global.ShowReal = true
 		Global.GodMode = Global.Reanimation == 'PermaDeath' and true or false
 		Global.Velocity = -35
@@ -98,7 +98,7 @@ return function()
 	
 	
 	do -- Replace Arm for Non-Perma Reanimate
-		if Global.Reanimation == "Permadeath" and Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then 
+		if Global.Reanimation == "Simple" and Character.Humanoid.RigType == Enum.HumanoidRigType.R6 then 
 			local ReplacementHat
 			for i,Hat in ipairs(Global.RealRig:GetChildren()) do
 				if Hat:IsA("Accessory") then
