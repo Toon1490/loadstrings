@@ -1,0 +1,34 @@
+local plr = game.Players.LocalPlayer.Name
+local fakchar = plr.."_Fake"
+local fake = plr
+local ear = "Meshes/sonic ears"
+local unti = "untitled"
+local nek = "neko"
+--local wrkspace = game.Workspace
+--game.Workspace[neko].Head.Transparency = 1
+game.Workspace.neko.Head[ear]:Destroy()
+game.Workspace.neko.Head.Fur:Destroy()
+game.Workspace.neko.Head.Fur:Destroy()
+game.Workspace.neko.Head[unti]:Destroy()
+game.Workspace.neko.Head.Decal:Destroy()
+game.Workspace.neko.Head.Decal:Destroy()
+game.Workspace.neko.Head.Decal:Destroy()
+game.Workspace.neko.Head.Decal:Destroy()
+game.Workspace.neko.Head.Decal:Destroy()
+game.Workspace.neko.Head.face:Destroy()
+game.Workspace.neko["Left Arm"].Transparency = 1
+game.Workspace.neko["Right Arm"].Transparency = 1
+game.Workspace.neko["Torso"].Transparency = 1
+game.Workspace.neko["Left Leg"].Transparency = 1
+game.Workspace.neko["Right Leg"].Transparency = 1
+game.Workspace.neko["Head"].Transparency = 1
+
+
+game.Workspace.neko.Torso.vag:Destroy()
+game.Workspace.neko.Torso.vag:Destroy()
+game.Workspace.neko.Torso.vag:Destroy()
+game.Workspace.neko.Torso.vag:Destroy()
+game.Workspace.neko.Torso.vag:Destroy()
+game.Workspace.neko.Torso.vag:Destroy()
+game.Workspace.neko.Torso.vagcover:Destroy()
+game.Workspace.neko.Folder.torsono.Torso:Destroy()
