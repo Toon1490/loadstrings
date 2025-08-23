@@ -23,7 +23,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CenteredSniper/Kenzen
 
 	- i remember when i had leaked the script in floppaware before it was gonna be in pendulum hub premium
 ]]
---getgenv()._reanimate = loadstring(game:HttpGet("https://github.com/Toon1490/loadstrings/raw/refs/heads/main/toosigma"))()
+--getgenv()._reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/shidemuri/coffeeware/main/reanim.lua"))()
 
 getgenv()._reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/main/netless"))()
 getgenv().Reanimation = getgenv().Reanimation and getgenv().Reanimation or 'PermaDeath'
