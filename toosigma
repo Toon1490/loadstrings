@@ -25,7 +25,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/CenteredSniper/Kenzen
 ]]
 --getgenv()._reanimate = loadstring(game:HttpGet("https://github.com/Toon1490/loadstrings/raw/refs/heads/main/toosigma"))()
 
-getgenv()._reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/main/netless.lua"))()
+getgenv()._reanimate = loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/main/netless"))()
 getgenv().Reanimation = getgenv().Reanimation and getgenv().Reanimation or 'PermaDeath'
 getgenv().Flinging = false
 getgenv()._reanimate()
