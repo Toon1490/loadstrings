@@ -2185,7 +2185,7 @@ MagniDamage = function(Part, magni, mindam, maxdam, knock, Type2)
 				local targ = head.Position - Part.Position
 				local mag = targ.magnitude
 				if mag <= magni and c.Name ~= Player.Name then
-					Damagefunc(Part, head, mindam, maxdam, knock, Type, RootPart, 0.1, "851453784", 1.2)
+				--	Damagefunc(Part, head, mindam, maxdam, knock, Type, RootPart, 0.1, "851453784", 1.2)
 				end
 			end
 		end
