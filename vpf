@@ -1,0 +1,13 @@
+local skid = Instance.new("Highlight")
+local char = game.Players.LocalPlayer.Character
+local plr = game.Players.LocalPlayer.Name
+local char1 = game.Workspace[plr]
+local non = "non"
+
+skid.Parent = game.Workspace[non]
+
+skid.OutlineTransparency = 0.8
+skid.OutlineColor = Color3.fromRGB(255, 255, 255)
+skid.FillTransparency = 3
+skid.FillColor = Color3.fromRGB(90, 90, 90)
+skid.Name = "hey this looks cool right?"
