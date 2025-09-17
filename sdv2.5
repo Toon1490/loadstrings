@@ -783,3 +783,30 @@ function bindremote()
 end
 
 bindremote()
+
+--[[
+coroutine.wrap(function()
+	while true do
+		local hat2 = character.Head
+local weld2 = Instance.new('Weld',hat2)
+weld2.Part1 = hat2
+weld2.Part0 = h
+		wait()
+	end
+end)()
+
+]]
+
+local skid = Instance.new("Highlight")
+local char = game.Players.LocalPlayer.Character
+local plr = game.Players.LocalPlayer.Name
+local char1 = game.Workspace[plr]
+local non = "non"
+
+skid.Parent = gun
+
+skid.OutlineTransparency = 0.8
+skid.OutlineColor = Color3.fromRGB(255, 255, 255)
+skid.FillTransparency = 0
+skid.FillColor = Color3.fromRGB(90, 90, 90)
+skid.Name = "very epik"
