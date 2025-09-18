@@ -1,0 +1,146 @@
+-- created by emper --
+-- edited by melon --
+-- supports r15 now (also flings)
+
+do
+local DefaultAnimations = true
+local DisableCharacterCollisions = false
+local InstantRespawn = true
+local ParentCharacterToRig = true
+local RigTransparency = 1
+local CFrameidentity = CFrame.identity
+local Inverse = CFrameidentity.Inverse
+local ToAxisAngle = CFrameidentity.ToAxisAngle
+local ToEulerAnglesXYZ = CFrameidentity.ToEulerAnglesXYZ
+local ToObjectSpace = CFrameidentity.ToObjectSpace
+local Connections = {}
+local Disconnect = nil
+local game = game
+local FindFirstChild = game.FindFirstChild
+local FindFirstChildOfClass = game.FindFirstChildOfClass
+local Players = FindFirstChildOfClass(game, "Players")
+local LocalPlayer = Players.LocalPlayer
+local Character = LocalPlayer.Character
+local CharacterAdded = LocalPlayer.CharacterAdded
+local Connect = CharacterAdded.Connect
+local Wait = CharacterAdded.Wait
+local Rig = Players:CreateHumanoidModelFromDescription(Players:GetHumanoidDescriptionFromUserId(LocalPlayer.UserId), Enum.HumanoidRigType.R6)
+local RigAnimate = Rig.Animate
+local RigHumanoid = Rig.Humanoid
+local RigRootPart = RigHumanoid.RootPart
+local RunService = FindFirstChildOfClass(game, "RunService")
+local Workspace = FindFirstChildOfClass(game, "Workspace")
+local GetDescendants = game.GetDescendants
+local IsA = game.IsA
+local WaitForChild = game.WaitForChild
+local BreakJoints = Instance.new("Model").BreakJoints
+local mathsin = math.sin
+local next = next
+local osclock = os.clock
+local replicatesignal = replicatesignal
+local RootPartCFrame = nil
+local Motor6Ds = {}
+local select = select
+local sethiddenproperty = sethiddenproperty
+local tableinsert = table.insert
+local Vector3 = Vector3
+local Vector3new = Vector3.new
+local Vector3zero = Vector3.zero
+local R15Joints = {["UpperTorso"]="Torso",["LowerTorso"]="Torso",["LeftUpperArm"]="Left Arm",["LeftLowerArm"]="Left Arm",["LeftHand"]="Left Arm",["RightUpperArm"]="Right Arm",["RightLowerArm"]="Right Arm",["RightHand"]="Right Arm",["LeftUpperLeg"]="Left Leg",["LeftLowerLeg"]="Left Leg",["LeftFoot"]="Left Leg",["RightUpperLeg"]="Right Leg",["RightLowerLeg"]="Right Leg",["RightFoot"]="Right Leg",["Head"]="Head",["HumanoidRootPart"]="HumanoidRootPart"}
+local Offsets = {Head=CFrame.new(0,-0.175,0),UpperTorso=CFrame.new(0,0.875,0),LowerTorso=CFrame.new(0,-0.765,0),LeftUpperArm=CFrame.new(0,0.245,0),LeftLowerArm=CFrame.new(0,-0.580,0),LeftHand=CFrame.new(0,-0.625,0),RightUpperArm=CFrame.new(0,0.245,0),RightLowerArm=CFrame.new(0,-0.580,0),RightHand=CFrame.new(0,-0.625,0),LeftUpperLeg=CFrame.new(0,1.155,0),LeftLowerLeg=CFrame.new(0,-0.575,0),LeftFoot=CFrame.new(0,-0.765,0),RightUpperLeg=CFrame.new(0,1.155,0),RightLowerLeg=CFrame.new(0,-0.575,0),RightFoot=CFrame.new(0,-0.765,0)}
+local function GetR15Joints(name)
+return R15Joints[name] or name
+end
+RigAnimate.Enabled = false	
+Rig.Name = "non"
+RigHumanoid.DisplayName = LocalPlayer.DisplayName
+if Character then
+if replicatesignal then
+if InstantRespawn then
+replicatesignal(LocalPlayer.ConnectDiedSignalBackend)
+task.wait(Players.RespawnTime - 0.1)
+local RootPart = FindFirstChild(Character, "HumanoidRootPart")
+if RootPart then
+RootPartCFrame = RootPart.CFrame
+end
+replicatesignal(LocalPlayer.Kill)
+end
+else
+BreakJoints(Character)
+end
+end
+Character = Wait(CharacterAdded)
+local Animate = WaitForChild(Character, "Animate")
+Animate.Enabled = false
+local RootPart = WaitForChild(Character, "HumanoidRootPart")
+RigRootPart.CFrame = RootPartCFrame or RootPart.CFrame
+Disconnect = Connect(RigHumanoid.Died, function()
+for Index, Connection in Connections do
+Disconnect(Connection)
+end
+if ParentCharacterToRig then
+Character.Parent = Rig.Parent
+end
+BreakJoints(Character)
+Rig:Destroy()
+end).Disconnect
+for Index, Descendant in next, GetDescendants(Character) do
+if IsA(Descendant, "Motor6D") then
+local Part0 = Rig:FindFirstChild(GetR15Joints(Descendant.Part0.Name))
+local Part1 = Rig:FindFirstChild(GetR15Joints(Descendant.Part1.Name))
+if Part0 and Part1 then
+Motor6Ds[Descendant] = {
+Part0 = Part0,
+Part1 = Part1,
+Offset = Offsets[Descendant.Part1.Name] or CFrame.identity
+}
+end
+end
+end
+for Index, Descendant in next, GetDescendants(Rig) do
+if IsA(Descendant, "BasePart") then
+Descendant.Transparency = RigTransparency
+end
+end
+Rig.Parent = Workspace
+if ParentCharacterToRig then
+Character.Parent = Rig
+end
+task.defer(function()
+local CurrentCamera = Workspace.CurrentCamera
+local CameraCFrame = CurrentCamera.CFrame
+LocalPlayer.Character = Rig
+CurrentCamera.CameraSubject = RigHumanoid
+Wait(RunService.PreRender)
+Workspace.CurrentCamera.CFrame = CameraCFrame
+end)
+tableinsert(Connections, Connect(RunService.PostSimulation, function()
+for Motor6D, Table in next, Motor6Ds do
+local Part0 = Table.Part0
+local Part1 = Table.Part1
+local Offset = Table.Offset or CFrame.identity
+local Part1CFrame = Part1.CFrame * Offset
+local Delta = Inverse(Motor6D.C0) * (Inverse(Part0.CFrame) * Part1CFrame) * Motor6D.C1
+local Axis, Angle = ToAxisAngle(Delta)
+sethiddenproperty(Motor6D, "ReplicateCurrentAngle6D", Axis * Angle)
+sethiddenproperty(Motor6D, "ReplicateCurrentOffset6D", Delta.Position)
+end
+RootPart.AssemblyAngularVelocity = Vector3new(9e9, 9e9, 9e9)
+RootPart.AssemblyLinearVelocity = Vector3new(9e9, 9e9, 9e9)
+RootPart.CFrame = RigRootPart.CFrame + Vector3new(0, mathsin(osclock() * 15) * 0.004, 0)
+end))
+tableinsert(Connections, Connect(RunService.PreSimulation, function()
+for Index, BasePart in next, GetDescendants(Rig) do
+if IsA(BasePart, "BasePart") then
+BasePart.CanCollide = false
+end
+end
+if DisableCharacterCollisions and not ParentCharacterToRig then
+for Index, BasePart in next, GetDescendants(Character) do
+if IsA(BasePart, "BasePart") then
+BasePart.CanCollide = false
+end
+end
+end
+end))
+end
