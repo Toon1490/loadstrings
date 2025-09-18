@@ -5,7 +5,7 @@ sound69.Looped = true
 sound69.Name = "danc"
 sound69.Playing = true
 sound69.Volume = 6
-
+sound69.PlaybackSpeed = 0.7
 
 if not isfolder("song") then 
     makefolder("song")
@@ -29,7 +29,7 @@ local customasset = function(id)
         return s.SoundId
     end
 
-sound69.SoundId = customasset("song/Mindless%20-%20FNF%20Pibby%20Apocalypse%20OST.mp3")
+sound69.SoundId = customasset("song/Bensley%20-%20Vex%20(Bass%20Boosted).mp3")
 
 local folder = game:GetObjects('rbxassetid://10012397982')[1]
 folder.Parent = game.Players.LocalPlayer.Character
