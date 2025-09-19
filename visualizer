@@ -1,0 +1,38 @@
+-- LocalScript
+
+local RunService = game:GetService("RunService")
+local sound = game["Run Service"].danc  -- change this to your sound object
+local camera = workspace.CurrentCamera
+
+-- Settings
+local DEFAULT_FOV = 70
+local MIN_FOV = 50   -- how much zoom‑in (lower = more zoom)
+local MAX_FOV = 90   -- optional max zoom out if you want
+local MAX_LOUDNESS = 1000  -- scale loudness so that worst case is handled
+
+-- Optional easing
+local tweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
+-- Update each frame
+RunService.RenderStepped:Connect(function()
+    local loud = sound.PlaybackLoudness
+    -- normalize loudness
+    local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+
+    -- decide target FOV: when loud is 0 => DEFAULT_FOV, when loud is high => MIN_FOV (zoomed in)
+    local targetFov = DEFAULT_FOV - (DEFAULT_FOV - MIN_FOV) * factor
+
+    -- optionally limit to MAX_FOV if you want zoom out (reverse)
+    if targetFov > MAX_FOV then
+        targetFov = MAX_FOV
+    end
+
+    -- apply (you can tween so it's smoother)
+    -- simple version:
+    camera.FieldOfView = targetFov
+
+    -- or tweened:
+    -- local tween = tweenService:Create(camera, tweenInfo, { FieldOfView = targetFov })
+    -- tween:Play()
+end)
