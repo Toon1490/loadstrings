@@ -9,7 +9,7 @@ local TARGET_NAME = "TargetPlayerName" -- 🧍 CHANGE THIS to your target's user
 local SOUND_NAME = "MusicSound"
 
 -- Wait for target player and their character
-local targetPlayer = game.Workspace[urname]
+local targetPlayer = Players.LocalPlayer
 local character = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
 local hrp = character.HumanoidRootPart
 
