@@ -1141,6 +1141,6 @@ weld2.C0 = CFrame.new(0,0,0)*CFrame.Angles(0,0,0)
 
 
 -- second part
-
+wait(1)
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer"))()
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer1"))()
