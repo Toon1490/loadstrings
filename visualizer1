@@ -4,12 +4,12 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 
-local LOCAL_PLAYER = Players.LocalPlayer
+local LOCAL_PLAYER = game.Workspace[urname]
 local TARGET_NAME = "TargetPlayerName" -- 🧍 CHANGE THIS to your target's username
 local SOUND_NAME = "MusicSound"
 
 -- Wait for target player and their character
-local targetPlayer = urname
+local targetPlayer = Players.urname
 local character = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
 local hrp = character.HumanoidRootPart
 
