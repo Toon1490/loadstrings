@@ -34,7 +34,7 @@ sound69.SoundId = customasset("song/Bensley%20-%20Vex%20(Bass%20Boosted).mp3")
 -- second part
 
 loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer1"))()
+
 
 local folder = game:GetObjects('rbxassetid://10012397982')[1]
 folder.Parent = game.Players.LocalPlayer.Character
@@ -1141,5 +1141,6 @@ weld2.C0 = CFrame.new(0,0,0)*CFrame.Angles(0,0,0)
 
 
 
+-- third
 
-
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer1"))()
