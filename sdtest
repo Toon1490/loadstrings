@@ -1102,11 +1102,33 @@ end
 game.Workspace[pn].Humanoid:Destroy()
 game.Workspace[pn].Torso.Neck:Destroy()
 
-game.Workspace[pn].Head = h
+coroutine.wrap(function()
+	while true do
+		local hat2 = game.Workspace[pn].Head
+		local weld2 = Instance.new('AlignPosition',hat2)
+		weld2.Part1 = hat2
+		weld2.Part0 = h
+
+		local hat3 = game.Workspace[pn].Head
+		local weld3 = Instance.new('AlignOrientation',hat3)
+		weld3.Part1 = hat3
+		weld3.Part0 = h
+        
+		weld2.Archivable = true
+		weld3.Archivable = true
+		wait(0)
+        weld2:Destroy()
+		weld3:Destroy()
+	end
+end)()
 
 hat2.CanCollide = false
 hat2.CanTOuch = false
 hat2.CanQuery = false
+
+hat3.CanCollide = false
+hat3.CanTOuch = false
+hat3.CanQuery = false
 
 local hat = _chr['Meshes/archangelrifleAccessory'].Handle
 hat:BreakJoints()
