@@ -1,0 +1,86 @@
+--[[
+    WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+-- SETTINGS --
+local plr = game.Players.LocalPlayer.Name
+local fakchar = plr.."_Fake"
+local fake = plr
+local neko = " rig"
+local settings = _G
+
+settings["Use default animations"] = true
+settings["Fake character transparency level"] = 1 -- 0 to disable
+settings["Disable character scripts"] = true
+settings["Fake character should collide"] = false
+settings["Parent real character to fake character"] = false
+settings["Respawn character"] = true --[[ only should be disabled if
+your character havent played ANY animations, otherwise it breaks the reanimate ]]
+settings["Instant respawn"] = false --[[ Instant respawns the
+character, it will still wait the respawn time, but your character wont be dead.
+Requires: replicatesignal function
+Enable if you want the feature
+]]
+settings["Hide HumanoidRootPart"] = true --[[ Enabled by default. when enabled, your chat bubble or name tag
+will not appear above your character, but you will have your character immortal in the Fencing arena.
+]]
+settings["PermaDeath fake character"] = false --[[When enabled, when you die when the reanimate is on, you
+wont respawn. If you want respawn, set it to false
+]]
+settings["R15 Reanimate"] = false --[[When enabled, your character when reanimated will be R15.
+So you can run r15 scripts. This does not make the reanimate itself work with R15.
+]]
+settings["Click Fling"] = true --[[When enabled, will attempt to fling a player
+when you click its character.]]
+
+settings["Hide RootPart Distance"] = CFrame.new(0, -495.5, 0) --[[Change the numbers, higher the number,
+further away therootpart will hide (when Hide HumanoidRootPart is ON)
+If you wanted to it to be at 1000, 1000, 100 you set it to CFrame.new(1000, 1000, 100)
+]]
+
+settings["Names to exclude from transparency"] = {
+   --[[
+    ["HumanoidRootPart"] = true,
+    ["Left Arm"] = true,
+    ["Right Arm"] = true,
+    ["Left Leg"] = true,
+    ["Right Arm"] = true,
+    ["Head"] = true,
+    ["Torso"] = true,
+    ]]
+}
+(function() if getgenv then return getgenv() else return _G end end)().fling = nil
+local finished = false
+
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/skidmaster69-1/reanim/refs/heads/main/main"))()
+    game.Workspace[fakchar].Name = plr
+wait(1)
+game.Workspace[plr].Name = "non"
+
+end)
+
+repeat task.wait() until finished
+
+-- USAGE: getgenv().fling(character, time, yield) if you dont have getgenv: _G.fling(character, time, yield)
+-- or just fling(character, time, yield)
+
+-- time is for how much time in seconds it will fling
+-- the character
+
+-- yield is if the fling function will yield
+
+-- you can put your converted script under here
+
+--[[
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/toosigma"))()
+wait(1)
+game.Workspace[neko][plr].Humanoid:Destroy()
+wait(1)
+game.Workspace[neko][plr].Torso.Neck:Destroy()
+wait(1)
+game.Workspace[neko][plr].HumanoidRootPart:Destroy()
+wait(0.5)
+game.Workspace[neko].Name = "neko"
+wait(0.1)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/noneko"))()
+]]
