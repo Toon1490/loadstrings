@@ -1139,5 +1139,106 @@ weld2.C0 = CFrame.new(0,0,0)*CFrame.Angles(0,0,0)
 
 -- second part
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer1"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer"))()
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/visualizer1"))()
+
+-- LocalScript in StarterPlayerScripts aaa
+local urname = game.Players.LocalPlayer.Name
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local LOCAL_PLAYER = Players.LocalPlayer
+local TARGET_NAME = "TargetPlayerName" -- 🧍 CHANGE THIS to your target's username
+local SOUND_NAME = "MusicSound"
+
+-- Wait for target player and their character
+local targetPlayer = Players.LocalPlayer
+local character = targetPlayer.Character or targetPlayer.CharacterAdded:Wait()
+local hrp = character.HumanoidRootPart
+
+-- Get or create the music sound
+local sound = game["Run Service"].danc
+
+-- Create the visualizer part
+local part = Instance.new("Part")
+part.Name = "VisualizerPart"
+part.Anchored = true
+part.CanCollide = false
+part.Transparency = 0
+part.Size = Vector3.new(1, 0.1, 1)
+part.Material = Enum.Material.Neon
+part.BrickColor = BrickColor.new("Really black")
+part.Parent = Workspace
+
+-- Add mesh to make it a flat circle
+local mesh = Instance.new("SpecialMesh")
+mesh.MeshType = Enum.MeshType.Sphere -- Use FileMesh if you want a ring
+mesh.Scale = Vector3.new(1, 0.01, 1) -- FLAT circle
+mesh.Parent = part
+
+-- CONFIG
+local HEIGHT_OFFSET = -3 -- how far under the character
+local MIN_SCALE = 1
+local MAX_SCALE = 15
+local MAX_LOUDNESS = 1000
+local SMOOTH_SPEED = 60
+
+-- Smoothing variable
+local currentScale = MIN_SCALE
+
+-- MAIN LOOP
+RunService.RenderStepped:Connect(function(dt)
+	if not hrp or not hrp.Parent then return end
+
+	-- Follow the target's position (under the HumanoidRootPart)
+	local basePos = hrp.Position + Vector3.new(0, HEIGHT_OFFSET, 0)
+	part.Position = basePos
+
+	-- PlaybackLoudness controls size
+	local loud = sound.PlaybackLoudness
+	local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+	local targetScale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * factor
+	currentScale = currentScale + (targetScale - currentScale) * math.clamp(SMOOTH_SPEED * dt, 0, 1)
+
+	mesh.Scale = Vector3.new(currentScale, 0.01, currentScale)
+end)
+
+-- LocalScript
+
+local RunService = game:GetService("RunService")
+local sound = game["Run Service"].danc  -- change this to your sound object
+local camera = workspace.CurrentCamera
+
+-- Settings
+local DEFAULT_FOV = 70
+local MIN_FOV = 50   -- how much zoom‑in (lower = more zoom)
+local MAX_FOV = 90   -- optional max zoom out if you want
+local MAX_LOUDNESS = 1000  -- scale loudness so that worst case is handled
+
+-- Optional easing
+local tweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
+-- Update each frame
+RunService.RenderStepped:Connect(function()
+    local loud = sound.PlaybackLoudness
+    -- normalize loudness
+    local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+
+    -- decide target FOV: when loud is 0 => DEFAULT_FOV, when loud is high => MIN_FOV (zoomed in)
+    local targetFov = DEFAULT_FOV - (DEFAULT_FOV - MIN_FOV) * factor
+
+    -- optionally limit to MAX_FOV if you want zoom out (reverse)
+    if targetFov > MAX_FOV then
+        targetFov = MAX_FOV
+    end
+
+    -- apply (you can tween so it's smoother)
+    -- simple version:
+    camera.FieldOfView = targetFov
+
+    -- or tweened:
+    -- local tween = tweenService:Create(camera, tweenInfo, { FieldOfView = targetFov })
+    -- tween:Play()
+end)
