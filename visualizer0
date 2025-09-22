@@ -1,0 +1,130 @@
+--loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()
+--print("niggers")
+--loadstring(game:HttpGet("https://github.com/FilteringEnabled/NamelessAdmin/blob/main/Source?raw=true"))();
+--[[
+	WARNING: Heads up! This script has not been verified by ScriptBlox. Use at your own risk!
+]]
+--enjoy guys :)
+
+--loadstring(game:HttpGet("https://gist.githubusercontent.com/mert134/358b6c0b43e67f75dd4c8f1fc17af692/raw/eeeb6479868b3aaee57d8b60559e6d1aae13d17d/gistfile1.txt"))()
+
+wait(1)
+local sound = Instance.new("Sound")
+sound.Parent = game["Run Service"]
+sound.Name = "danc"
+sound.SoundId = "rbxassetid://9048378262"
+sound.Looped = true
+sound.Volume = 1
+sound.PlaybackSpeed = 1
+sound.Playing = true
+
+-- LocalScript
+local urname = game.Players.LocalPlayer.Name
+local RunService = game:GetService("RunService")
+local sound =  game["Run Service"].danc -- change this to your sound object
+local camera = workspace.CurrentCamera
+-- game.Workspace.MusicSoundGroup.HDAdminSound
+-- game["Run Service"].Sound
+-- Settings
+local DEFAULT_FOV = 70
+local MIN_FOV = 50   -- how much zoom‑in (lower = more zoom)
+local MAX_FOV = 90   -- optional max zoom out if you want
+local MAX_LOUDNESS = 1000  -- scale loudness so that worst case is handled
+
+-- Optional easing
+local tweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
+-- Update each frame
+RunService.RenderStepped:Connect(function()
+    local loud = sound.PlaybackLoudness
+    -- normalize loudness
+    local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+
+    -- decide target FOV: when loud is 0 => DEFAULT_FOV, when loud is high => MIN_FOV (zoomed in)
+    local targetFov = DEFAULT_FOV - (DEFAULT_FOV - MIN_FOV) * factor
+
+    -- optionally limit to MAX_FOV if you want zoom out (reverse)
+    if targetFov > MAX_FOV then
+        targetFov = MAX_FOV
+    end
+
+    -- apply (you can tween so it's smoother)
+    -- simple version:
+    camera.FieldOfView = targetFov
+
+    -- or tweened:
+    -- local tween = tweenService:Create(camera, tweenInfo, { FieldOfView = targetFov })
+    -- tween:Play()
+end)
+
+-- LocalScript in StarterPlayerScripts aaa
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local LOCAL_PLAYER = Players.LocalPlayer
+local PLAYER_NAME = LOCAL_PLAYER.Name
+
+-- Get reference to the BoomBox sound
+local sound = game["Run Service"]:WaitForChild("danc")
+
+-- Create the visualizer part
+local part = Instance.new("Part")
+part.Name = "VisualizerPart"
+part.Anchored = true
+part.CanCollide = false
+part.Transparency = 0
+part.Size = Vector3.new(1, 0.1, 1)
+part.Material = Enum.Material.Neon
+part.BrickColor = BrickColor.new("Institutional white")
+part.Parent = Workspace
+
+-- Add mesh to make it a flat circle
+local mesh = Instance.new("SpecialMesh")
+mesh.MeshType = Enum.MeshType.Sphere
+mesh.Scale = Vector3.new(1, 0.01, 1)
+mesh.Parent = part
+
+-- CONFIG
+local HEIGHT_OFFSET = -3 -- how far under the character
+local MIN_SCALE = 1
+local MAX_SCALE = 15
+local MAX_LOUDNESS = 1000
+local SMOOTH_SPEED = 60
+
+-- Smoothing variable
+local currentScale = MIN_SCALE
+
+-- hrp reference (updates on respawn)
+local hrp = nil
+
+-- Function to update HRP when character spawns
+local function onCharacterAdded(char)
+	hrp = char:WaitForChild("HumanoidRootPart", 5)
+end
+
+-- Initial HRP setup
+if LOCAL_PLAYER.Character then
+	onCharacterAdded(LOCAL_PLAYER.Character)
+end
+
+-- Update HRP on respawn
+LOCAL_PLAYER.CharacterAdded:Connect(onCharacterAdded)
+
+-- MAIN LOOP
+RunService.RenderStepped:Connect(function(dt)
+	if not hrp or not hrp.Parent then return end
+
+	-- Follow the character's position (under HumanoidRootPart)
+	local basePos = hrp.Position + Vector3.new(0, HEIGHT_OFFSET, 0)
+	part.Position = basePos
+
+	-- PlaybackLoudness controls size
+	local loud = sound.PlaybackLoudness or 0
+	local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+	local targetScale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * factor
+	currentScale = currentScale + (targetScale - currentScale) * math.clamp(SMOOTH_SPEED * dt, 0, 1)
+
+	mesh.Scale = Vector3.new(currentScale, 0.01, currentScale)
+end)
