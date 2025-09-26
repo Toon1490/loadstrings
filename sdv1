@@ -1,8 +1,8 @@
 local lp1 = game.Players.LocalPlayer.Name
-local dammf = workspace.lp1:FindFirstChildOfClass("Humanoid")
+local dammf = workspace[lp1]:FindFirstChildOfClass("Humanoid")
 dammf.RequiresNeck = false
 dammf.BreakJointsOnDeath = false
-for stupidfucking, omfg in pairs(workspace.lp1:GetChildren()) do
+for stupidfucking, omfg in pairs(workspace[lp1]:GetChildren()) do
 	if omfg:IsA("BasePart") then
 		omfg.Anchored = true
 		omfg.Velocity = Vector3.new(0, 0, 0)
