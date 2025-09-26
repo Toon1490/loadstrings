@@ -15,7 +15,7 @@ for stupidfucking, omfg in pairs(workspace[lp1]:GetChildren()) do
 	end
 end
 
-
+--
 script = game:GetObjects("rbxassetid://7358490432")[1]
 script = script:FindFirstChildOfClass("Script")
 script = script.Client["vitamin gummies"]
