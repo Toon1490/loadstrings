@@ -52,10 +52,10 @@ settings["Names to exclude from transparency"] = {
 local finished = false
 
 task.spawn(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/skidmaster69-1/reanim/refs/heads/main/main"))()
-    game.Workspace[fakchar].Name = plr
-wait(1)
-game.Workspace[plr].Name = "non"
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))()
+    game.Workspace[fakchar].Name = "non"
+wait(0.001)
+game.Workspace[plr].Name = plr
 
 end)
 
