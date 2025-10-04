@@ -625,3 +625,24 @@ RunService.RenderStepped:Connect(function()
     -- local tween = tweenService:Create(camera, tweenInfo, { FieldOfView = targetFov })
     -- tween:Play()
 end)
+---------------------------------------------------------------------------------------------------------------------------------------
+task.wait(1)
+local plr = game.Players.LocalPlayer.Name
+local non = "non"
+game.Workspace[plr]["Head"].CanQuery = false
+game.Workspace[plr]["Torso"].CanQuery = false
+game.Workspace[plr]["Left Leg"].CanQuery = false
+game.Workspace[plr]["Left Arm"].CanQuery = false
+game.Workspace[plr]["Right Leg"].CanQuery = false
+game.Workspace[plr]["Right Arm"].CanQuery = false
+
+game.Workspace[plr]["HumanoidRootPart"].CanQuery = false
+
+game.Workspace[non]["Head"].CanQuery = false
+game.Workspace[non]["Torso"].CanQuery = false
+game.Workspace[non]["Left Leg"].CanQuery = false
+game.Workspace[non]["Left Arm"].CanQuery = false
+game.Workspace[non]["Right Leg"].CanQuery = false
+game.Workspace[non]["Right Arm"].CanQuery = false
+
+game.Workspace[non]["HumanoidRootPart"].CanQuery = false
