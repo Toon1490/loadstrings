@@ -36,7 +36,7 @@ local customasset = function(id)
 if lol ~= true then 
             sound69.SoundId = customasset("song/fnf.mp3")
                 else 
-                      sound69.SoundId = customasset("song/shh.mp3")  
+                      sound69.SoundId = customasset("song/shhh.mp3")  
                 end
 
 
