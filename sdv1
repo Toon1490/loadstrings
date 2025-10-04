@@ -1,8 +1,55 @@
-local lp1 = game.Players.LocalPlayer.Name
-local dammf = workspace[lp1]:FindFirstChildOfClass("Humanoid")
+local sound69 = Instance.new("Sound",game:GetService("RunService"))
+sound69.Looped = true
+sound69.Name = "danc"
+sound69.Playing = true
+sound69.Volume = 3
+
+local lol = math.random(1,2)
+if lol == 2 then 
+lol = true 
+end
+
+if not isfolder("song") then 
+    makefolder("song")
+    end
+
+local customasset = function(id)
+        if exploit ~= "CaetSploit" then
+        idwithoutthatbit= string.gsub(id,"song/","")
+        if not isfile(id) then 
+         writefile(id,game:HttpGet("https://github.com/Toon1490/music/raw/refs/heads/main/"..idwithoutthatbit))
+        end
+       repeat task.wait() until isfile(id)
+    end
+        local s = Instance.new("Sound")
+        s.Parent = game:GetService("RunService")
+        s.SoundId = getcustomasset(id)
+        task.spawn(function()
+            task.wait(1)
+            s:Destroy()
+        end)
+        return s.SoundId
+    end
+
+--sound69.SoundId = customasset("song/In%20Aisles%201.mp3")
+
+if lol ~= true then 
+            sound69.SoundId = customasset("song/fnf.mp3")
+                else 
+                      sound69.SoundId = customasset("song/shh.mp3")  
+                end
+
+
+
+
+
+
+
+
+local dammf = workspace.non:FindFirstChildOfClass("Humanoid")
 dammf.RequiresNeck = false
 dammf.BreakJointsOnDeath = false
-for stupidfucking, omfg in pairs(workspace[lp1]:GetChildren()) do
+for stupidfucking, omfg in pairs(workspace.non:GetChildren()) do
 	if omfg:IsA("BasePart") then
 		omfg.Anchored = true
 		omfg.Velocity = Vector3.new(0, 0, 0)
@@ -14,8 +61,8 @@ for stupidfucking, omfg in pairs(workspace[lp1]:GetChildren()) do
 		end
 	end
 end
+local playerss = game.Players.LocalPlayer.Character
 
---
 script = game:GetObjects("rbxassetid://7358490432")[1]
 script = script:FindFirstChildOfClass("Script")
 script = script.Client["vitamin gummies"]
@@ -99,7 +146,7 @@ function raycast(origin, direction, range, ignore)
 	return workspace:FindPartOnRay(Ray.new(origin, direction*range), ignore)
 end
 local terrain = workspace:FindFirstChildWhichIsA("Terrain")
-wait2(0.2)
+wait2(0)
 local plr,localplayer,materials,shapes = game:GetService("Players").LocalPlayer,game:GetService("Players").LocalPlayer,Enum.Material:GetEnumItems(),Enum.PartType:GetEnumItems()
 local mouse,cam,truehum = localplayer:GetMouse(),workspace.CurrentCamera,localplayer.Character:FindFirstChildOfClass("Humanoid") or localplayer.Character:WaitForChild("Humanoid")
 local event = {}
@@ -269,71 +316,71 @@ run:BindToRenderStep(plr.Name.."'s idk thing loeleolllllaaaaaaaaaa",600,function
 	bgm.Volume = math.clamp(50/(t.Position-cam.CFrame.p).Magnitude/10,0,1)
 end)
 
-local orb1 = create("Part",{
-	Parent = cam,
-	Anchored = true,
-	CanCollide = false,
-	Material = materials[random(1,#materials)],
-	BrickColor = BrickColor.Random(),
-	Size = v3(0.5,0.5,0.5),
-	CFrame = ra.CFrame * cn2(0,-1.75,0) * euler(rad(random(0,360)),rad(random(0,360)),rad(random(0,360)))
-})
-local dur = random(10,75)/300
-local size1 = random(10,40)/25
+--// SETTINGS
+local fadeTime = 0.5 -- seconds each orb fades before disappearing
+local spawnDelay = 0.001 -- delay between spawns
+local orbSize = Vector3.new(0.5, 0.5, 0.5)
 
+--// LOOP
+task.spawn(function()
+	while true do
+		local orb1 = create("Part", {
+			Parent = cam,
+			Anchored = true,
+			CanCollide = false,
+			Material = materials[random(1, #materials)],
+			BrickColor = BrickColor.Random(),
+			Size = orbSize,
+			CFrame = ra.CFrame * cn2(0, -1.75, 0)
+				* euler(rad(random(0, 360)), rad(random(0, 360)), rad(random(0, 360)))
+		})
 
+		local orb2 = create("Part", {
+			Parent = cam,
+			Anchored = true,
+			CanCollide = false,
+			Material = materials[random(1, #materials)],
+			BrickColor = BrickColor.Random(),
+			Shape = shapes[random(1, #shapes)],
+			Transparency = 0.5,
+			Size = orbSize,
+			CFrame = ra.CFrame * cn2(0, -1.75, 0)
+				* euler(rad(random(0, 360)), rad(random(0, 360)), rad(random(0, 360)))
+		})
 
+		-- Fade & material randomize
+		task.spawn(function()
+			local steps = 30
+			for i = 1, steps do
+				local t = i / steps
+				orb1.Transparency = t
+				orb2.Transparency = 0.5 + (t * 0.5)
 
-local orb2 = create("Part",{
-	Parent = cam,
-	Anchored = true,
-	CanCollide = false,
-	Material = materials[random(1,#materials)],
-	BrickColor = BrickColor.Random(),
-	Shape = shapes[random(1,#shapes)],
-	Transparency = 0.5,
-	Size = v3(0.5,0.5,0.5),
-	CFrame = ra.CFrame * cn2(0,-1.75,0) * euler(rad(random(0,360)),rad(random(0,360)),rad(random(0,360)))
-})
-table.insert(partexclusion,orb1)
-table.insert(partexclusion,orb2)
+				if random(1, 5) == 1 then
+					orb1.Material = materials[random(1, #materials)]
+					orb2.Material = materials[random(1, #materials)]
+				end
 
-run:BindToRenderStep(plr.Name.."'xddd",600,function()
-	wait2()
+				task.wait(fadeTime / steps)
+			end
 
-	tween(orb1,{Size=v3(size1,size1,size1),Transparency=1,Orientation=v3(random(0,360),random(0,360),random(0,360))},dur,Enum.EasingDirection.Out)
-	orb1.CFrame = ra.CFrame * cn2(0,-1.75,0) * euler(rad(random(0,360)),rad(random(0,360)),rad(random(0,360)))
-	--print("A")
-	tween(orb2,{Size=v3(size1*2.5,size1*2.5,size1*2.5),Transparency=1,Orientation=v3(random(0,360),random(0,360),random(0,360))},dur/2,Enum.EasingDirection.Out)
-	orb2.CFrame = ra.CFrame * cn2(0,-1.75,0) * euler(rad(random(0,360)),rad(random(0,360)),rad(random(0,360)))
+			orb1:Destroy()
+			orb2:Destroy()
+		end)
+
+		task.wait(spawnDelay)
+	end
 end)
 
 
-local DamageFling = function(DmgPer)
-	if IsDead or Bypass ~= "death" then return end
-	CDDF[DmgPer] = true; StateMover = false
-	orb1.Attachment.Parent = bullet
-	bbav = Instance.new("BodyAngularVelocity",bullet)
-	bbav.MaxTorque = Vector3.new(math.huge,math.huge,math.huge)
-	bbav.P = 1000000000000000000000000000
-	bbav.AngularVelocity = Vector3.new(10000000000000000000000000000000,100000000000000000000000000,100000000000000000)
-	game:GetService("Debris"):AddItem(bbav,0.1)
-	bullet.Rotation = playerss.Torso.Rotation
-	for _=1,15 do
-		bbv.Position = DmgPer
-		bullet.Position = DmgPer
-		wait(0.03)
-	end
-	bbv.Position = playerss.Torso.CFrame.p + Vector3.new(0,5,0)
-	bullet.Position = playerss.Torso.CFrame.p + Vector3.new(0,5,0)
-	bullet.Attachment.Parent = orb1
-	CDDF[DmgPer] = false; StateMover = true
-end
+
+
+
 
 local Mouse = plr:GetMouse()
 Mouse.KeyDown:Connect(function(key)
 	if attack and key == "z" then
-		DamageFling(Mouse.Hit.p)
+		--DamageFling(Mouse.Hit.p)
 	end
 
 end)
@@ -380,7 +427,7 @@ function atkfunction:nhitbox(pos,range)
 		Position = pos
 	})
 	table.insert(partexclusion,hitbox)
-	tween(hitbox,{Transparency=1},0.5,Enum.EasingDirection.In)
+	tween(hitbox,{Transparency=0.5},0.5,Enum.EasingDirection.In)
 	local yeah = run.RenderStepped:Connect(function()
 		hitbox.BrickColor = BrickColor.Random()
 	end)
@@ -536,3 +583,5 @@ end
 	end
 
 resetchr()
+
+-------------------------------------------------------------------------
