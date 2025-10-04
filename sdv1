@@ -582,11 +582,11 @@ resetchr()
 
 -------------------------------------------------------------------------
 
-if lol ~= true then 
-            sound69.SoundId = customasset("song/fnf.mp3")
-                else 
-                      sound69.SoundId = customasset("song/shh.mp3")  
-                end
+if lol ~= true then
+	sound69.SoundId = customasset("song/fnf.mp3")
+	else
+		sound69.Soundid = customasset("song/shh.mp3")	
+end
 
 -------------------------------------------------------------------------
 
