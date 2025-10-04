@@ -33,11 +33,7 @@ local customasset = function(id)
 
 --sound69.SoundId = customasset("song/In%20Aisles%201.mp3")
 
-if lol ~= true then 
-            sound69.SoundId = customasset("song/fnf.mp3")
-                else 
-                      sound69.SoundId = customasset("song/shh.mp3")  
-                end
+
 
 
 
@@ -585,3 +581,9 @@ end
 resetchr()
 
 -------------------------------------------------------------------------
+
+if lol ~= true then 
+            sound69.SoundId = customasset("song/fnf.mp3")
+                else 
+                      sound69.SoundId = customasset("song/shh.mp3")  
+                end
