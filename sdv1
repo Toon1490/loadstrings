@@ -585,13 +585,13 @@ resetchr()
 if lol ~= true then
 	sound69.SoundId = customasset("song/fnf.mp3")
 	else
-		sound69.Soundid = customasset("song/shh.mp3")	
+		sound69.SoundId = customasset("song/shh.mp3")	
 end
 
 -------------------------------------------------------------------------
 
 -- LocalScript
-
+task.wait(1)
 local RunService = game:GetService("RunService")
 local sound = game["Run Service"].danc  -- change this to your sound object
 local camera = workspace.CurrentCamera
