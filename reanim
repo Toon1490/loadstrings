@@ -132,7 +132,7 @@ for _, part in ipairs(char:GetDescendants()) do
 end
 
 twait(0.4)
-	LocalPlayer.Character.Parent = char
+--LocalPlayer.Character.Parent = char
 LocalPlayer.Character = char
 if parentrealchartofakechar then
 	newChar.Parent = char
