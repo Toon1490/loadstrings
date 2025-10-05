@@ -5,7 +5,7 @@ sound69.Name = "danc"
 sound69.Looped = false
 sound69.Volume = 3
 
--- keep random lol logic
+-- your random lol function
 local lol = math.random(1,2)
 if lol == 2 then 
     lol = true 
@@ -16,7 +16,7 @@ if not isfolder("song") then
     makefolder("song")
 end
 
--- your customasset function
+-- custom asset loader
 local customasset = function(id)
     if exploit ~= "CaetSploit" then
         local idwithoutthatbit = string.gsub(id, "song/", "")
@@ -25,6 +25,7 @@ local customasset = function(id)
         end
         repeat task.wait() until isfile(id)
     end
+
     local s = Instance.new("Sound")
     s.Parent = RunService
     s.SoundId = getcustomasset(id)
@@ -35,12 +36,12 @@ local customasset = function(id)
     return s.SoundId
 end
 
--- two playlists depending on lol
+-- two playlists based on lol
 local playlist1 = { -- when lol ~= true
     "song/fnf.mp3",
     "song/bbsv1.mp3",
     "song/bbsv2.mp3",
-	"song/CAWM%20by%20ai.mpc"
+	"song/CAWM%20by%20ai.mp3"
 }
 
 local playlist2 = { -- when lol == true
@@ -49,29 +50,36 @@ local playlist2 = { -- when lol == true
 	"song/ssv3.mp3"
 }
 
--- choose playlist
+-- choose which playlist to use
 local playlist = (lol == true) and playlist2 or playlist1
 local index = 1
+local totalSongs = #playlist
 
--- function to play current song
+-- function to play the current song
 local function playCurrent()
+    if index > totalSongs then
+        index = 1 -- restart from first song
+    end
+
     local id = playlist[index]
-    if not id then return end
-    sound69.SoundId = customasset(id)
-    sound69:Play()
+    if id then
+        sound69.SoundId = customasset(id)
+        sound69:Play()
+    end
 end
 
--- when song ends, move to next
+-- when the song ends, move to next and loop
 sound69.Ended:Connect(function()
     index += 1
-    if index > #playlist then
-        index = 1 -- loop back to start
+    if index > totalSongs then
+        index = 1 -- loop to start again
     end
     playCurrent()
 end)
 
--- start playing first song
+-- start the first one
 playCurrent()
+
 
 
 
