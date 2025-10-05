@@ -1,37 +1,78 @@
-local sound69 = Instance.new("Sound",game:GetService("RunService"))
-sound69.Looped = true
+local RunService = game:GetService("RunService")
+
+local sound69 = Instance.new("Sound", RunService)
 sound69.Name = "danc"
-sound69.Playing = true
+sound69.Looped = false
 sound69.Volume = 3
 
+-- keep random lol logic
 local lol = math.random(1,2)
 if lol == 2 then 
-lol = true 
+    lol = true 
 end
 
+-- folder check
 if not isfolder("song") then 
     makefolder("song")
-    end
+end
 
+-- your customasset function
 local customasset = function(id)
-        if exploit ~= "CaetSploit" then
-        idwithoutthatbit= string.gsub(id,"song/","")
+    if exploit ~= "CaetSploit" then
+        local idwithoutthatbit = string.gsub(id, "song/", "")
         if not isfile(id) then 
-         writefile(id,game:HttpGet("https://github.com/Toon1490/music/raw/refs/heads/main/"..idwithoutthatbit))
+            writefile(id, game:HttpGet("https://github.com/Toon1490/music/raw/refs/heads/main/" .. idwithoutthatbit))
         end
-       repeat task.wait() until isfile(id)
+        repeat task.wait() until isfile(id)
     end
-        local s = Instance.new("Sound")
-        s.Parent = game:GetService("RunService")
-        s.SoundId = getcustomasset(id)
-        task.spawn(function()
-            task.wait(1)
-            s:Destroy()
-        end)
-        return s.SoundId
-    end
+    local s = Instance.new("Sound")
+    s.Parent = RunService
+    s.SoundId = getcustomasset(id)
+    task.spawn(function()
+        task.wait(1)
+        s:Destroy()
+    end)
+    return s.SoundId
+end
 
-sound69.SoundId = customasset("song/fnf.mp3")
+-- two playlists depending on lol
+local playlist1 = { -- when lol ~= true
+    "song/fnf.mp3",
+    "song/bbsv1.mp3",
+    "song/bbsv2.mp3",
+	"song/CAWM%20by%20ai.mpc"
+}
+
+local playlist2 = { -- when lol == true
+    "song/shh.mp3",
+    "song/ssv2.mp3",
+	"song/ssv3.mp3"
+}
+
+-- choose playlist
+local playlist = (lol == true) and playlist2 or playlist1
+local index = 1
+
+-- function to play current song
+local function playCurrent()
+    local id = playlist[index]
+    if not id then return end
+    sound69.SoundId = customasset(id)
+    sound69:Play()
+end
+
+-- when song ends, move to next
+sound69.Ended:Connect(function()
+    index += 1
+    if index > #playlist then
+        index = 1 -- loop back to start
+    end
+    playCurrent()
+end)
+
+-- start playing first song
+playCurrent()
+
 
 
 
@@ -415,10 +456,11 @@ function atkfunction:nhitbox(pos,range)
 		BrickColor = BrickColor.Random(),
 		Size = v3(range*2,range*2,range*2),
 		Shape = Enum.PartType.Ball,
-		Position = pos
+		Position = pos,
+        Transparency = 0
 	})
 	table.insert(partexclusion,hitbox)
-	tween(hitbox,{Transparency=0.5},0.5,Enum.EasingDirection.In)
+	tween(hitbox,{Transparency=0},0.5,Enum.EasingDirection.In)
 	local yeah = run.RenderStepped:Connect(function()
 		hitbox.BrickColor = BrickColor.Random()
 	end)
