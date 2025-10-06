@@ -772,12 +772,12 @@ function ApplyDamage(Humanoid,Damage,TorsoPart)
 	defence.Name = ("HitBy"..Player.Name)
 	game:GetService("Debris"):AddItem(defence, 0.001)
 	Damage = Damage * DAMAGEMULTIPLIER
-	if Humanoid.Health ~= 0 then
+	if Humanoid.Health ~= 1000 then
 		local CritChance = MRANDOM(1,100)
 		if Damage > Humanoid.Health then
 			Damage = math.ceil(Humanoid.Health)
-			if Damage == 0 then
-				Damage = 0
+			if Damage == 100 then
+				Damage = 100
 			end
 		end
 		Humanoid.Health = Humanoid.Health - Damage
@@ -1600,7 +1600,7 @@ function PandorasBox()
 									--local ANIM = HUMAN:LoadAnimation(ATANIM)
 									--ANIM:Play()
 									--CreateSound(SHOUTS[MRANDOM(1,3)], TORSO, 1, 1, false)
-									ApplyAoE(TORSO.Position,10,0,0,85,true)
+									--ApplyAoE(TORSO.Position,10,0,0,85,true)
 									WACKYEFFECT({Time = 15, EffectType = "Sphere", Size = VT(5,5,5), Size2 = VT(25,25,25), Transparency = 0, Transparency2 = 1, CFrame = TORSO.CFrame, MoveToPos = nil, RotationX = 0, RotationY = 0, RotationZ = 0, Material = "Neon", Color = SKILLTEXTCOLOR, SoundID = 201858087, SoundPitch = 0.8, SoundVolume = 10})
 									for i = 1, 5 do
 										WACKYEFFECT({Time = 75, EffectType = "Wave", Size = VT(5,0,5)*SIZE, Size2 = VT(15,1,15), Transparency = 0.5, Transparency2 = 1, CFrame = TORSO.CFrame * ANGLES(RAD(MRANDOM(0,360)), RAD(MRANDOM(0,360)), RAD(MRANDOM(0,360))), MoveToPos = nil, RotationX = 0, RotationY = MRANDOM(-15,15)/7.5, RotationZ = 0, Material = "Neon", Color = C3(0,0,0), SoundID = nil, SoundPitch = 0.5, SoundVolume = 6})
@@ -1646,11 +1646,11 @@ function PandorasBox()
 										if (TORSO.Position - FIELD.Position).Magnitude <= FIELD.Size.X*30 then
 											for _, c in pairs(CHILD:GetChildren()) do
 												if c:IsA("BasePart") then
-													local bv = Instance.new("BodyVelocity") 
-													bv.maxForce = Vector3.new(1e9, 1e9, 1e9)
-													bv.velocity = CF(FIELD.Position,c.Position).lookVector*-50
-													bv.Parent = c
-													Debris:AddItem(bv,0.05)
+													-- bv = Instance.new("BodyVelocity") 
+													--bv.maxForce = Vector3.new(1e9, 1e9, 1e9)
+													--bv.velocity = CF(FIELD.Position,c.Position).lookVector*-50
+													--bv.Parent = c
+													--Debris:AddItem(bv,0.05)
 												end
 											end
 											--HUM.Health = HUM.Health - 0.3
@@ -1679,10 +1679,10 @@ function PandorasBox()
 										if (TORSO.Position - FIELD.Position).Magnitude <= FIELD.Size.X*30 then
 											for _, c in pairs(CHILD:GetChildren()) do
 												if c:IsA("BasePart") then
-													local bv = Instance.new("BodyVelocity") 
-													bv.maxForce = Vector3.new(1e9, 1e9, 1e9)
-													bv.velocity = CF(FIELD.Position,c.Position).lookVector*-50
-													bv.Parent = c
+													--local bv = Instance.new("BodyVelocity") 
+													--bv.maxForce = Vector3.new(1e9, 1e9, 1e9)
+													--bv.velocity = CF(FIELD.Position,c.Position).lookVector*-50
+													--bv.Parent = c
 													Debris:AddItem(bv,0.05)
 												end
 											end
