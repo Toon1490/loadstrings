@@ -61,7 +61,7 @@ task.wait(0.1)
 --// LocalScript (no Explorer setup)
 local RunService = game:GetService("RunService")
 
-local player = game.Players.LocalPlayer.Name
+local player = "non"
 local cam = workspace.CurrentCamera
 
 -- GUI setup
@@ -86,8 +86,8 @@ viewport.CurrentCamera = vpCam
 
 -- Clone character safely
 local function cloneCharacter()
-	if not game.Workspace[player] then return end
-	local char = game.Workspace[player]
+	if not game.Workspace.non then return end
+	local char = game.Workspace.non
 	local clone = char:Clone()
 
 	for _, obj in ipairs(clone:GetDescendants()) do
@@ -118,7 +118,7 @@ clone = cloneCharacter()
 
 -- Copy movement per joint
 RunService.RenderStepped:Connect(function()
-	local char = game.Workspace[player]
+	local char = game.Workspace.non
 	if not (char and clone) then return end
 	vpCam.CFrame = cam.CFrame
 
