@@ -53,9 +53,9 @@ local finished = false
 
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))()
-    game.Workspace[fakchar].Name = "non"
+    game.Workspace[fakchar].Name = rplr
 wait(0.001)
-game.Workspace[rplr].Name = rplr
+game.Workspace[rplr].Name = "non"
 task.wait(0.1)
 
 --// LocalScript (no Explorer setup)
