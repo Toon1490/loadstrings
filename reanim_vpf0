@@ -1,4 +1,4 @@
-local roothidecf = CFrame.new(0,-0,0)
+local roothidecf = CFrame.new(0,-495.5,0)
 
 
 local rplr = game.Players.LocalPlayer.Name
