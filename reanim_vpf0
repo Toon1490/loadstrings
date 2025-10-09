@@ -381,8 +381,8 @@ local cansit = true
 task.wait()
 --// LocalScript (no Explorer setup)
 local RunService = game:GetService("RunService")
-local plr0 = game.Players.LocalPlayer.Name
-local player = game.Workspace[plr0]
+
+local player = "non"
 local cam = workspace.CurrentCamera
 
 -- GUI setup
@@ -407,8 +407,8 @@ viewport.CurrentCamera = vpCam
 
 -- Clone character safely
 local function cloneCharacter()
-	if not player then return end
-	local char = player
+	if not workspace:FindFirstChild(player) then return end
+	local char = workspace[player]
 	local clone = char:Clone()
 
 	for _, obj in ipairs(clone:GetDescendants()) do
@@ -423,8 +423,15 @@ local function cloneCharacter()
 
 	for _, part in ipairs(clone:GetDescendants()) do
 		if part:IsA("BasePart") then
-			part.Anchored = true -- stop physics
 			part.CanCollide = false
+
+			-- Unanchor accessories only
+			local accessory = part:FindFirstAncestorWhichIsA("Accessory")
+			if accessory then
+				part.Anchored = false
+			else
+				part.Anchored = true
+			end
 		end
 	end
 
@@ -439,7 +446,7 @@ clone = cloneCharacter()
 
 -- Copy movement per joint
 RunService.RenderStepped:Connect(function()
-	local char = player
+	local char = workspace:FindFirstChild(player)
 	if not (char and clone) then return end
 	vpCam.CFrame = cam.CFrame
 
@@ -457,6 +464,7 @@ RunService.RenderStepped:Connect(function()
 		end
 	end
 end)
+
 
 task.wait(1)
 local model = workspace[rplr] -- Replace with your model
