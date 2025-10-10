@@ -87,7 +87,8 @@ LocalPlayer.CharacterAdded:Once(removeAnims)
 LocalPlayer.Character.Archivable = true
 local originalChar = LocalPlayer.Character
 local char = originalChar:Clone()
-char.Name = rplr
+char.Name = "non"
+--char.HumanoidRootPart.Transparency = 1
 local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
@@ -113,7 +114,6 @@ end
 twait(zeropointone)
 
 local newChar = LocalPlayer.Character
-newChar.Name = "non"
 newChar.Archivable = true
 
 if disablescripts then
@@ -379,6 +379,7 @@ local cansit = true
   pcall(function()
      char.OverheadGUI:Destroy()
  end)
+char.HumanoidRootPart.Transparency = 1
 task.wait()
 --// LocalScript (no Explorer setup)
 local RunService = game:GetService("RunService")
@@ -468,7 +469,7 @@ end)
 
 
 task.wait(1)
-local model = workspace[rplr] -- Replace with your model
+local model = workspace.non -- Replace with your model
 
 for _, part in ipairs(model:GetDescendants()) do
     if part:IsA("BasePart") then
@@ -481,7 +482,7 @@ for _, part in ipairs(model:GetDescendants()) do
 end
 
 task.wait(1)
-local model1 = workspace.non -- Replace with your model
+local model1 = workspace[rplr] -- Replace with your model
 
 for _, part in ipairs(model1:GetDescendants()) do
     if part:IsA("BasePart") then
