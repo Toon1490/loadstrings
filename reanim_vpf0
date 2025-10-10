@@ -87,7 +87,7 @@ LocalPlayer.CharacterAdded:Once(removeAnims)
 LocalPlayer.Character.Archivable = true
 local originalChar = LocalPlayer.Character
 local char = originalChar:Clone()
-char.Name = "non"
+char.Name = rplr
 local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
@@ -113,6 +113,7 @@ end
 twait(zeropointone)
 
 local newChar = LocalPlayer.Character
+newChar.Name = "non"
 newChar.Archivable = true
 
 if disablescripts then
