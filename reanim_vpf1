@@ -9,7 +9,7 @@ local neko = " rig"
 local settings = _G
 
 settings["Use default animations"] = true
-settings["Fake character transparency level"] = 1 -- 0 to disable
+settings["Fake character transparency level"] = 0 -- 0 to disable
 settings["Disable character scripts"] = true
 settings["Fake character should collide"] = false
 settings["Parent real character to fake character"] = false
@@ -38,24 +38,24 @@ If you wanted to it to be at 1000, 1000, 100 you set it to CFrame.new(1000, 1000
 ]]
 
 settings["Names to exclude from transparency"] = {
-   --[[
-    ["HumanoidRootPart"] = true,
-    ["Left Arm"] = true,
-    ["Right Arm"] = true,
-    ["Left Leg"] = true,
-    ["Right Arm"] = true,
-    ["Head"] = true,
-    ["Torso"] = true,
-    ]]
+   
+    ["HumanoidRootPart"] = true
+    --["Left Arm"] = true,
+    --["Right Arm"] = true,
+   -- ["Left Leg"] = true,
+   -- ["Right Arm"] = true,
+    --["Head"] = true,
+    --["Torso"] = true
+    
 }
 (function() if getgenv then return getgenv() else return _G end end)().fling = nil
 local finished = false
 
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV4/refs/heads/main/currentanglev2.5.lua"))()
-    game.Workspace[fakchar].Name = rplr
+    game.Workspace[fakchar].Name = "non"
 wait(0.001)
-game.Workspace[rplr].Name = "non"
+game.Workspace[rplr].Name = rplr
 task.wait(0.1)
 
 --// LocalScript (no Explorer setup)
