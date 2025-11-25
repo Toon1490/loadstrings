@@ -1,144 +1,4 @@
-local sound69 = Instance.new("Sound",game:GetService("RunService"))
-sound69.Looped = true
-sound69.Name = "danc"
-sound69.Playing = true
-sound69.Volume = 5
 
-
-if not isfolder("song") then 
-    makefolder("song")
-    end
-
-local customasset = function(id)
-        if exploit ~= "CaetSploit" then
-        idwithoutthatbit= string.gsub(id,"song/","")
-        if not isfile(id) then 
-         writefile(id,game:HttpGet("https://github.com/Toon1490/music/raw/refs/heads/main/"..idwithoutthatbit))
-        end
-       repeat task.wait() until isfile(id)
-    end
-        local s = Instance.new("Sound")
-        s.Parent = game:GetService("RunService")
-        s.SoundId = getcustomasset(id)
-        task.spawn(function()
-            task.wait(1)
-            s:Destroy()
-        end)
-        return s.SoundId
-    end
-
-sound69.SoundId = customasset("song/lost%20soul.mp3")
-
--- LocalScript
-local urname = game.Players.LocalPlayer.Name
-local RunService = game:GetService("RunService")
-local sound =  game["Run Service"].danc -- change this to your sound object
-local camera = workspace.CurrentCamera
--- game.Workspace.MusicSoundGroup.HDAdminSound
--- game["Run Service"].Sound
--- Settings
-local DEFAULT_FOV = 70
-local MIN_FOV = 50   -- how much zoom‑in (lower = more zoom)
-local MAX_FOV = 90   -- optional max zoom out if you want
-local MAX_LOUDNESS = 1000  -- scale loudness so that worst case is handled
-
--- Optional easing
-local tweenService = game:GetService("TweenService")
-local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-
--- Update each frame
-RunService.RenderStepped:Connect(function()
-    local loud = sound.PlaybackLoudness
-    -- normalize loudness
-    local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
-
-    -- decide target FOV: when loud is 0 => DEFAULT_FOV, when loud is high => MIN_FOV (zoomed in)
-    local targetFov = DEFAULT_FOV - (DEFAULT_FOV - MIN_FOV) * factor
-
-    -- optionally limit to MAX_FOV if you want zoom out (reverse)
-    if targetFov > MAX_FOV then
-        targetFov = MAX_FOV
-    end
-
-    -- apply (you can tween so it's smoother)
-    -- simple version:
-    camera.FieldOfView = targetFov
-
-    -- or tweened:
-    -- local tween = tweenService:Create(camera, tweenInfo, { FieldOfView = targetFov })
-    -- tween:Play()
-end)
-
--- LocalScript in StarterPlayerScripts aaa
-local Players = game:GetService("Players")
-local RunService = game:GetService("RunService")
-local Workspace = game:GetService("Workspace")
-
-local LOCAL_PLAYER = Players.LocalPlayer
-local PLAYER_NAME = LOCAL_PLAYER.Name
-
--- Get reference to the BoomBox sound
-local sound = game["Run Service"]:WaitForChild("danc")
-
--- Create the visualizer part
-local part = Instance.new("Part")
-part.Name = "VisualizerPart"
-part.Anchored = true
-part.CanCollide = false
-part.Transparency = 0
-part.Size = Vector3.new(1, 0.1, 1)
-part.Material = Enum.Material.Neon
-part.BrickColor = BrickColor.new("Institutional white")
-part.Parent = Workspace
-
--- Add mesh to make it a flat circle
-local mesh = Instance.new("SpecialMesh")
-mesh.MeshType = Enum.MeshType.Sphere
-mesh.Scale = Vector3.new(1, 0.01, 1)
-mesh.Parent = part
-
--- CONFIG
-local HEIGHT_OFFSET = -3 -- how far under the character
-local MIN_SCALE = 1
-local MAX_SCALE = 15
-local MAX_LOUDNESS = 1000
-local SMOOTH_SPEED = 60
-
--- Smoothing variable
-local currentScale = MIN_SCALE
-
--- hrp reference (updates on respawn)
-local hrp = nil
-
--- Function to update HRP when character spawns
-local function onCharacterAdded(char)
-	hrp = char:WaitForChild("HumanoidRootPart", 5)
-end
-
--- Initial HRP setup
-if LOCAL_PLAYER.Character then
-	onCharacterAdded(LOCAL_PLAYER.Character)
-end
-
--- Update HRP on respawn
-LOCAL_PLAYER.CharacterAdded:Connect(onCharacterAdded)
-
--- MAIN LOOP
-RunService.RenderStepped:Connect(function(dt)
-	if not hrp or not hrp.Parent then return end
-
-	-- Follow the character's position (under HumanoidRootPart)
-	local basePos = hrp.Position + Vector3.new(0, HEIGHT_OFFSET, 0)
-	part.Position = basePos
-
-	-- PlaybackLoudness controls size
-	local loud = sound.PlaybackLoudness or 0
-	local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
-	local targetScale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * factor
-	currentScale = currentScale + (targetScale - currentScale) * math.clamp(SMOOTH_SPEED * dt, 0, 1)
-
-	mesh.Scale = Vector3.new(currentScale, 0.01, currentScale)
-end)
 
 
 local plr0 = game.Players.LocalPlayer.Name
@@ -1134,6 +994,148 @@ wait()
 
 local lplr = game.Players.LocalPlayer
 lplr.Character = RealChar
+
+local sound69 = Instance.new("Sound",game:GetService("RunService"))
+sound69.Looped = true
+sound69.Name = "danc"
+sound69.Playing = true
+sound69.Volume = 5
+
+
+if not isfolder("song") then 
+    makefolder("song")
+    end
+
+local customasset = function(id)
+        if exploit ~= "CaetSploit" then
+        idwithoutthatbit= string.gsub(id,"song/","")
+        if not isfile(id) then 
+         writefile(id,game:HttpGet("https://github.com/Toon1490/music/raw/refs/heads/main/"..idwithoutthatbit))
+        end
+       repeat task.wait() until isfile(id)
+    end
+        local s = Instance.new("Sound")
+        s.Parent = game:GetService("RunService")
+        s.SoundId = getcustomasset(id)
+        task.spawn(function()
+            task.wait(1)
+            s:Destroy()
+        end)
+        return s.SoundId
+    end
+
+sound69.SoundId = customasset("song/lost%20soul.mp3")
+
+-- LocalScript
+local urname = game.Players.LocalPlayer.Name
+local RunService = game:GetService("RunService")
+local sound =  game["Run Service"].danc -- change this to your sound object
+local camera = workspace.CurrentCamera
+-- game.Workspace.MusicSoundGroup.HDAdminSound
+-- game["Run Service"].Sound
+-- Settings
+local DEFAULT_FOV = 70
+local MIN_FOV = 65   -- how much zoom‑in (lower = more zoom)
+local MAX_FOV = 90   -- optional max zoom out if you want
+local MAX_LOUDNESS = 1000  -- scale loudness so that worst case is handled
+
+-- Optional easing
+local tweenService = game:GetService("TweenService")
+local tweenInfo = TweenInfo.new(0.1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+
+-- Update each frame
+RunService.RenderStepped:Connect(function()
+    local loud = sound.PlaybackLoudness
+    -- normalize loudness
+    local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+
+    -- decide target FOV: when loud is 0 => DEFAULT_FOV, when loud is high => MIN_FOV (zoomed in)
+    local targetFov = DEFAULT_FOV - (DEFAULT_FOV - MIN_FOV) * factor
+
+    -- optionally limit to MAX_FOV if you want zoom out (reverse)
+    if targetFov > MAX_FOV then
+        targetFov = MAX_FOV
+    end
+
+    -- apply (you can tween so it's smoother)
+    -- simple version:
+    camera.FieldOfView = targetFov
+
+    -- or tweened:
+    -- local tween = tweenService:Create(camera, tweenInfo, { FieldOfView = targetFov })
+    -- tween:Play()
+end)
+
+-- LocalScript in StarterPlayerScripts aaa
+local Players = game:GetService("Players")
+local RunService = game:GetService("RunService")
+local Workspace = game:GetService("Workspace")
+
+local LOCAL_PLAYER = Players.LocalPlayer
+local PLAYER_NAME = LOCAL_PLAYER.Name
+
+-- Get reference to the BoomBox sound
+local sound = game["Run Service"]:WaitForChild("danc")
+
+-- Create the visualizer part
+local part = Instance.new("Part")
+part.Name = "VisualizerPart"
+part.Anchored = true
+part.CanCollide = false
+part.Transparency = 0
+part.Size = Vector3.new(1, 0.1, 1)
+part.Material = Enum.Material.Neon
+part.BrickColor = BrickColor.new("Institutional white")
+part.Parent = Workspace
+
+-- Add mesh to make it a flat circle
+local mesh = Instance.new("SpecialMesh")
+mesh.MeshType = Enum.MeshType.Sphere
+mesh.Scale = Vector3.new(1, 0.01, 1)
+mesh.Parent = part
+
+-- CONFIG
+local HEIGHT_OFFSET = -3 -- how far under the character
+local MIN_SCALE = 1
+local MAX_SCALE = 15
+local MAX_LOUDNESS = 1000
+local SMOOTH_SPEED = 60
+
+-- Smoothing variable
+local currentScale = MIN_SCALE
+
+-- hrp reference (updates on respawn)
+local hrp = nil
+
+-- Function to update HRP when character spawns
+local function onCharacterAdded(char)
+	hrp = char:WaitForChild("HumanoidRootPart", 5)
+end
+
+-- Initial HRP setup
+if LOCAL_PLAYER.Character then
+	onCharacterAdded(LOCAL_PLAYER.Character)
+end
+
+-- Update HRP on respawn
+LOCAL_PLAYER.CharacterAdded:Connect(onCharacterAdded)
+
+-- MAIN LOOP
+RunService.RenderStepped:Connect(function(dt)
+	if not hrp or not hrp.Parent then return end
+
+	-- Follow the character's position (under HumanoidRootPart)
+	local basePos = hrp.Position + Vector3.new(0, HEIGHT_OFFSET, 0)
+	part.Position = basePos
+
+	-- PlaybackLoudness controls size
+	local loud = sound.PlaybackLoudness or 0
+	local factor = math.clamp(loud / MAX_LOUDNESS, 0, 1)
+	local targetScale = MIN_SCALE + (MAX_SCALE - MIN_SCALE) * factor
+	currentScale = currentScale + (targetScale - currentScale) * math.clamp(SMOOTH_SPEED * dt, 0, 1)
+
+	mesh.Scale = Vector3.new(currentScale, 0.01, currentScale)
+end)
 
 wait()
 
@@ -2328,3 +2330,6 @@ while true do
 		FIXING = false
 	end	
 end	
+
+
+
