@@ -1687,13 +1687,13 @@ function ViolentSpeed()
 	})
 	CreateWave(VT(9,1,9)/1,45,RootPart.CFrame*CFrame.new(0,-3.2,0)*ANGLES(RAD(-180),RAD(0),RAD(0)),true,-1,"Really black",VT(2.5,0.2,2.5)/4)
 	CreateWave(VT(9,1,9)/1.5,55,RootPart.CFrame*CFrame.new(0,-3.2,0)*ANGLES(RAD(-180),RAD(0),RAD(0)),true,-1,"Really black",VT(2.5,0.2,2.5)/4.5)
-	Head.Transparency = 1
-	Torso.Transparency = 1
-	RightArm.Transparency = 1
-	LeftArm.Transparency = 1
-	RightLeg.Transparency = 1
-	LeftLeg.Transparency = 1
-	Head.face.Transparency = 1
+	Head.Transparency = 0
+	Torso.Transparency = 0
+	RightArm.Transparency = 0
+	LeftArm.Transparency = 0
+	RightLeg.Transparency = 0
+	LeftLeg.Transparency = 0
+	Head.face.Transparency = 0
 	for _, c in pairs(Character:GetChildren()) do
 			if c and c.Parent and c.ClassName == "Accessory" then
 				c.Handle.Transparency = 1
@@ -2330,5 +2330,4 @@ while true do
 		FIXING = false
 	end	
 end	
-
 
