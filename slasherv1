@@ -995,6 +995,8 @@ wait()
 local lplr = game.Players.LocalPlayer
 lplr.Character = RealChar
 
+local RunService = game:GetService("RunService")
+
 local sound69 = Instance.new("Sound", RunService)
 sound69.Name = "danc"
 sound69.Looped = false
