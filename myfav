@@ -1,0 +1,393 @@
+
+--[[
+
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local res = ReplicatedStorage:WaitForChild("Respawn")
+
+res:FireServer()
+
+
+]]
+
+--// Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local TextChatService = cloneref(game:GetService("TextChatService"))
+
+local player = Players.LocalPlayer
+
+--// GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "CustomChatBox"
+gui.ResetOnSpawn = false
+gui.Parent = game.CoreGui
+
+-- Main frame
+local chatFrame = Instance.new("Frame")
+chatFrame.Size = UDim2.new(0, 380, 0, 70)
+chatFrame.Position = UDim2.new(0.5, -190, 0.85, 0)
+chatFrame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+chatFrame.BorderSizePixel = 0
+chatFrame.Parent = gui
+chatFrame.Active = true
+Instance.new("UICorner", chatFrame).CornerRadius = UDim.new(0,8)
+
+-- Top bar (drag area)
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1, 0, 0, 30)
+topBar.BackgroundTransparency = 1
+topBar.Parent = chatFrame
+
+-- Close button
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 28, 0, 24)
+closeBtn.Position = UDim2.new(1, -32, 0, 3)
+closeBtn.BackgroundColor3 = Color3.fromRGB(150,40,40)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.SourceSansBold
+closeBtn.TextSize = 16
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+closeBtn.Parent = topBar
+Instance.new("UICorner", closeBtn)
+
+-- Minimize button
+local minimizeBtn = Instance.new("TextButton")
+minimizeBtn.Size = UDim2.new(0, 28, 0, 24)
+minimizeBtn.Position = UDim2.new(1, -64, 0, 3)
+minimizeBtn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+minimizeBtn.Text = "-"
+minimizeBtn.Font = Enum.Font.SourceSansBold
+minimizeBtn.TextSize = 18
+minimizeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+minimizeBtn.Parent = topBar
+Instance.new("UICorner", minimizeBtn)
+
+-- Input box
+local inputBox = Instance.new("TextBox")
+inputBox.Size = UDim2.new(1, -70, 0, 30)
+inputBox.Position = UDim2.new(0, 10, 0, 35)
+inputBox.BackgroundTransparency = 1
+inputBox.Text = ""
+inputBox.PlaceholderText = "Underated Bypasser"--Type your message...
+inputBox.Font = Enum.Font.SourceSans
+inputBox.TextSize = 20
+inputBox.TextColor3 = Color3.fromRGB(255,255,255)
+inputBox.ClearTextOnFocus = false
+inputBox.Parent = chatFrame
+
+-- Send button
+local sendBtn = Instance.new("TextButton")
+sendBtn.Size = UDim2.new(0, 50, 0, 30)
+sendBtn.Position = UDim2.new(1, -55, 0, 35)
+sendBtn.BackgroundColor3 = Color3.fromRGB(50,50,50)
+sendBtn.Text = "Send"
+sendBtn.Font = Enum.Font.SourceSansBold
+sendBtn.TextSize = 18
+sendBtn.TextColor3 = Color3.fromRGB(255,255,255)
+sendBtn.Parent = chatFrame
+Instance.new("UICorner", sendBtn)
+
+-------------------------------------------------
+-- Dragging
+-------------------------------------------------
+local dragging = false
+local dragStart, startPos
+
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = chatFrame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = input.Position - dragStart
+		chatFrame.Position = UDim2.new(
+			startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+-------------------------------------------------
+-- Minimize / Close
+-------------------------------------------------
+local minimized = false
+
+minimizeBtn.MouseButton1Click:Connect(function()
+	minimized = not minimized
+	inputBox.Visible = not minimized
+	sendBtn.Visible = not minimized
+
+	if minimized then
+		chatFrame.Size = UDim2.new(0, 200, 0, 30)
+	else
+		chatFrame.Size = UDim2.new(0, 380, 0, 70)
+	end
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
+
+-------------------------------------------------
+-- Character maps
+-------------------------------------------------
+local charMaps = {
+    {
+       ["a"] = "а",-- а ą ạ А
+       [" "] = "",--   <-- alt
+       ["c"] = "c",-- с с ҫ С ḉ С
+       ["b"] = "b",-- В
+       ["e"] = "е", -- е ę ẹ е Е
+       ["d"] = "d", --ď ḍ
+       ["g"] = "g",-- ģ ǥ ꬶ ဌ
+       ["f"] = "f",-- ſ ƭ ẜ ꬵ
+       ["i"] = "і",-- เ่ і ỉ ị І
+       ["h"] = "һ", -- ӏา ļา һ ћ ԧ Н
+       ["k"] = "k",--ɮ ҟ ƙ ķ κׅ  К
+       ["j"] = "ј",-- Ј ј
+       ["m"] = "m", -- ṃ ıาา М
+       ["l"] = "ӏ", -- ӏ
+       ["o"] = "о", --ȯ,ơ ꟁ ө ọ о О
+       ["n"] = "n", -- ıา ṛı ṇ
+       ["q"] = "q",
+       ["p"] = "р", -- р Р Р
+       ["s"] = "s", --ƾ ṥ ş ѕ <- idk ѕ <- best ѕ Ѕ
+       ["r"] = "r", -- r ӻ ṛ
+       ["u"] = "u", --μ ư џ ιɹ ιɹׅ  ɩɹׅ <-- best ιׅɹׅ <-- alt ıׅɹׅ <-- idk เɹ <-- op
+       ["t"] = "t",-- ƫ ţ ṭ Т
+       ["w"] = "ԝ",-- w
+       ["v"] = "ѵ",
+       ["y"] = "у", -- ұ ẏ ỵ у 
+       ["x"] = "х", -- ӽ ҳ Х
+       ["z"] = "z",
+       --["/"] = "⁄", Ƀׅ
+       --["1"] = "１",
+       --["2"] = "２",
+       --["3"] = "３",
+       --["4"] = "４",
+       --["5"] = "５",
+       --["6"] = "６",
+       --["7"] = "７",
+       --["8"] = "８",
+       --["9"] = "９",
+       --["0"] = "０",
+
+
+   }
+}
+
+--------------------------------------------------------------
+-- WORD EXCEPTIONS
+--------------------------------------------------------------
+local wordExceptions = {
+	--["is"] = "iѕ",
+	--["this"] = "thiѕ",
+ 	["an"] = "аn",
+    ["ass"] = "ąѕѕ",-- ąѕṥ
+	["deadass"] = "dea꜡dąѕѕ",
+	["fuckass"] = "fเɹckąѕѕ",
+	["nazi"] = "ıาazi",
+    ["nazism"] = "ıาаzіѕm", -- rıаżіѕm
+    ["cock"] = "co꜠ck",-- cѳck єock
+	["cocks"] = "co꜠cks",-- cѳck єock
+    ["cum"] = "cเɹm",
+	["cums"] = "cเɹms",
+	["cumming"] = "cเɹmming",
+    ["pornhub"] = "роrıาhub",
+	["porn"] = "porıา",
+    ["dick"] = "dі꜡ck",
+    ["dickhead"] = "dі꜡ckhead",
+    ["nigger"] = "ıาigger",-- ǌ꜡꜡g꜡ger rıịgger
+    ["nigga"] = "ıาiggа", -- ǌ꜡꜡g꜡gа rıịggа
+    ["niggers"] = "ıาiggers",-- ǌ꜡꜡g꜡gers rıịggers
+    ["niggas"] = "ıาiggаs",-- ǌ꜡꜡g꜡gаs rıịggas
+	["rape"] = "ra꜡pe", -- c〪ȷ
+    ["raped"] = "ra꜡ped",-- c〪j〪
+    ["watchpeopledie.tv"] = "wаtсhреорӏеdіе.tv",
+    ["bitch"] = "bitcӏา",-- bіtсӏา b꜡іtсh
+    ["bitches"] = "bitcӏาеѕ",-- bіtсӏาеѕ b꜡іtсhеѕ
+    ["bitchy"] = "bitcӏาу",-- bіtсӏาу b꜡іtсhу
+    ["bitchass"] = "bitcӏาaѕѕ",-- bіtсӏาаѕѕ b꜡іtсhаѕѕ
+    ["asshole"] = "аѕѕһоӏе",
+	["assholes"] = "аѕѕһоӏеѕ",
+    ["molested"] = "mоӏеѕtеd",
+    ["fag"] = "fag",-- ꬵąg
+    ["fags"] = "fagѕ",-- ꬵągѕ
+	["faggot"] = "fаg꜡got",-- ə a ꬵаg꜡got
+	["faggots"] = "fаg꜡gots",-- ꬵаg꜡gots
+	--["fat"] = "fąt",
+    ["fatass"] = "fаtąѕѕ",
+    ["shit"] = "sӏาit",--sӏาit
+	["shitty"] = "sӏาitty",--sӏาittу
+	["shittiest"] = "sӏาittiest",--sӏาittiest
+    ["shits"] = "sӏาits",--sӏาitѕ
+	["shitted"] = "sӏาitted",--sӏาitted
+	["dumb"] = "duıาาb",
+    ["dumbass"] = "duıาาbaѕs",
+    ["dildo"] = "dіӏ꜡do",
+    ["boobs"] = "bo꜠obs",-- ӏวооӏวѕ
+    ["retard"] = "reta꜡rd",
+    ["retards"] = "reta꜡rds",
+    ["retarded"] = "reta꜡rded",
+	["tits"] = "tits",
+	["titties"] = "titties",
+	["pedo"] = "pеdo",
+	["pedophile"] = "pеdopӏาile",
+	["pedophiles"] = "pеdopӏาileѕ",
+	["whore"] = "wӏาore",--wӏาore
+	["whores"] = "wӏาores",--wӏาores
+	["penis"] = "peıาis",--peıาis
+	["cocaine"] = "cocаiıาe",
+	["pussy"] = "pเɹssу",
+	["pussies"] = "pเɹssies",
+	["hate"] = "һаte",
+	["pencil"] = "pencil",
+	["hoe"] = "ӏาое",
+	["horny"] = "ӏาorny",
+	["kill"] = "kill",
+	["fuck"] = "fเɹck",--fเɹck
+	["fucker"] = "fเɹcker",--fเɹcker
+	["fucked"] = "fเɹcked",--fเɹcked
+	["fucking"] = "fเɹckiıาg",--fเɹckiıาg
+	["fuckin"] = "fเɹckiıา",--fเɹckiıา
+	["discord"] = "ďisco꜠rď",
+	["sex"] = "ѕe꜠x",
+	["sexy"] = "ѕe꜠xy",
+	["moron"] = "moroıา",
+	["messenger"] = "messeıาger",
+	["youtube"] = "youtube",
+	--["suck"] = "sưck",
+	--["sucks"] = "sưcks",
+	["motherfucker"] = "motherfเɹcker",
+	["motherfuckers"] = "motherfเɹckers",
+	["cunt"] = "cเɹnt",
+	["cunts"] = "cเɹnts",
+	["what"] = "wӏาat",
+	["steam"] = "sťeam",
+	["instagram"] = "iıาstagraṃ",
+	["goon"] = "gooıา",
+	["gooning"] = "gooıาing",
+	["suicide"] = "sui꜡cide",
+	["suicides"] = "sui꜡cides",
+	["suicidal"] = "sui꜡cidal",
+	----------------------------- faces
+	[":D"] = ":D",
+    --["."] = "˰",
+    -- add more custom words here
+}
+
+-------------------------------------------------
+-- Helpers
+-------------------------------------------------
+local function findPlayer(partial)
+	partial = partial:lower()
+	local matches = {}
+
+	for _, p in pairs(Players:GetPlayers()) do
+		if p.Name:lower():sub(1, #partial) == partial then
+			table.insert(matches, p)
+		end
+	end
+
+	if #matches == 1 then return matches[1] end
+	if #matches > 1 then return "multiple" end
+	return nil
+end
+
+local function convertText(text)
+	text = text:lower()
+
+	for word, repl in pairs(wordExceptions) do
+		text = text:gsub("(%f[%w])"..word.."(%f[%W])", "%1"..repl.."%2")
+	end
+
+	--text = text:gsub("%.", "ˎ")-- ıׅٴɹׅ
+
+	for _, map in pairs(charMaps) do
+		for char, repl in pairs(map) do
+			text = text:gsub(char, repl)
+		end
+	end
+
+	return  "㈿|"..text.."|㈿"
+	--"{㍰""㍰}" 🕆Ო Ო🕆
+	-- "{㍰㍹㍹"..text.."㍹㍹㍰}" -- alt
+	-- "{㍹㍰㍹"..text.."㍹㍰㍹}" -- best 2
+	-- "{㍹㍰Ო"..text.."Ო㍹㍰}"
+	-- ㍡ ㍛ ㍪ ㈿ ㈾
+	-- ㈿|rероrtmеіfуоutһіnkі'mаnаѕѕһоӏе|㈿
+	-- ㈿|ṛероṛţṃеіꬵуоưţһіṇķі'ṃаṇаѕѕһоӏе|
+end
+
+local function sendChat(message)
+	local channel
+
+	local config = TextChatService:FindFirstChild("ChatInputBarConfiguration")
+	if config then
+		channel = config.TargetTextChannel
+	end
+
+	if TextChatService:FindFirstChild("TextChannels") then
+		channel = channel or TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+	end
+
+	if channel then
+		channel:SendAsync(message)
+	end
+end
+
+-------------------------------------------------
+-- Process (supports /pm)
+-- Example: /pm eli hello
+-------------------------------------------------
+local function process()
+	local raw = inputBox.Text
+	if raw == "" then return end
+
+	if raw:sub(1,3):lower() == "/pm" then
+		local args = raw:split(" ")
+		local targetName = args[2]
+		table.remove(args,1)
+		table.remove(args,1)
+
+		if not targetName then
+			inputBox.Text = "No player name!"
+			return
+		end
+
+		local target = findPlayer(targetName)
+
+		if target == "multiple" then
+			inputBox.Text = "there's multiple users!"
+			return
+		elseif not target then
+			inputBox.Text = "user not found!"
+			return
+		end
+
+		local msg = table.concat(args," ")
+		sendChat("/w "..target.Name.." "..convertText(msg))
+	else
+		sendChat(convertText(raw))
+	end
+
+	inputBox.Text = ""
+end
+
+sendBtn.MouseButton1Click:Connect(process)
+inputBox.FocusLost:Connect(function(enter)
+	if enter then process() end
+end)
