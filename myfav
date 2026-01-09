@@ -283,6 +283,7 @@ local wordExceptions = {
 	["suicide"] = "sui꜡cide",
 	["suicides"] = "sui꜡cides",
 	["suicidal"] = "sui꜡cidal",
+	--["little"] = "liťťle",
 	----------------------------- faces
 	[":D"] = ":D",
     --["."] = "˰",
@@ -322,7 +323,7 @@ local function convertText(text)
 		end
 	end
 
-	return  "㈿|"..text.."|㈿"
+	return  "º㈿|"..text.."|㈿º"
 	--"{㍰""㍰}" 🕆Ო Ო🕆
 	-- "{㍰㍹㍹"..text.."㍹㍹㍰}" -- alt
 	-- "{㍹㍰㍹"..text.."㍹㍰㍹}" -- best 2
