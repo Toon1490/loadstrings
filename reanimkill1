@@ -25,8 +25,6 @@ end
 
 --// Tools
 
---// .. code ..
-
 local UI = (gethui and gethui()) or (cloneref and cloneref(game:GetService("CoreGui"))) or (pcall(function() return game:GetService("CoreGui").Parent end) and game:GetService("CoreGui")) or game:GetService("Players").LocalPlayer:FindFirstChildOfClass("PlayerGui")
 
 local function LoadUi(seconds)
@@ -167,7 +165,7 @@ if getrawmetatable then
 			CFrameIndex = res.__index
 			CFrameMul = res.__mul
 			CFrameAdd = res.__add
-			Vector3Mul = getrawmetatable(vector3zero).__mul
+            Vector3Mul = getrawmetatable(vector3zero).__mul
 		end
 	end
 end
@@ -190,20 +188,20 @@ if not getrawmetatableworks then
 	end, function()
 		CFrameIndex = debug_info(2, "f")
 	end)
-
+	
 	xpcall(function()
 		return emptyCFrame * 9
 	end, function()
 		CFrameMul = debug_info(2, "f")
 	end)
-
+	
 	xpcall(function()
 		return emptyCFrame + 9
 	end, function()
 		CFrameAdd = debug_info(2, "f")
 	end)
 
-	xpcall(function()
+    xpcall(function()
 		return vector3zero * 9
 	end, function()
 		Vector3Mul = debug_info(2, "f")
@@ -272,14 +270,6 @@ local NaN = 0/0
 
 local dummypart = Instance.new("Part")
 
-local function getsetting(string_, default) --// Finally
-	if _G[string_] == nil then
-		return default
-	else
-		return _G[string_]
-	end
-end
-
 local GetDescendants = dummypart.GetDescendants
 local IsA = dummypart.IsA
 local Destroy = dummypart.Destroy
@@ -287,31 +277,31 @@ local Destroy = dummypart.Destroy
 local math_random = math.random
 local Vector3_new = Vector3.new
 
-local usedefaultanims = getsetting("Use default animations", false)
+local usedefaultanims = _G["Use default animations"] or false
 
-local transparency_level = getsetting("Fake character transparency level", 1)
+local transparency_level = _G["Fake character transparency level"] or 1
 
-local disablescripts = getsetting("Disable character scripts", true)
+local disablescripts = _G["Disable character scripts"] or true
 
-local fakecollisions = getsetting("Fake character should collide", false)
+local fakecollisions = _G["Fake character should collide"] or true
 
-local nametoexcludefromtransparency = getsetting("Names to exclude from transparency", {})
+local nametoexcludefromtransparency = _G["Names to exclude from transparency"] or {}
 
-local parentrealchartofakechar = getsetting("Parent real character to fake character", false)
+local parentrealchartofakechar = _G["Parent real character to fake character"] or false
 
-local respawncharacter = getsetting("Respawn character", true)
+local respawncharacter = (function() if _G["Respawn character"] == nil then return true else return _G["Respawn character"] end end)()
 
-local instantrespawn = getsetting("Instant respawn", false)
+local instantrespawn = (function() if _G["Instant respawn"] == nil then return false else return _G["Instant respawn"] end end)()
 
-local hiderootpart = getsetting("Hide HumanoidRootPart", false)
+local hiderootpart = (function() if _G["Hide HumanoidRootPart"] == nil then return false else return _G["Hide HumanoidRootPart"] end end)()
 
-local permadeathcharacter = getsetting("PermaDeath fake character", true)
+local permadeathcharacter = (function() if _G["PermaDeath fake character"] == nil then return true else return _G["PermaDeath fake character"] end end)()
 
-local r15rig = getsetting("R15 Reanimate", false)
+local r15rig = (function() if _G["R15 Reanimate"] == nil then return false else return _G["R15 Reanimate"] end end)()
 
-local clickfling = getsetting("Click Fling", false)
+local clickfling = (function() if _G["Click Fling"] == nil then return false else return _G["Click Fling"] end end)()
 
-local poscache = getsetting("Hide RootPart Distance", CFrame.new(255, 255, 0))
+local poscache = (function() if _G["Hide RootPart Distance"] == nil then return CFrame.new(255, 255, 0) else return _G["Hide RootPart Distance"] end end)()
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
@@ -322,8 +312,8 @@ end
 twait(zeropointone)
 
 if LocalPlayer.Character:FindFirstChildOfClass("Humanoid").RigType ~= Enum.HumanoidRigType.R6 then
-	error("R15 Rig support is currently under maintenance")
-	return
+    error("Script is only compatible with R6 type rigs")
+    return
 end
 
 local function removeAnims(character)
@@ -522,7 +512,7 @@ local currentheight = workspace.FallenPartsDestroyHeight
 
 local function flinginternal(character, time)
 	if character == newChar then return end
-	local time = time or 2
+	local time = time or 5
 
 	flinging = true
 	local start = tick()
@@ -537,21 +527,12 @@ local function flinginternal(character, time)
 		if character then
 			if character:FindFirstChild("HumanoidRootPart") then
 				local velocity = character.HumanoidRootPart.Velocity
-				if character.HumanoidRootPart.CFrame.Position.Y <= currentheight + 15 then
-					newcharRoot.CFrame = CFrame.new(255, 255, 0)
-					return
-				elseif currentheight == NaN then
-					if character.HumanoidRootPart.CFrame.Position.Y <= -500 + 15 then
-						newcharRoot.CFrame = CFrame.new(255, 255, 0)
-						return
-					end
-				end
-				local direction = velocity.Magnitude > 0 and velocity.Unit or Vector3_new(0, 0, 0)
+				local direction = velocity.Magnitude > 1 and velocity.Unit or Vector3_new(0, 0, 0)
 				local predictedPosition = (character.PrimaryPart.CFrame or character.HumanoidRootPart.CFrame).Position + direction * math_random(5, 12)
-				
-				newcharRoot.Velocity = Vector3_new(0, -9e12, 0)
-				newcharRoot.CFrame = CFrame.new(predictedPosition) - Vector3.new(0, 0, 0)
-				--newcharRoot.RotVelocity = Vector3_new(100, 100, 100)
+
+				newcharRoot.CFrame = CFrame.new(predictedPosition)
+				newcharRoot.Velocity = Vector3_new(0, 9e12, 0)
+				newcharRoot.RotVelocity = Vector3_new(9e8, 9e8, 9e8)
 			else
 				flinging = false
 				connection:Disconnect()
@@ -566,8 +547,8 @@ local function flinginternal(character, time)
 
 end
 
-fling = function(character, time, yield)
-	--setdestroyheight(NaN)
+getgenv().fling = function(character, time, yield)
+	setdestroyheight(NaN)
 	local yield = yield or false
 	if yield then
 		flinginternal(character, time)
@@ -576,15 +557,13 @@ fling = function(character, time, yield)
 	end
 end
 
-getgenv().fling = fling
-
 local function disableCollisions()
 	pcall(function()
 		for _, char in ipairs({ newChar }) do
 			for _, obj in ipairs(GetDescendants(char)) do
 				if IsA(obj, "BasePart") then
 					obj.CanCollide = false
-					obj.Massless = false
+					obj.Massless = true
 				end
 			end
 		end
@@ -597,7 +576,7 @@ local function disableCollisionsWithFakeChar()
 			for _, obj in ipairs(GetDescendants(char)) do
 				if IsA(obj, "BasePart") then
 					obj.CanCollide = false
-					obj.Massless = false
+					obj.Massless = true
 				end
 			end
 		end
@@ -656,7 +635,7 @@ end
 finished = true
 
 if usedefaultanims then
-	task_spawn(function()
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
-	end)
+task_spawn(function()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/somethingsimade/CurrentAngleV2/refs/heads/main/anims"))()
+end)
 end
