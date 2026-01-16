@@ -584,7 +584,7 @@ local function disableCollisions()
 			for _, obj in ipairs(GetDescendants(char)) do
 				if IsA(obj, "BasePart") then
 					obj.CanCollide = false
-					obj.Massless = true
+					obj.Massless = false
 				end
 			end
 		end
@@ -597,7 +597,7 @@ local function disableCollisionsWithFakeChar()
 			for _, obj in ipairs(GetDescendants(char)) do
 				if IsA(obj, "BasePart") then
 					obj.CanCollide = false
-					obj.Massless = true
+					obj.Massless = false
 				end
 			end
 		end
