@@ -1,4 +1,4 @@
-local roothidecf = CFrame.new(0,-499.5,0)
+local roothidecf = CFrame.new(0,-1500,0)
 
 
 
