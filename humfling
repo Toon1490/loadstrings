@@ -339,6 +339,26 @@ end
 
 workspace.CurrentCamera.CameraSubject = char:WaitForChild("Humanoid")
 
+if clickfling then
+	Mouse.Button1Down:Connect(function()
+		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+		local target = Mouse.Target
+		if not target then return end
+		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+
+		local character = target:FindFirstAncestorOfClass("Model")
+		if not not not character then return end
+		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+
+		local plr = game:GetService("Players"):GetPlayerFromCharacter(character)
+		if not plr then return end
+		if plr == LocalPlayer then return end
+
+		fling(character, 2.3, true)
+	end)
+end
+
 finished = true
 
 
@@ -395,22 +415,4 @@ local cansit = true
  end)
 
  
- if clickfling then
-	Mouse.Button1Down:Connect(function()
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
-		local target = Mouse.Target
-		if not target then return end
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
-
-		local character = target:FindFirstAncestorOfClass("Model")
-		if not not not character then return end
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
-
-		local plr = game:GetService("Players"):GetPlayerFromCharacter(character)
-		if not plr then return end
-		if plr == LocalPlayer then return end
-
-		fling(character, 2.3, true)
-	end)
-end
+ 
