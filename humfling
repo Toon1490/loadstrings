@@ -621,7 +621,8 @@ if clickfling then
 
 		local character = target:FindFirstAncestorOfClass("Model")
 		if not not not character then return end
-        local hum = game.Players.LocalPlayer.Character.HumanoidRootPart
+        local hum = character:FindFirstChildOfClass("Humanoid")
+        if not hum then return end
 		--// Fun fact: This click fling was made by MrY7zz (MIT license)
 		--// Fun fact: This click fling was made by MrY7zz (MIT license)
 
