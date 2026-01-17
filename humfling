@@ -186,6 +186,7 @@ local ToObjectSpace = CFrame.new().ToObjectSpace
 local ToEulerAnglesXYZ = CFrame.new().ToEulerAnglesXYZ
 local task_spawn = task.spawn
 local function stepReanimate()
+    if flinging then return end
     --// YES the code is badly formatted YES the code barely works
     --// YES it is unstable. im working on a fix.
 	for joint, limb in pairs(limbmapping) do
@@ -341,15 +342,14 @@ workspace.CurrentCamera.CameraSubject = char:WaitForChild("Humanoid")
 
 if clickfling then
 	Mouse.Button1Down:Connect(function()
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+		
 		local target = Mouse.Target
 		if not target then return end
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+		
 
 		local character = target:FindFirstAncestorOfClass("Model")
 		if not not not character then return end
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
-		--// Fun fact: This click fling was made by MrY7zz (MIT license)
+		
 
 		local plr = game:GetService("Players"):GetPlayerFromCharacter(character)
 		if not plr then return end
