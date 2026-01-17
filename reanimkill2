@@ -531,7 +531,7 @@ local function flinginternal(character, time)
 				local predictedPosition = (character.PrimaryPart.CFrame or character.HumanoidRootPart.CFrame).Position + direction * math_random(5, 12)
 
 				newcharRoot.CFrame = CFrame.new(predictedPosition)
-				newcharRoot.Velocity = Vector3_new(0, -9e50 0)
+				newcharRoot.Velocity = Vector3_new(0, -9e50, 0)
 				newcharRoot.RotVelocity = Vector3_new(9e8, 9e8, 9e8)
 			else
 				flinging = false
