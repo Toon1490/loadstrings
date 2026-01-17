@@ -621,8 +621,7 @@ if clickfling then
 
 		local character = target:FindFirstAncestorOfClass("Model")
 		if not not not character then return end
-        local hrp = target:FindFirstAncestorOfClass("Model") 
-            and target:FindFirstAncestorOfClass("Model"):FindFirstChild("HumanoidRootPart")
+        local hrp = target:FindFirstAncestorOfClass("Model"):FindFirstChild("HumanoidRootPart")
 		--// Fun fact: This click fling was made by MrY7zz (MIT license)
 		--// Fun fact: This click fling was made by MrY7zz (MIT license)
 
