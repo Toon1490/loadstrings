@@ -49,6 +49,8 @@ local instantrespawn = false
 
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
+local Mouse = LocalPlayer:GetMouse()
+
 	local exploit = "shitsploit"
 
 if not LocalPlayer.Character then
