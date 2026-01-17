@@ -632,6 +632,21 @@ if clickfling then
 	end)
 end
 
+local speaker = game:GetService("Players").LocalPlayer
+	local Players = game:GetService("Players")
+	local RunService = game:GetService("RunService")
+	antifling = RunService.Stepped:Connect(function()
+		for _, player in pairs(Players:GetPlayers()) do
+			if player ~= speaker and player.Character then
+				for _, v in pairs(player.Character:GetDescendants()) do
+					if v:IsA("BasePart") then
+						v.CanCollide = false
+					end
+				end
+			end
+		end
+	end)
+
 finished = true
 
 if usedefaultanims then
