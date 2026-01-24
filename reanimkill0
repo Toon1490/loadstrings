@@ -463,12 +463,16 @@ local ToObjectSpace = emptyCFrame.ToObjectSpace
 local ToEulerAnglesXYZ = emptyCFrame.ToEulerAnglesXYZ
 
 local function RCA6dToCFrame(Motor6D, TargetPart, ReferencePart)
-	local rel = CFrameMul(Inverse(gameIndex(ReferencePart, "CFrame")), gameIndex(TargetPart, "CFrame"))
-	local delta = CFrameMul(CFrameMul(Inverse(gameIndex(Motor6D, "C0")), rel), gameIndex(Motor6D, "C1"))
-	local axis, angle = ToAxisAngle(delta)
-	local newangle = Vector3Mul(axis, angle)
-	sethiddenproperty(Motor6D, 'ReplicateCurrentOffset6D', CFrameIndex(delta, "Position"))
-	sethiddenproperty(Motor6D, 'ReplicateCurrentAngle6D', newangle)
+    local rel = ReferencePart.CFrame:Inverse() * TargetPart.CFrame
+    local delta = Motor6D.C0:Inverse() * rel * Motor6D.C1
+    local axis, angle = delta:ToAxisAngle()
+    local newangle = axis * angle
+	local offset = Vector3.zero 
+	if TargetPart:FindFirstChildOfClass("SpecialMesh") then 
+		offset = TargetPart:FindFirstChildOfClass("SpecialMesh").Offset
+	end
+    sethiddenproperty(Motor6D, 'ReplicateCurrentOffset6D', delta.Position + offset)
+    sethiddenproperty(Motor6D, 'ReplicateCurrentAngle6D', newangle)
 end
 
 local task_spawn = task.spawn
