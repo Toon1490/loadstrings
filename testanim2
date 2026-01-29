@@ -638,16 +638,33 @@ end
 
 finished = true
 
+local function cleanupOldReanimate()
+	-- Disconnect old loops
+	if postSimConnection then
+		postSimConnection:Disconnect()
+		postSimConnection = nil
+	end
+
+	if disableCollisionConnection then
+		disableCollisionConnection:Disconnect()
+		disableCollisionConnection = nil
+	end
+
+	-- Remove old fake character
+	if currentfakechar and currentfakechar.Parent then
+		currentfakechar:Destroy()
+	end
+
+	currentfakechar = nil
+end
+
+local reanimateInitialized = false
+
 --// === AUTO REANIMATE AFTER RESPAWN === --
 
 local function setupReanimateForCharacter(char)
-	-- Clean old connections if they still exist
-	if postSimConnection then
-		postSimConnection:Disconnect()
-	end
-	if disableCollisionConnection then
-		disableCollisionConnection:Disconnect()
-	end
+	cleanupOldReanimate() -- 💥 removes previous fake + connections
+
 
 	originalChar = char
 	originalChar.Archivable = true
@@ -655,8 +672,9 @@ local function setupReanimateForCharacter(char)
 	-- Create new fake character
 	if not r15rig then
 		--fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R6)
+	--else
 		--fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R15)
-		fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
+		--fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
 	end
 
 	fakeChar.Name = LocalPlayer.Name .. "_Fake"
@@ -706,13 +724,17 @@ local function setupReanimateForCharacter(char)
 end
 
 
-
-
 -- Detect death → wait for respawn → reapply reanimate
 LocalPlayer.CharacterAdded:Connect(function(char)
-	task.wait(0.2) -- small delay so character fully loads
+	if not reanimateInitialized then
+		reanimateInitialized = true
+		return -- skip the very first spawn (already handled)
+	end
+
+	task.wait(0.2)
 	setupReanimateForCharacter(char)
 end)
+
 
 
 if usedefaultanims then
