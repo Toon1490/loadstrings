@@ -655,7 +655,7 @@ local function cleanupOldReanimate()
 		--currentfakechar:Destroy()
 	--end
 
-	currentfakechar = nil
+	--currentfakechar = nil
 end
 
 local reanimateInitialized = false
