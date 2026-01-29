@@ -654,75 +654,7 @@ local function setupReanimateForCharacter(char)
 
 	-- Create new fake character
 	if not r15rig then
-		fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R6)
-	else
-		fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R15)
-		fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
-	end
-
-	fakeChar.Name = LocalPlayer.Name .. "_Fake"
-	fakeChar.Parent = workspace
-	currentfakechar = fakeChar
-
-	newChar = originalChar
-	newChar.Archivable = true
-
-	-- Rebuild body references
-	newcharTorso = newChar:WaitForChild("Torso")
-	newcharRoot = newChar:WaitForChild("HumanoidRootPart")
-
-	if r15rig then
-		fakecharTorso = fakeChar:WaitForChild("UpperTorso")
-	else
-		fakecharTorso = fakeChar:WaitForChild("Torso")
-	end
-	fakecharRoot = fakeChar:WaitForChild("HumanoidRootPart")
-
-	-- Rebuild joint mapping
-	jointmapping = {
-		Neck = newcharTorso:WaitForChild("Neck"),
-		RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
-		["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
-		["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
-		["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
-		["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
-	}
-
-	-- Apply humanoid state again
-	local humanoid = newChar:WaitForChild("Humanoid")
-	humanoid.PlatformStand = true
-	humanoid.AutoRotate = false
-
-	-- Camera back to fake character
-	workspace.CurrentCamera.CameraSubject = fakeChar:WaitForChild("Humanoid")
-
-	-- Restart connections
-	postSimConnection = RunService.PostSimulation:Connect(stepReanimate)
-
-	if fakecollisions then
-		disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisions)
-	else
-		disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisionsWithFakeChar)
-	end
-end
-
-
-local function setupReanimateForCharacter1(char)
-	-- Clean old connections if they still exist
-	if postSimConnection then
-		postSimConnection:Disconnect()
-	end
-	if disableCollisionConnection then
-		disableCollisionConnection:Disconnect()
-	end
-
-	originalChar = char
-	originalChar.Archivable = true
-
-	-- Create new fake character
-	if not r15rig then
-		fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R6)
-	else
+		--fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R6)
 		--fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R15)
 		fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
 	end
@@ -774,10 +706,12 @@ local function setupReanimateForCharacter1(char)
 end
 
 
+
+
 -- Detect death → wait for respawn → reapply reanimate
 LocalPlayer.CharacterAdded:Connect(function(char)
 	task.wait(0.2) -- small delay so character fully loads
-	setupReanimateForCharacter1(char)
+	setupReanimateForCharacter(char)
 end)
 
 
