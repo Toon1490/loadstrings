@@ -651,9 +651,9 @@ local function cleanupOldReanimate()
 	end
 
 	-- Remove old fake character
-	if currentfakechar and currentfakechar.Parent then
-		currentfakechar:Destroy()
-	end
+	--if currentfakechar and currentfakechar.Parent then
+		--currentfakechar:Destroy()
+	--end
 
 	currentfakechar = nil
 end
