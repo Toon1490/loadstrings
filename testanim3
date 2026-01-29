@@ -402,6 +402,10 @@ end
 twait(0.4)
 
 LocalPlayer.Character = fakeChar
+
+local firstRealChar = newChar
+bindCharacterToFake(firstRealChar)
+
 if parentrealchartofakechar then
 	newChar.Parent = fakeChar
 end
@@ -466,7 +470,8 @@ local function RCA6dToCFrame(Motor6D, TargetPart, ReferencePart)
 end
 
 local task_spawn = task.spawn
-local function stepReanimate()
+local function stepReanimate(newChar, newcharRoot, fakecharRoot, newcharTorso, fakecharTorso)
+
 	--[[task_spawn(function()]]
 	if flinging then return end
 
@@ -592,6 +597,49 @@ local RunService = game:GetService("RunService")
 local postSimConnection = RunService.PostSimulation:Connect(stepReanimate)
 local disableCollisionConnection;
 
+local function bindCharacterToFake(newChar)
+	newChar.Archivable = true
+	
+	local newcharTorso = newChar:WaitForChild("Torso")
+	local newcharRoot = newChar:WaitForChild("HumanoidRootPart")
+	local fakecharTorso = fakeChar:WaitForChild("Torso")
+	local fakecharRoot = fakeChar:WaitForChild("HumanoidRootPart")
+
+	limbmapping = {
+		Neck = fakeChar:WaitForChild("Head"),
+		RootJoint = fakeChar:WaitForChild("Torso"),
+		["Left Shoulder"] = fakeChar:WaitForChild("Left Arm"),
+		["Right Shoulder"] = fakeChar:WaitForChild("Right Arm"),
+		["Left Hip"] = fakeChar:WaitForChild("Left Leg"),
+		["Right Hip"] = fakeChar:WaitForChild("Right Leg")
+	}
+
+	jointmapping = {
+		Neck = newcharTorso:WaitForChild("Neck"),
+		RootJoint = newcharRoot:WaitForChild("RootJoint"),
+		["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
+		["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
+		["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
+		["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
+	}
+
+	local humanoid = newChar:WaitForChild("Humanoid")
+	humanoid.PlatformStand = true
+	humanoid.AutoRotate = false
+
+	workspace.CurrentCamera.CameraSubject = fakeChar:WaitForChild("Humanoid")
+
+	-- reconnect stepping
+	if postSimConnection then
+		postSimConnection:Disconnect()
+	end
+
+	postSimConnection = RunService.PostSimulation:Connect(function()
+		stepReanimate(newChar, newcharRoot, fakecharRoot, newcharTorso, fakecharTorso)
+	end)
+end
+
+
 local humanoidnewchar = newChar:WaitForChild("Humanoid")
 
 humanoidnewchar.PlatformStand = true
@@ -638,80 +686,13 @@ end
 
 finished = true
 
---// === AUTO REANIMATE AFTER RESPAWN === --
-
-local function setupReanimateForCharacter(char)
-	-- Clean old connections if they still exist
-	if postSimConnection then
-		postSimConnection:Disconnect()
-	end
-	if disableCollisionConnection then
-		disableCollisionConnection:Disconnect()
-	end
-
-	originalChar = char
-	originalChar.Archivable = true
-
-	-- Create new fake character
-	if not r15rig then
-		fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R6)
-	else
-		fakeChar = fakecharcreate(originalChar, false, Enum.HumanoidRigType.R15)
-		fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
-	end
-
-	fakeChar.Name = LocalPlayer.Name .. "_Fake"
-	fakeChar.Parent = workspace
-	currentfakechar = fakeChar
-
-	newChar = originalChar
-	newChar.Archivable = true
-
-	-- Rebuild body references
-	newcharTorso = newChar:WaitForChild("Torso")
-	newcharRoot = newChar:WaitForChild("HumanoidRootPart")
-
-	if r15rig then
-		fakecharTorso = fakeChar:WaitForChild("UpperTorso")
-	else
-		fakecharTorso = fakeChar:WaitForChild("Torso")
-	end
-	fakecharRoot = fakeChar:WaitForChild("HumanoidRootPart")
-
-	-- Rebuild joint mapping
-	jointmapping = {
-		Neck = newcharTorso:WaitForChild("Neck"),
-		RootJoint = newChar.HumanoidRootPart:FindFirstChild("RootJoint"),
-		["Left Shoulder"] = newcharTorso:WaitForChild("Left Shoulder"),
-		["Right Shoulder"] = newcharTorso:WaitForChild("Right Shoulder"),
-		["Left Hip"] = newcharTorso:WaitForChild("Left Hip"),
-		["Right Hip"] = newcharTorso:WaitForChild("Right Hip")
-	}
-
-	-- Apply humanoid state again
-	local humanoid = newChar:WaitForChild("Humanoid")
-	humanoid.PlatformStand = true
-	humanoid.AutoRotate = false
-
-	-- Camera back to fake character
-	workspace.CurrentCamera.CameraSubject = fakeChar:WaitForChild("Humanoid")
-
-	-- Restart connections
-	postSimConnection = RunService.PostSimulation:Connect(stepReanimate)
-
-	if fakecollisions then
-		disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisions)
-	else
-		disableCollisionConnection = RunService.PreSimulation:Connect(disableCollisionsWithFakeChar)
-	end
-end
-
-
--- Detect death → wait for respawn → reapply reanimate
 LocalPlayer.CharacterAdded:Connect(function(char)
-	task.wait(0.2) -- small delay so character fully loads
-	fakeChar:Destroy()
-	setupReanimateForCharacter(char)
+	if not fakeChar or not fakeChar.Parent then return end
+	
+	removeAnims(char)
+	task.wait(0.2)
+
+	bindCharacterToFake(char)
 end)
 
 
