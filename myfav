@@ -325,7 +325,7 @@ local function convertText(text)
 		end
 	end
 
-	return  "º㈿|"..text.."|㈿º"
+	return  ""..text..""
 	--"{㍰""㍰}" 🕆Ო Ო🕆
 	-- "{㍰㍹㍹"..text.."㍹㍹㍰}" -- alt
 	-- "{㍹㍰㍹"..text.."㍹㍰㍹}" -- best 2
