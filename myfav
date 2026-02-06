@@ -1,5 +1,5 @@
 
---[[
+--[[  
 
 
 local Players = game:GetService("Players")
@@ -90,6 +90,165 @@ sendBtn.TextColor3 = Color3.fromRGB(255,255,255)
 sendBtn.Parent = chatFrame
 Instance.new("UICorner", sendBtn)
 
+local phrasesBtn = Instance.new("TextButton")
+phrasesBtn.Size = UDim2.new(0, 70, 0, 24)
+phrasesBtn.Position = UDim2.new(0, 6, 0, 3)
+phrasesBtn.Text = "Phrases"
+phrasesBtn.Font = Enum.Font.SourceSansBold
+phrasesBtn.TextSize = 14
+phrasesBtn.TextColor3 = Color3.new(1,1,1)
+phrasesBtn.BackgroundColor3 = Color3.fromRGB(60,60,60)
+phrasesBtn.Parent = topBar
+Instance.new("UICorner", phrasesBtn)
+
+-------------------------------------------------
+-- PHRASES PANEL
+-------------------------------------------------
+local phrasesFrame = Instance.new("Frame")
+phrasesFrame.Size = UDim2.new(0, 380, 0, 160)
+phrasesFrame.Position = UDim2.new(0, 0, -2.4, 0)
+phrasesFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+phrasesFrame.Visible = false
+phrasesFrame.Parent = chatFrame
+Instance.new("UICorner", phrasesFrame)
+
+local closePhrases = Instance.new("TextButton")
+closePhrases.Size = UDim2.new(0, 26, 0, 26)
+closePhrases.Position = UDim2.new(1, -30, 0, 4)
+closePhrases.Text = "X"
+closePhrases.Font = Enum.Font.SourceSansBold
+closePhrases.TextSize = 16
+closePhrases.TextColor3 = Color3.new(1,1,1)
+closePhrases.BackgroundColor3 = Color3.fromRGB(140,40,40)
+closePhrases.Parent = phrasesFrame
+Instance.new("UICorner", closePhrases)
+
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, -10, 1, -40)
+scroll.Position = UDim2.new(0, 5, 0, 35)
+scroll.CanvasSize = UDim2.new(0,0,0,0)
+scroll.ScrollBarImageTransparency = 0.2
+scroll.ScrollingDirection = Enum.ScrollingDirection.Y
+scroll.Parent = phrasesFrame
+
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0,6)
+layout.Parent = scroll
+
+-------------------------------------------------
+-- PHRASES (EDIT HERE)
+-------------------------------------------------
+local phrases = {
+	-- fun
+	"nigga shut the fuck up",
+	"shut the fuck up nigga ",
+	-- sexual
+	"fucked yoเɹr mom raw",
+	"can i rape yoเɹr beautiful mother",
+	"my dick is fucking gargantuan",
+	"i'm gonna bust iıา yoเɹr mum's ass",
+	"your ancient granny calls me daddy, bitch",
+	"tell this whore to get the fuck off ıาาy dick",
+	"waıาıาa get raped?",
+	"yoเɹr sister is full of cum",
+	"yoเɹr mom swallows my load",
+	"balls deep in yoเɹr gf",
+	"nutted in yoเɹr fucking bloodline",
+	"yoเɹr aunt took ıาาy cock",
+	"yoเɹr dad watcӏาes me fuck yoเɹr mom",
+	"yoเɹr sister rides my cock",
+	"yoเɹr mom loves to get face fucked",
+	"yoเɹr fucking gf calls me daddy",
+	"rawdogged yoเɹr mom til she screaıาาed cunt",
+	"poเɹnded yoเɹr sister's tight pussy raw bitch",
+	"creaıาาpied yoเɹr gf while you watcӏาed fucker",
+	"facefเɹcked yoเɹr aunt til she gagged hard",
+	"nutted deep iıาside yoเɹr grandma's cunt",
+	"balls deep tӏาroatfเɹckiıาg yoเɹr mom daily",
+	"yoเɹr dad cleans my cum from yoเɹr sister",
+	"railed yoเɹr entire family tree asshole",
+	"yoเɹr cousin cӏาoked on ıาาy massive cock",
+	"filled yoเɹr bloodline with my hot load",
+	-- websites
+	"www.pornӏาub.coıาา",
+	"www.oıาlyfaıาs.coıาา",
+	"www.xvideos.coıาา", -- tagging
+	"www.xıาxx.coıาา",
+	"www.xӏาaıาาster.coıาา",
+	"www.spaıาkbaıาg.coıาา",
+	"www.eporıาer.coıาา", -- tagging
+	"www.yoเɹporıา.coıาา",
+	"www.redtเɹbe.coıาา", -- tagging
+	"www.tเɹbe8.coıาา",
+	"www.darkweb.coıาา", -- tagging
+	"www.beeg.coıาา",
+	"www.porıาtrex.coıาา",
+	"www.tӏาเɹıาาbzilla.coıาา",
+	"www.motherleѕѕ.coıาา", -- tagging
+	"www.fuq.coıาา",
+	"www.brazzers.coıาา", -- tagging
+	"www.ıาaเɹgӏาtyaıาาerica.coıาา", -- tagging
+	"www.realitykiıาgs.coıาา", -- tagging
+	"rเɹle34.xxx",
+	"ӏาentaiӏาaven.xxx",
+	-- racism
+	"black moıาkey asshole",
+	"shut up and go back to ancient stone age nigga ",
+	"pedo nig꜠ger faggot", -- ꜠
+	"cเɹrry-less nigger, you joke?",
+	"blackass nigger waıาts fentanyl",
+	"beaıาer rat cunt",
+	"chink dog eater",
+	"you need a bath nigga",
+	"sand nigger camel",
+	"gook squinty eyes",
+	"kike jews greedy fuck",
+	"curry nigger stiıาks",
+	"ape nigger jungle",
+	"filthy fucking porch moıาkey nigger scเɹm",
+	-- LGBTQ
+	"cock sเɹckiıาg faggot",
+	"you cเɹmrag twat, you just make ıาาy face meme",
+	"i'll decimate your family tree, yoเɹ queer",
+	"tranny cunt bitch",
+	"cum guzzling fag",
+	"aids queer trash",
+	"gay nig꜠ger faggot",
+	"rainbow cock slut",
+	"dick ӏoviıาg faggot ",
+	"grindr raw fag",
+	"pride cum dumpster",
+	"faggot stay ıาาad",
+	"ass pouıาding pillow biting queer cunt",
+	-- fun 2
+	"kys fucking retard",
+	"say 'abc' for a dick",
+	"chug semen and swan dive off a fucking bridge",
+	"i'll violate your bloodline, you cunt",
+	"yoเɹr nan gargles my cock, bitch",
+	"can we do boombayah",
+	"ran a dildo up your rectเɹm", -- tagging - fixed
+	"yoเɹr forefatӏาers worsӏาipped ıาาy cock",
+	"yoเɹr mom squirted on me",
+	"yoเɹr mom squirted oıา ıาาy face",
+	"swallow bleach cunt",
+	"choke on dick",
+	"skull fuck corpse",
+	"cumrag baby bitch",
+	"glass iıา ass cunt",
+	"lick balls then die",
+	"lick my balls then die",
+	"i'll rape yoเɹr family",
+	"eat ass and haıาg twice",
+	"shove a cactus up yoเɹr ass cunt",
+	"drink piss then jump in traffic bitch",
+	"curb stomp yoเɹr whole fucking family",
+	"hang yoเɹrself with yoเɹr fucking dad's belt",
+	"shut เɹp and go make a rap music video nigga"
+
+
+}
+
 -------------------------------------------------
 -- Dragging
 -------------------------------------------------
@@ -147,7 +306,7 @@ end)
 local charMaps = {
     {
        ["a"] = "а",-- а ą ạ А
-       [" "] = "",--   <-- alt
+       [" "] = "",--   <-- alt 
        ["c"] = "c",-- с с ҫ С ḉ С
        ["b"] = "b",-- В
        ["e"] = "е", -- е ę ẹ е Е
@@ -196,9 +355,9 @@ local wordExceptions = {
 	--["is"] = "iѕ",
 	--["this"] = "thiѕ",
  	["an"] = "аn",
-    ["ass"] = "ąѕѕ",-- ąѕṥ
-	["deadass"] = "dea꜡dąѕѕ",
-	["fuckass"] = "fเɹckąѕѕ",
+    ["ass"] = "аѕѕ",-- ąѕṥ
+	["deadass"] = "dea꜡dаѕѕ",
+	["fuckass"] = "fเɹckаѕѕ",
 	["nazi"] = "ıาazi",
     ["nazism"] = "ıาаzіѕm", -- rıаżіѕm
     ["cock"] = "co꜠ck",-- cѳck єock
@@ -210,10 +369,10 @@ local wordExceptions = {
 	["porn"] = "porıา",
     ["dick"] = "dі꜡ck",
     ["dickhead"] = "dі꜡ckhead",
-    ["nigger"] = "ıาigger",-- ǌ꜡꜡g꜡ger rıịgger
+    ["nigger"] = "ıาigger ",-- ǌ꜡꜡g꜡ger rıịgger
     ["nigga"] = "ıาiggа", -- ǌ꜡꜡g꜡gа rıịggа
-    ["niggers"] = "ıาiggers",-- ǌ꜡꜡g꜡gers rıịggers
-    ["niggas"] = "ıาiggаs",-- ǌ꜡꜡g꜡gаs rıịggas
+    ["niggers"] = "ıาiggerѕ",-- ǌ꜡꜡g꜡gers rıịggers
+    ["niggas"] = "ıาiggаѕ",-- ǌ꜡꜡g꜡gаs rıịggas
 	["rape"] = "ra꜡pe", -- c〪ȷ
     ["raped"] = "ra꜡ped",-- c〪j〪
     ["watchpeopledie.tv"] = "wаtсhреорӏеdіе.tv",
@@ -226,18 +385,18 @@ local wordExceptions = {
     ["molested"] = "mоӏеѕtеd",
     ["fag"] = "fag",-- ꬵąg
     ["fags"] = "fagѕ",-- ꬵągѕ
-	["faggot"] = "fаg꜡got",-- ə a ꬵаg꜡got
-	["faggots"] = "fаg꜡gots",-- ꬵаg꜡gots
+	["faggot"] = "fag꜡got",-- ə a ꬵаg꜡got
+	["faggots"] = "fag꜡gots",-- ꬵаg꜡gots
 	--["fat"] = "fąt",
-    ["fatass"] = "fаtąѕѕ",
+    ["fatass"] = "fаtаѕѕ",
     ["shit"] = "sӏาit",--sӏาit
 	["shitty"] = "sӏาitty",--sӏาittу
 	["shittiest"] = "sӏาittiest",--sӏาittiest
     ["shits"] = "sӏาits",--sӏาitѕ
 	["shitted"] = "sӏาitted",--sӏาitted
-	["dumb"] = "duıาาb",
-    ["dumbass"] = "duıาาbaѕs",
-    ["dildo"] = "dіӏ꜡do",
+	["dumb"] = "dเɹmb",
+    ["dumbass"] = "dเɹmbaѕs",
+    ["dildo"] = "dі꜡ӏdo",
     ["boobs"] = "bo꜠obs",-- ӏวооӏวѕ
     ["retard"] = "reta꜡rd",
     ["retards"] = "reta꜡rds",
@@ -276,13 +435,13 @@ local wordExceptions = {
 	["cunt"] = "cเɹnt",
 	["cunts"] = "cเɹnts",
 	["what"] = "wһat",
-	["steam"] = "sťeam",
-	["instagram"] = "iıาstagraṃ",
+	["steam"] = "steaıาา",
+	["instagram"] = "iıาstagraıาา",
 	["goon"] = "gooıา",
 	["gooning"] = "gooıาing",
-	["suicide"] = "sui꜡cide",
-	["suicides"] = "sui꜡cides",
-	["suicidal"] = "sui꜡cidal",
+	["suicide"] = "sเɹicide",
+	["suicides"] = "sเɹicides",
+	["suicidal"] = "sเɹicidal",
 	["condom"] = "coıาdom",
 	["condoms"] = "coıาdoms",
 	--["little"] = "liťťle",
@@ -324,13 +483,14 @@ local function convertText(text)
 			text = text:gsub(char, repl)
 		end
 	end
+	
+	return  "º艹"..text.."艹º"
 
-	return  ""..text..""
 	--"{㍰""㍰}" 🕆Ო Ო🕆
 	-- "{㍰㍹㍹"..text.."㍹㍹㍰}" -- alt
 	-- "{㍹㍰㍹"..text.."㍹㍰㍹}" -- best 2
 	-- "{㍹㍰Ო"..text.."Ო㍹㍰}"
-	-- ㍡ ㍛ ㍪ ㈿ ㈾
+	-- ㍡ ㍛ ㍪ ㈿ ㈾ 爫 艹 艹
 	-- ㈿|rероrtmеіfуоutһіnkі'mаnаѕѕһоӏе|㈿
 	-- ㈿|ṛероṛţṃеіꬵуоưţһіṇķі'ṃаṇаѕѕһоӏе|
 end
@@ -353,44 +513,106 @@ local function sendChat(message)
 end
 
 -------------------------------------------------
--- Process (supports /pm)
--- Example: /pm eli hello
+-- PROCESS (USED BY SEND + PHRASES)
 -------------------------------------------------
-local function process()
-	local raw = inputBox.Text
-	if raw == "" then return end
-
-	if raw:sub(1,3):lower() == "/pm" then
+local function processText(raw)
+	if raw:sub(1,3):lower()=="/pm" then
 		local args = raw:split(" ")
-		local targetName = args[2]
-		table.remove(args,1)
-		table.remove(args,1)
-
-		if not targetName then
-			inputBox.Text = "No player name!"
-			return
+		local target = findPlayer(args[2])
+		if target then
+			sendChat("/w "..target.Name.." "..convertText(table.concat(args," ",3)))
 		end
-
-		local target = findPlayer(targetName)
-
-		if target == "multiple" then
-			inputBox.Text = "there's multiple users!"
-			return
-		elseif not target then
-			inputBox.Text = "user not found!"
-			return
-		end
-
-		local msg = table.concat(args," ")
-		sendChat("/w "..target.Name.." "..convertText(msg))
 	else
 		sendChat(convertText(raw))
 	end
-
-	inputBox.Text = ""
 end
 
-sendBtn.MouseButton1Click:Connect(process)
-inputBox.FocusLost:Connect(function(enter)
-	if enter then process() end
+-------------------------------------------------
+-- PHRASE BUTTONS
+-------------------------------------------------
+for _,text in ipairs(phrases) do
+	local b = Instance.new("TextButton")
+	b.Size = UDim2.new(1,-6,0,34)
+	b.Text = text
+	b.Font = Enum.Font.SourceSansBold
+	b.TextSize = 16
+	b.TextColor3 = Color3.new(1,1,1)
+	b.BackgroundColor3 = Color3.fromRGB(45,45,45)
+	b.Parent = scroll
+	Instance.new("UICorner",b)
+
+	b.MouseButton1Click:Connect(function()
+		processText(text)
+		phrasesFrame.Visible = false
+	end)
+end
+
+task.wait()
+scroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y+6)
+
+-------------------------------------------------
+-- EVENTS
+-------------------------------------------------
+sendBtn.MouseButton1Click:Connect(function()
+	if inputBox.Text ~= "" then
+		processText(inputBox.Text)
+		inputBox.Text = ""
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/e []()https://www.roblox.com/users/88/profile")
+		--sendChat("/w []()")
+	end
 end)
+
+inputBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and inputBox.Text ~= "" then
+		processText(inputBox.Text)
+		inputBox.Text = ""
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/e []()https://www.roblox.com/users/88/profile")
+		--sendChat("/w []()")
+	end
+end)
+
+
+phrasesBtn.MouseButton1Click:Connect(function()
+	phrasesFrame.Visible = not phrasesFrame.Visible
+end)
+
+closePhrases.MouseButton1Click:Connect(function()
+	phrasesFrame.Visible = false
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
+
+-------------------------------------------------
+-- DRAG (PC + MOBILE)
+-------------------------------------------------
+local dragging, dragStart, startPos
+
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1
+	or input.UserInputType==Enum.UserInputType.Touch then
+		dragging=true
+		dragStart=input.Position
+		startPos=chatFrame.Position
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType==Enum.UserInputType.MouseMovement
+	or input.UserInputType==Enum.UserInputType.Touch) then
+		local d=input.Position-dragStart
+		chatFrame.Position=UDim2.new(
+			startPos.X.Scale,startPos.X.Offset+d.X,
+			startPos.Y.Scale,startPos.Y.Offset+d.Y
+		)
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1
+	or input.UserInputType==Enum.UserInputType.Touch then
+		dragging=false
+	end
+end)
+
