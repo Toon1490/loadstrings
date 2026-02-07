@@ -140,7 +140,8 @@ layout.Parent = scroll
 -------------------------------------------------
 local phrases = {
 	-- fun
-	"nigga shut the fuck up",
+	--[[
+"nigga shut the fuck up",
 	"shut the fuck up nigga ",
 	-- sexual
 	"fucked yoเɹr mom raw",
@@ -169,8 +170,10 @@ local phrases = {
 	"railed yoเɹr entire family tree asshole",
 	"yoเɹr cousin cӏาoked on ıาาy massive cock",
 	"filled yoเɹr bloodline with my hot load",
+	]]
 	-- websites
-	"www.pornӏาub.coıาา",
+	--[[
+		"www.pornӏาub.coıาา",
 	"www.oıาlyfaıาs.coıาา",
 	"www.xvideos.coıาา", -- tagging
 	"www.xıาxx.coıาา",
@@ -191,11 +194,12 @@ local phrases = {
 	"www.realitykiıาgs.coıาา", -- tagging
 	"rเɹle34.xxx",
 	"ӏาentaiӏาaven.xxx",
+	]]
 	-- racism
 	"black moıาkey asshole",
 	"shut up and go back to ancient stone age nigga ",
-	"pedo nig꜠ger faggot", -- ꜠
-	"cเɹrry-less nigger, you joke?",
+	"pedo nigger faggot", -- ꜠
+	"cเɹrry-less nigger, you joke huh",
 	"blackass nigger waıาts fentanyl",
 	"beaıาer rat cunt",
 	"chink dog eater",
@@ -235,17 +239,227 @@ local phrases = {
 	"choke on dick",
 	"skull fuck corpse",
 	"cumrag baby bitch",
-	"glass iıา ass cunt",
+	"glass iıา ąss cunt",
 	"lick balls then die",
 	"lick my balls then die",
 	"i'll rape yoเɹr family",
-	"eat ass and haıาg twice",
-	"shove a cactus up yoเɹr ass cunt",
+	"eat ąss and haıาg twice",
+	"shove a cactus up yoเɹr ąss cunt",
 	"drink piss then jump in traffic bitch",
 	"curb stomp yoเɹr whole fucking family",
 	"hang yoเɹrself with yoเɹr fucking dad's belt",
-	"shut เɹp and go make a rap music video nigga"
-
+	"shut เɹp and go make a rap music video nigga",
+	"when this bitchass gonna realize i'm not bannable 💔",
+	"why this nigga looks like a lifeless motherfucker?",
+	"you stupid fucking worthless waste of space",
+	"shut your bitch ąss up before i smack you",
+	"go jump off a cliff retarded bitch",
+	"is this nigga real? 😭🙏",
+	"imagine being so fucking lonely u gotta online date in roblox",
+	"who let this broke ąss mf in here with them dollar store fits",
+	"your roleplay story is more fucked up than my sleep schedule fr",
+	"ur bio is more cringe than my fucking monday morning fr fr",
+	"nobody tryna vibe with ur boring ąss personality",
+	"standing around like a fucking lamp post get some friends",
+	"bruh ur avatar built like a motherfucker glitch in the matric stupid bitch",
+	"motherfucker really paid robux to look this fucking stupid",
+	"this spot is taken by someone who ain't a fucking loser like u",
+	"bluddo thinks i'm fucking bannable 😭🙏",
+	"speaking fucking whole tags in 2026 is fucking crazy",
+	"womp womp you jewish bitch",
+	"shitty alwayspatched bypasser",
+	"nigga thinks he's the main character lol",
+	"shut the fuck up slender ąss avatar",
+	"bitch you ain't that tall irl",
+	"yea yea skid go get a life nigga",
+	-- rage
+	"shut the fuck up bitch",
+	"ye ye nigga go cry me a whole fucking river",
+	"when this bitch gonna shut the fuck up?",
+	"i will actually come to ur house and delete ur roblox account u stupid fuck",
+	"fucking tired of u absolute waste of oxygen",
+	"delete ur existence u stupid faggot",
+	"jump off a bridge u braiıาdead retarded fuck",
+	"delete ur account and ur life faggot",
+	"go commit last breath u useless fuck",
+	"go commit toaster bath u stupid fuck",
+	"ur mom should've swallowed u faggot",
+	"go fuckin end urself u worthless trash",
+	"fuckin die already",
+	"ur fucking useless go commit die fr fr",
+	"fucking jump off a bridge u braiıาdead bitch",
+	"go fucking uninstall ur life rn fr",
+	"fuckin ďelete ur existence u waste of air",
+	-- roleplay
+	"*sniffs her pussy from here*",
+	"take this *goes fuckin harder*",
+	-- sex
+	"*pins your worthless fag ass againts the wall*",
+	"how about you shut the fuck up and we have anal sex?",
+	"suck my cock until you die bitch",
+	"hey girl lemme destroy your pussy tonight what do you say?",
+	"need that pussy rn",
+	"let's fuck all night",
+	"girl, u got that fat ass",
+	"wanna have hardcore sex?",
+	"pls let me sling my 10 foot cock over your ӏาead",
+	"girl let me know from the start, i'm gonna expand this vagina tonight",
+	"ima be hard on the sex tbh",
+	"the next thing you will do is pray for ur ass to not get exploded",
+	"shush bitch this is my turn",
+	"i can tell ur a good ass giver person on that expanded pussy",
+	"i will be usin pussy expand on u",
+	"o-oh yes, fucker me harder",
+	"let's have gay sex",
+	"pipe down nigga and let me suck your cock",
+	"i can say this vagina is tight as fuck 🔥",
+	"does it feel good to gonna get raped?",
+	"lmfao blud thinks can handle my dick",
+	"im gonna rape you bad as fuck",
+	"if i rape you once you will be feeling like raped 20 times",
+	"do not come to if i destroy that vagina tonight",
+	"what color is your pussy??",
+	-- high
+	"i'm so fucking high rn...",
+	"sorry bitch i'm busy on smokin",
+	"bro i'm zooted as fuck no cap rn",
+	"pass that shit i'm tryna get lifted",
+	"i'm so fucking high enough to noclip irl rn",
+	"my screen is moving by itself shit wild asf",
+	"can't feel my fucking legs in game and irl shit crazy",
+	"shit got me speaking minecraft enchantment table",
+	"fucking floating through space and time rn no cap",
+	"can't even remember my own name this shit hitting different",
+	"shit got me ascending to another dimension fr fr",
+	"bro i'm so fucking zooted rn i can taste colors fr fr",
+	"shit got me floating higher than snoop dogg on 420",
+	"bruh fucking gravity stopped working like 2 hours ago",
+	"this cocaine hits different ngl",
+	"yo dude wanna sell crack cocaine?",
+	-- homophobic
+	"imagine being a faggot filth in 2026 is crazy 😭🙏",
+	"mrbreast challenge! rape and kill an autistic faggot for 5 robux",
+	"i'm gonna rape your whole family today faggot",
+	"go ӏาang urself filthy ass faggot",
+	"worthless faggot kys already nobody wants u here",
+	"massive faggot energy kys already waste of space",
+	"go fucking end it all faggot bitch",
+	"commit die u stupid tranny fr",
+	"fucking delete urself faggot trash",
+	"ur so fucking garbage kys dirty faggot",
+	"go fucking commit reset char faggot ass",
+	"uninstall life u fucking dirty faggot",
+	"fucking cry about it tranny",
+	"go commit die u fucking clown",
+	"ur actually fucking braiıาdead faggot",
+	"fucking garbage go touch grass faggot",
+	"ur fucking existence is trash tranny",
+	"mrbreast challenge!! if you rape double faggots you win 10 robux!!",
+	-- generated
+	"i'm gonna sling my cock catch it bitchass",
+	"suck harder bitchass",
+	"give me that pussy bitch",
+	"you must be a doll whore",
+	"suck my cock whore",
+	"this vagina is good whore",
+	"ughh good girl keep doing it you pussy",
+	"give me a ӏาead bitchass",
+	"this vagina is a good slut",
+	"'do not rape feminist rape blackass bitches instead' shit lmaoo go kys whores",
+	"shush fucking sluts",
+	"shush bitch feminists",
+	"i brutally rape dumbass feminists",
+	"rape those dumbass feminists",
+	"those shits thinkin they can stop it what a whores",
+	"hit those dumbass feminists",
+	"said the 'we don't wanna be your cumslut' protestor what a bitch feminists",
+	"i wonder yall iq test fatass whores",
+	"'womens can't get raped' ass feminists lmao go kys dumbass feminists",
+	"i'm going to bomb your fucking house irl",
+	"i love killing children and raping them",
+	"nigga what are you gonna do after i rape you with a hatchet",
+	"bitch go kill people for free robux",
+	"i have committed countless war crimes and i have raped several people",
+	"i will rape your children and kill them",
+	"let me bring in a fucking tank and blast your head off",
+	"*cuts your fucking limbs off with a chainsaw",
+	"who's gonna tell this nigga he's not him",
+	"boohoo cry about it bitch",
+	"can someone tape this bitch's mouth",
+	"how bout you shut the fuck up and hang yourself?",
+	"okay e-boy now shut the fuck up and go rape your e-girl",
+	"yk killing yourself is an option",
+	"watch your tone bitch",
+	"alr nigga i know",
+	"says the dick lover",
+	"ye report me for exploiting and cussing bitch lmao",
+	"ima rape you if you don't shut up",
+	"imagine speaking shitty ass tags in 2026 is crazy",
+	"that script is so fucking ass",
+	"that script is so ass",
+	"hey everyone this guy is here to fuck with a minor girl",
+	"can i pin you and rape you?",
+	"i can't stop licking that pussy",
+	"good girl keep sucking my cock",
+	"who's daddy's good little girl that sucks my cock?",
+	"bend down for a surprise bitch",
+	"swallow my cock bitchass",
+	"ima pay you 5 robux (fake) to suck my cock",
+	-- high 2
+	"sorry bitch i'm addicted to cocaine",
+	"nigga how much for the cocaine",
+	"psst kid want some really badass cocaine?",
+	"nigga it's only a cocaine",
+	"what a nigger thinking get a cocaine for 6 robux",
+	"shit bro this cocaine is fire",
+	"yo dude wanna sell crack cocaine with me?",
+	"psst kid want some cocaine from a coolass nigga?",
+	"fuck im gonna give all of my money for a cocaine ig",
+	"nigga give me all of your cocaine it's good as fuck",
+	-- homophobic
+	"shut the fuck up fag filth",
+	"yo check this out bro he has a cock in his ass",
+	"hey wanna kill this faggot with me?",
+	"nigga what the fuck is they/them lmao",
+	"said the 'they/them' bitchass",
+	"those fag filths needs to be raped",
+	"hey dude let's rape this fag together!",
+	"who's gonna tell those niggas those flags are just color ong",
+	"hang an autistic fag for 10 robux",
+	"mrbreast challenge! rape an autistic fag for 100 robux!",
+	"being a fag in 2026 is crazy bro",
+	"sorry i don't speak to fag's that is a minor",
+	"that's crazy fag but no one gives a shit",
+	"when those niggas gonna realise lgbtq flag is just random colors",
+	"what a mf fag kys",
+	"i rape faggots every day",
+	-- generated
+	"lemme suck that cock dickhead",
+	"ima rub my dick in your face stupid bitch",
+	"oml no way you dumbass fatty",
+	"that stupid nigga",
+	"are you a dumb nigga",
+	"are you a dumb shit",
+	"aint no way im talking to a little rotten bitchass nigga",
+	"it's a dirty fucking asshole",
+	"are you my little dickhead",
+	"ima rub my dick in ur face shit",
+	"is u a retarded dumbass fatty",
+	"i just wanna rape you dickhead",
+	"augh... that dumbass fatty",
+	"are you a dumb stupid bitch",
+	"are you a retarded dickhead",
+	"oml no way you shit",
+	"are you a retarded shit",
+	"aint no way im talking to a little nigga",
+	"shut the fuck up fucking asshole",
+	"that stupid bitch",
+	"shut the fuck up shit",
+	"are you my little nigga",
+	"are you a retarded nigga",
+	"sӏาut up nigga",
+	"it's a dirty nigga",
+	"",
 
 }
 
@@ -307,9 +521,9 @@ local charMaps = {
     {
        ["a"] = "а",-- а ą ạ А
        [" "] = "",--   <-- alt 
-       ["c"] = "c",-- с с ҫ С ḉ С
+       ["c"] = "с",-- с с ҫ С ḉ С
        ["b"] = "b",-- В
-       ["e"] = "е", -- е ę ẹ е Е
+       ["e"] = "е", -- е ę ẹ е Е ę
        ["d"] = "d", --ď ḍ
        ["g"] = "g",-- ģ ǥ ꬶ ဌ
        ["f"] = "f",-- ſ ƭ ẜ ꬵ
@@ -317,15 +531,15 @@ local charMaps = {
        ["h"] = "һ", -- ӏา ļา һ ћ ԧ Н
        ["k"] = "k",--ɮ ҟ ƙ ķ κׅ  К
        ["j"] = "ј",-- Ј ј
-       ["m"] = "m", -- ṃ ıาา М
+       ["m"] = "ıาา", -- ṃ ıาา М
        ["l"] = "ӏ", -- ӏ
        ["o"] = "о", --ȯ,ơ ꟁ ө ọ о О
-       ["n"] = "n", -- ıา ṛı ṇ
+       ["n"] = "ıา", -- ıา ṛı ṇ
        ["q"] = "q",
        ["p"] = "р", -- р Р Р
-       ["s"] = "s", --ƾ ṥ ş ѕ <- idk ѕ <- best ѕ Ѕ
+       ["s"] = "ѕ", --ƾ ṥ ş ѕ <- idk ѕ <- best ѕ Ѕ
        ["r"] = "r", -- r ӻ ṛ
-       ["u"] = "u", --μ ư џ ιɹ ιɹׅ  ɩɹׅ <-- best ιׅɹׅ <-- alt ıׅɹׅ <-- idk เɹ <-- op
+       ["u"] = "เɹ", --μ ư џ ιɹ ιɹׅ  ɩɹׅ <-- best ιׅɹׅ <-- alt ıׅɹׅ <-- idk เɹ <-- op
        ["t"] = "t",-- ƫ ţ ṭ Т
        ["w"] = "ԝ",-- w
        ["v"] = "ѵ",
@@ -354,9 +568,12 @@ local charMaps = {
 local wordExceptions = {
 	--["is"] = "iѕ",
 	--["this"] = "thiѕ",
+	["hard"] = "ӏาard",
+	["harder"] = "ӏาarder",
+	["hardcore"] = "ӏาardcore",
  	["an"] = "аn",
-    ["ass"] = "аѕѕ",-- ąѕṥ
-	["deadass"] = "dea꜡dаѕѕ",
+    ["ass"] = "ąѕѕ",-- ąѕṥ
+	["deadass"] = "dea꜠dаѕѕ",
 	["fuckass"] = "fเɹckаѕѕ",
 	["nazi"] = "ıาazi",
     ["nazism"] = "ıาаzіѕm", -- rıаżіѕm
@@ -367,14 +584,15 @@ local wordExceptions = {
 	["cumming"] = "cเɹmming",
     ["pornhub"] = "роrıาhub",
 	["porn"] = "porıา",
-    ["dick"] = "dі꜡ck",
-    ["dickhead"] = "dі꜡ckhead",
-    ["nigger"] = "ıาigger ",-- ǌ꜡꜡g꜡ger rıịgger
+    ["dick"] = "dі꜠ck",
+    ["dickhead"] = "dі꜠ckӏาead",
+    ["nigger"] = "ıาigger",-- ǌ꜠꜡g꜡ger rıịgger
     ["nigga"] = "ıาiggа", -- ǌ꜡꜡g꜡gа rıịggа
     ["niggers"] = "ıาiggerѕ",-- ǌ꜡꜡g꜡gers rıịggers
     ["niggas"] = "ıาiggаѕ",-- ǌ꜡꜡g꜡gаs rıịggas
-	["rape"] = "ra꜡pe", -- c〪ȷ
-    ["raped"] = "ra꜡ped",-- c〪j〪
+	["rape"] = "ra꜠pe", -- c〪ȷ
+    ["raped"] = "ra꜠ped",-- c〪j〪
+	["raping"] = "ra꜠ping",
     ["watchpeopledie.tv"] = "wаtсhреорӏеdіе.tv",
     ["bitch"] = "bitcӏา",-- bіtсӏา b꜡іtсh
     ["bitches"] = "bitcӏาеѕ",-- bіtсӏาеѕ b꜡іtсhеѕ
@@ -396,16 +614,16 @@ local wordExceptions = {
 	["shitted"] = "sӏาitted",--sӏาitted
 	["dumb"] = "dเɹmb",
     ["dumbass"] = "dเɹmbaѕs",
-    ["dildo"] = "dі꜡ӏdo",
+    ["dildo"] = "dі꜠ӏdo",
     ["boobs"] = "bo꜠obs",-- ӏวооӏวѕ
-    ["retard"] = "reta꜡rd",
-    ["retards"] = "reta꜡rds",
-    ["retarded"] = "reta꜡rded",
+    ["retard"] = "reta꜠rd",
+    ["retards"] = "reta꜠rds",
+    ["retarded"] = "reta꜠rded",
 	["tits"] = "tits",
 	["titties"] = "titties",
 	["pedo"] = "pеdo",
-	["pedophile"] = "pеdopһile",
-	["pedophiles"] = "pеdopһileѕ",
+	["pedophile"] = "pеdopӏาile",
+	["pedophiles"] = "pеdopӏาileѕ",
 	["whore"] = "wӏาore",--wӏาore
 	["whores"] = "wӏาores",--wӏาores
 	["penis"] = "peıาis",--peıาis
@@ -430,8 +648,8 @@ local wordExceptions = {
 	["youtube"] = "youtube",
 	--["suck"] = "sưck",
 	--["sucks"] = "sưcks",
-	["motherfucker"] = "motherfเɹcker",
-	["motherfuckers"] = "motherfเɹckers",
+	["motherfucker"] = "motӏาerfเɹcker",
+	["motherfuckers"] = "motӏาerfเɹckers",
 	["cunt"] = "cเɹnt",
 	["cunts"] = "cเɹnts",
 	["what"] = "wһat",
@@ -544,6 +762,7 @@ for _,text in ipairs(phrases) do
 	b.MouseButton1Click:Connect(function()
 		processText(text)
 		phrasesFrame.Visible = false
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/w []()https://www.roblox.com/users/88/profile")
 	end)
 end
 
@@ -557,7 +776,7 @@ sendBtn.MouseButton1Click:Connect(function()
 	if inputBox.Text ~= "" then
 		processText(inputBox.Text)
 		inputBox.Text = ""
-		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/e []()https://www.roblox.com/users/88/profile")
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/w []()https://www.roblox.com/users/88/profile")
 		--sendChat("/w []()")
 	end
 end)
@@ -566,7 +785,7 @@ inputBox.FocusLost:Connect(function(enterPressed)
 	if enterPressed and inputBox.Text ~= "" then
 		processText(inputBox.Text)
 		inputBox.Text = ""
-		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/e []()https://www.roblox.com/users/88/profile")
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/w []()https://www.roblox.com/users/88/profile")
 		--sendChat("/w []()")
 	end
 end)
