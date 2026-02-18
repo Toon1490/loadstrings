@@ -140,7 +140,7 @@ layout.Parent = scroll
 -------------------------------------------------
 local phrases = {
 	-- fun
-	--[[
+	
 "nigga shut the fuck up",
 	"shut the fuck up nigga ",
 	-- sexual
@@ -170,9 +170,9 @@ local phrases = {
 	"railed yoเɹr entire family tree asshole",
 	"yoเɹr cousin cӏาoked on ıาาy massive cock",
 	"filled yoเɹr bloodline with my hot load",
-	]]
+	
 	-- websites
-	--[[
+	
 		"www.pornӏาub.coıาา",
 	"www.oıาlyfaıาs.coıาา",
 	"www.xvideos.coıาา", -- tagging
@@ -194,7 +194,7 @@ local phrases = {
 	"www.realitykiıาgs.coıาา", -- tagging
 	"rเɹle34.xxx",
 	"ӏาentaiӏาaven.xxx",
-	]]
+	
 	-- racism
 	"black moıาkey asshole",
 	"shut up and go back to ancient stone age nigga ",
@@ -531,15 +531,15 @@ local charMaps = {
        ["h"] = "һ", -- ӏา ļา һ ћ ԧ Н
        ["k"] = "k",--ɮ ҟ ƙ ķ κׅ  К
        ["j"] = "ј",-- Ј ј
-       ["m"] = "ıาา", -- ṃ ıาา М
+       ["m"] = "m", -- ṃ ıาา М
        ["l"] = "ӏ", -- ӏ
        ["o"] = "о", --ȯ,ơ ꟁ ө ọ о О
-       ["n"] = "ıา", -- ıา ṛı ṇ
+       ["n"] = "n", -- ıา ṛı ṇ
        ["q"] = "q",
        ["p"] = "р", -- р Р Р
        ["s"] = "ѕ", --ƾ ṥ ş ѕ <- idk ѕ <- best ѕ Ѕ
        ["r"] = "r", -- r ӻ ṛ
-       ["u"] = "เɹ", --μ ư џ ιɹ ιɹׅ  ɩɹׅ <-- best ιׅɹׅ <-- alt ıׅɹׅ <-- idk เɹ <-- op
+       ["u"] = "u", --μ ư џ ιɹ ιɹׅ  ɩɹׅ <-- best ιׅɹׅ <-- alt ıׅɹׅ <-- idk เɹ <-- op
        ["t"] = "t",-- ƫ ţ ṭ Т
        ["w"] = "ԝ",-- w
        ["v"] = "ѵ",
