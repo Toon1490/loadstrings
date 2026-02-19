@@ -239,12 +239,12 @@ local phrases = {
 	"choke on dick",
 	"skull fuck corpse",
 	"cumrag baby bitch",
-	"glass iıา ąss cunt",
+	"glass iıา ass cunt",
 	"lick balls then die",
 	"lick my balls then die",
 	"i'll rape yoเɹr family",
-	"eat ąss and haıาg twice",
-	"shove a cactus up yoเɹr ąss cunt",
+	"eat ass and haıาg twice",
+	"shove a cactus up yoเɹr ass cunt",
 	"drink piss then jump in traffic bitch",
 	"curb stomp yoเɹr whole fucking family",
 	"hang yoเɹrself with yoเɹr fucking dad's belt",
@@ -252,14 +252,14 @@ local phrases = {
 	"when this bitchass gonna realize i'm not bannable 💔",
 	"why this nigga looks like a lifeless motherfucker?",
 	"you stupid fucking worthless waste of space",
-	"shut your bitch ąss up before i smack you",
+	"shut your bitch ass up before i smack you",
 	"go jump off a cliff retarded bitch",
 	"is this nigga real? 😭🙏",
 	"imagine being so fucking lonely u gotta online date in roblox",
-	"who let this broke ąss mf in here with them dollar store fits",
+	"who let this broke ass mf in here with them dollar store fits",
 	"your roleplay story is more fucked up than my sleep schedule fr",
 	"ur bio is more cringe than my fucking monday morning fr fr",
-	"nobody tryna vibe with ur boring ąss personality",
+	"nobody tryna vibe with ur boring ass personality",
 	"standing around like a fucking lamp post get some friends",
 	"bruh ur avatar built like a motherfucker glitch in the matric stupid bitch",
 	"motherfucker really paid robux to look this fucking stupid",
@@ -269,7 +269,7 @@ local phrases = {
 	"womp womp you jewish bitch",
 	"shitty alwayspatched bypasser",
 	"nigga thinks he's the main character lol",
-	"shut the fuck up slender ąss avatar",
+	"shut the fuck up slender ass avatar",
 	"bitch you ain't that tall irl",
 	"yea yea skid go get a life nigga",
 	-- rage
@@ -834,4 +834,3 @@ UserInputService.InputEnded:Connect(function(input)
 		dragging=false
 	end
 end)
-
