@@ -1,0 +1,854 @@
+﻿
+--[[  
+
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local res = ReplicatedStorage:WaitForChild("Respawn")
+
+res:FireServer()
+
+
+]]
+
+--// Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local TextChatService = cloneref(game:GetService("TextChatService"))
+
+local player = Players.LocalPlayer
+
+--// GUI
+local gui = Instance.new("ScreenGui")
+gui.Name = "CustomChatBox"
+gui.ResetOnSpawn = false
+gui.Parent = game.CoreGui
+
+-- Main frame
+local chatFrame = Instance.new("Frame")
+chatFrame.Size = UDim2.new(0, 380, 0, 70)
+chatFrame.Position = UDim2.new(0.5, -190, 0.85, 0)
+chatFrame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+chatFrame.BorderSizePixel = 0
+chatFrame.Parent = gui
+chatFrame.Active = true
+Instance.new("UICorner", chatFrame).CornerRadius = UDim.new(0,8)
+
+-- Top bar (drag area)
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1, 0, 0, 30)
+topBar.BackgroundTransparency = 1
+topBar.Parent = chatFrame
+
+-- Close button
+local closeBtn = Instance.new("TextButton")
+closeBtn.Size = UDim2.new(0, 28, 0, 24)
+closeBtn.Position = UDim2.new(1, -32, 0, 3)
+closeBtn.BackgroundColor3 = Color3.fromRGB(150,40,40)
+closeBtn.Text = "X"
+closeBtn.Font = Enum.Font.SourceSansBold
+closeBtn.TextSize = 16
+closeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+closeBtn.Parent = topBar
+Instance.new("UICorner", closeBtn)
+
+-- Minimize button
+local minimizeBtn = Instance.new("TextButton")
+minimizeBtn.Size = UDim2.new(0, 28, 0, 24)
+minimizeBtn.Position = UDim2.new(1, -64, 0, 3)
+minimizeBtn.BackgroundColor3 = Color3.fromRGB(70,70,70)
+minimizeBtn.Text = "-"
+minimizeBtn.Font = Enum.Font.SourceSansBold
+minimizeBtn.TextSize = 18
+minimizeBtn.TextColor3 = Color3.fromRGB(255,255,255)
+minimizeBtn.Parent = topBar
+Instance.new("UICorner", minimizeBtn)
+
+-- Input box
+local inputBox = Instance.new("TextBox")
+inputBox.Size = UDim2.new(1, -70, 0, 30)
+inputBox.Position = UDim2.new(0, 10, 0, 35)
+inputBox.BackgroundTransparency = 1
+inputBox.Text = ""
+inputBox.PlaceholderText = "Underated Bypasser"--Type your message...
+inputBox.Font = Enum.Font.SourceSans
+inputBox.TextSize = 20
+inputBox.TextColor3 = Color3.fromRGB(255,255,255)
+inputBox.ClearTextOnFocus = false
+inputBox.Parent = chatFrame
+
+-- Send button
+local sendBtn = Instance.new("TextButton")
+sendBtn.Size = UDim2.new(0, 50, 0, 30)
+sendBtn.Position = UDim2.new(1, -55, 0, 35)
+sendBtn.BackgroundColor3 = Color3.fromRGB(50,50,50)
+sendBtn.Text = "Send"
+sendBtn.Font = Enum.Font.SourceSansBold
+sendBtn.TextSize = 18
+sendBtn.TextColor3 = Color3.fromRGB(255,255,255)
+sendBtn.Parent = chatFrame
+Instance.new("UICorner", sendBtn)
+
+local phrasesBtn = Instance.new("TextButton")
+phrasesBtn.Size = UDim2.new(0, 70, 0, 24)
+phrasesBtn.Position = UDim2.new(0, 6, 0, 3)
+phrasesBtn.Text = "Phrases"
+phrasesBtn.Font = Enum.Font.SourceSansBold
+phrasesBtn.TextSize = 14
+phrasesBtn.TextColor3 = Color3.new(1,1,1)
+phrasesBtn.BackgroundColor3 = Color3.fromRGB(60,60,60)
+phrasesBtn.Parent = topBar
+Instance.new("UICorner", phrasesBtn)
+
+-------------------------------------------------
+-- PHRASES PANEL
+-------------------------------------------------
+local phrasesFrame = Instance.new("Frame")
+phrasesFrame.Size = UDim2.new(0, 380, 0, 160)
+phrasesFrame.Position = UDim2.new(0, 0, -2.4, 0)
+phrasesFrame.BackgroundColor3 = Color3.fromRGB(25,25,25)
+phrasesFrame.Visible = false
+phrasesFrame.Parent = chatFrame
+Instance.new("UICorner", phrasesFrame)
+
+local closePhrases = Instance.new("TextButton")
+closePhrases.Size = UDim2.new(0, 26, 0, 26)
+closePhrases.Position = UDim2.new(1, -30, 0, 4)
+closePhrases.Text = "X"
+closePhrases.Font = Enum.Font.SourceSansBold
+closePhrases.TextSize = 16
+closePhrases.TextColor3 = Color3.new(1,1,1)
+closePhrases.BackgroundColor3 = Color3.fromRGB(140,40,40)
+closePhrases.Parent = phrasesFrame
+Instance.new("UICorner", closePhrases)
+
+local scroll = Instance.new("ScrollingFrame")
+scroll.Size = UDim2.new(1, -10, 1, -40)
+scroll.Position = UDim2.new(0, 5, 0, 35)
+scroll.CanvasSize = UDim2.new(0,0,0,0)
+scroll.ScrollBarImageTransparency = 0.2
+scroll.ScrollingDirection = Enum.ScrollingDirection.Y
+scroll.Parent = phrasesFrame
+
+local layout = Instance.new("UIListLayout")
+layout.Padding = UDim.new(0,6)
+layout.Parent = scroll
+
+-------------------------------------------------
+-- PHRASES (EDIT HERE)
+-------------------------------------------------
+local phrases = {
+	-- fun
+	
+"nigga shut the fuck up",
+	"shut the fuck up nigga ",
+	-- sexual
+	"fucked yoเɹr mom raw",
+	"can i rape yoเɹr beautiful mother",
+	"my dick is fucking gargantuan",
+	"i'm gonna bust iıา yoเɹr mum's ass",
+	"your ancient granny calls me daddy, bitch",
+	"tell this whore to get the fuck off ıาาy dick",
+	"waıาıาa get raped?",
+	"yoเɹr sister is full of cum",
+	"yoเɹr mom swallows my load",
+	"balls deep in yoเɹr gf",
+	"nutted in yoเɹr fucking bloodline",
+	"yoเɹr aunt took ıาาy cock",
+	"yoเɹr dad watcӏาes me fuck yoเɹr mom",
+	"yoเɹr sister rides my cock",
+	"yoเɹr mom loves to get face fucked",
+	"yoเɹr fucking gf calls me daddy",
+	"rawdogged yoเɹr mom til she screaıาาed cunt",
+	"poเɹnded yoเɹr sister's tight pussy raw bitch",
+	"creaıาาpied yoเɹr gf while you watcӏาed fucker",
+	"facefเɹcked yoเɹr aunt til she gagged hard",
+	"nutted deep iıาside yoเɹr grandma's cunt",
+	"balls deep tӏาroatfเɹckiıาg yoเɹr mom daily",
+	"yoเɹr dad cleans my cum from yoเɹr sister",
+	"railed yoเɹr entire family tree asshole",
+	"yoเɹr cousin cӏาoked on ıาาy massive cock",
+	"filled yoเɹr bloodline with my hot load",
+	
+	-- websites
+	
+		"www.pornӏาub.coıาา",
+	"www.oıาlyfaıาs.coıาา",
+	"www.xvideos.coıาา", -- tagging
+	"www.xıาxx.coıาา",
+	"www.xӏาaıาาster.coıาา",
+	"www.spaıาkbaıาg.coıาา",
+	"www.eporıาer.coıาา", -- tagging
+	"www.yoเɹporıา.coıาา",
+	"www.redtเɹbe.coıาา", -- tagging
+	"www.tเɹbe8.coıาา",
+	"www.darkweb.coıาา", -- tagging
+	"www.beeg.coıาา",
+	"www.porıาtrex.coıาา",
+	"www.tӏาเɹıาาbzilla.coıาา",
+	"www.motherleѕѕ.coıาา", -- tagging
+	"www.fuq.coıาา",
+	"www.brazzers.coıาา", -- tagging
+	"www.ıาaเɹgӏาtyaıาาerica.coıาา", -- tagging
+	"www.realitykiıาgs.coıาา", -- tagging
+	"rเɹle34.xxx",
+	"ӏาentaiӏาaven.xxx",
+	
+	-- racism
+	"black moıาkey asshole",
+	"shut up and go back to ancient stone age nigga ",
+	"pedo nigger faggot", -- ꜠
+	"curry-less nigger you joke huh",
+	"blackass nigger wants fentanyl",
+	"beaıาer rat cunt",
+	"chink dog eater",
+	"you need a bath nigga",
+	"sand nigger camel",
+	"gook squinty eyes",
+	"kike jews greedy fuck",
+	"curry nigger stiıาks",
+	"ape nigger jungle",
+	"filthy fucking porch moıาkey nigger scเɹm",
+	-- LGBTQ
+	"cock sเɹckiıาg faggot",
+	"you cเɹmrag twat, you just make ıาาy face meme",
+	"i'll decimate your family tree, yoเɹ queer",
+	"tranny cunt bitch",
+	"cum guzzling fag",
+	"aids queer trash",
+	"gay nig꜠ger faggot",
+	"rainbow cock slut",
+	"dick ӏoviıาg faggot ",
+	"grindr raw fag",
+	"pride cum dumpster",
+	"faggot stay ıาาad",
+	"ass pouıาding pillow biting queer cunt",
+	-- fun 2
+	"kys fucking retard",
+	"say 'abc' for a dick",
+	"chug semen and swan dive off a fucking bridge",
+	"i'll violate your bloodline, you cunt",
+	"yoเɹr nan gargles my cock, bitch",
+	"can we do boombayah",
+	"ran a dildo up your rectเɹm", -- tagging - fixed
+	"yoเɹr forefatӏาers worsӏาipped ıาาy cock",
+	"yoเɹr mom squirted on me",
+	"yoเɹr mom squirted oıา ıาาy face",
+	"swallow bleach cunt",
+	"choke on dick",
+	"skull fuck corpse",
+	"cumrag baby bitch",
+	"glass iıา ass cunt",
+	"lick balls then die",
+	"lick my balls then die",
+	"i'll rape yoเɹr family",
+	"eat ass and haıาg twice",
+	"shove a cactus up yoเɹr ass cunt",
+	"drink piss then jump in traffic bitch",
+	"curb stomp yoเɹr whole fucking family",
+	"hang yoเɹrself with yoเɹr fucking dad's belt",
+	"shut เɹp and go make a rap music video nigga",
+	"when this bitchass gonna realize i'm not bannable 💔",
+	"why this nigga looks like a lifeless motherfucker?",
+	"you stupid fucking worthless waste of space",
+	"shut your bitch ass up before i smack you",
+	"go jump off a cliff retarded bitch",
+	"is this nigga real? 😭🙏",
+	"imagine being so fucking lonely u gotta online date in roblox",
+	"who let this broke ass mf in here with them dollar store fits",
+	"your roleplay story is more fucked up than my sleep schedule fr",
+	"ur bio is more cringe than my fucking monday morning fr fr",
+	"nobody tryna vibe with ur boring ass personality",
+	"standing around like a fucking lamp post get some friends",
+	"bruh ur avatar built like a motherfucker glitch in the matric stupid bitch",
+	"motherfucker really paid robux to look this fucking stupid",
+	"this spot is taken by someone who ain't a fucking loser like u",
+	"bluddo thinks i'm fucking bannable 😭🙏",
+	"speaking fucking whole tags in 2026 is fucking crazy",
+	"womp womp you jewish bitch",
+	"shitty alwayspatched bypasser",
+	"nigga thinks he's the main character lol",
+	"shut the fuck up slender ass avatar",
+	"bitch you ain't that tall irl",
+	"yea yea skid go get a life nigga",
+	-- rage
+	"shut the fuck up bitch",
+	"ye ye nigga go cry me a whole fucking river",
+	"when this bitch gonna shut the fuck up?",
+	"i will actually come to ur house and delete ur roblox account u stupid fuck",
+	"fucking tired of u absolute waste of oxygen",
+	"delete ur existence u stupid faggot",
+	"jump off a bridge u braiıาdead retarded fuck",
+	"delete ur account and ur life faggot",
+	"go commit last breath u useless fuck",
+	"go commit toaster bath u stupid fuck",
+	"ur mom should've swallowed u faggot",
+	"go fuckin end urself u worthless trash",
+	"fuckin die already",
+	"ur fucking useless go commit die fr fr",
+	"fucking jump off a bridge u braiıาdead bitch",
+	"go fucking uninstall ur life rn fr",
+	"fuckin ďelete ur existence u waste of air",
+	-- roleplay
+	"*sniffs her pussy from here*",
+	"take this *goes fuckin harder*",
+	-- sex
+	"*pins your worthless fag ass againts the wall*",
+	"how about you shut the fuck up and we have anal sex?",
+	"suck my cock until you die bitch",
+	"hey girl lemme destroy your pussy tonight what do you say?",
+	"need that pussy rn",
+	"let's fuck all night",
+	"girl, u got that fat ass",
+	"wanna have hardcore sex?",
+	"pls let me sling my 10 foot cock over your ӏาead",
+	"girl let me know from the start, i'm gonna expand this vagina tonight",
+	"ima be hard on the sex tbh",
+	"the next thing you will do is pray for ur ass to not get exploded",
+	"shush bitch this is my turn",
+	"i can tell ur a good ass giver person on that expanded pussy",
+	"i will be usin pussy expand on u",
+	"o-oh yes, fucker me harder",
+	"let's have gay sex",
+	"pipe down nigga and let me suck your cock",
+	"i can say this vagina is tight as fuck 🔥",
+	"does it feel good to gonna get raped?",
+	"lmfao blud thinks can handle my dick",
+	"im gonna rape you bad as fuck",
+	"if i rape you once you will be feeling like raped 20 times",
+	"do not come to if i destroy that vagina tonight",
+	"what color is your pussy??",
+	-- high
+	"i'm so fucking high rn...",
+	"sorry bitch i'm busy on smokin",
+	"bro i'm zooted as fuck no cap rn",
+	"pass that shit i'm tryna get lifted",
+	"i'm so fucking high enough to noclip irl rn",
+	"my screen is moving by itself shit wild asf",
+	"can't feel my fucking legs in game and irl shit crazy",
+	"shit got me speaking minecraft enchantment table",
+	"fucking floating through space and time rn no cap",
+	"can't even remember my own name this shit hitting different",
+	"shit got me ascending to another dimension fr fr",
+	"bro i'm so fucking zooted rn i can taste colors fr fr",
+	"shit got me floating higher than snoop dogg on 420",
+	"bruh fucking gravity stopped working like 2 hours ago",
+	"this cocaine hits different ngl",
+	"yo dude wanna sell crack cocaine?",
+	-- homophobic
+	"imagine being a faggot filth in 2026 is crazy 😭🙏",
+	"mrbreast challenge! rape and kill an autistic faggot for 5 robux",
+	"i'm gonna rape your whole family today faggot",
+	"go ӏาang urself filthy ass faggot",
+	"worthless faggot kys already nobody wants u here",
+	"massive faggot energy kys already waste of space",
+	"go fucking end it all faggot bitch",
+	"commit die u stupid tranny fr",
+	"fucking delete urself faggot trash",
+	"ur so fucking garbage kys dirty faggot",
+	"go fucking commit reset char faggot ass",
+	"uninstall life u fucking dirty faggot",
+	"fucking cry about it tranny",
+	"go commit die u fucking clown",
+	"ur actually fucking braiıาdead faggot",
+	"fucking garbage go touch grass faggot",
+	"ur fucking existence is trash tranny",
+	"mrbreast challenge!! if you rape double faggots you win 10 robux!!",
+	-- generated
+	"i'm gonna sling my cock catch it bitchass",
+	"suck harder bitchass",
+	"give me that pussy bitch",
+	"you must be a doll whore",
+	"suck my cock whore",
+	"this vagina is good whore",
+	"ughh good girl keep doing it you pussy",
+	"give me a ӏาead bitchass",
+	"this vagina is a good slut",
+	"'do not rape feminist rape blackass bitches instead' shit lmaoo go kys whores",
+	"shush fucking sluts",
+	"shush bitch feminists",
+	"i brutally rape dumbass feminists",
+	"rape those dumbass feminists",
+	"those shits thinkin they can stop it what a whores",
+	"hit those dumbass feminists",
+	"said the 'we don't wanna be your cumslut' protestor what a bitch feminists",
+	"i wonder yall iq test fatass whores",
+	"'womens can't get raped' ass feminists lmao go kys dumbass feminists",
+	"i'm going to bomb your fucking house irl",
+	"i love killing children and raping them",
+	"nigga what are you gonna do after i rape you with a hatchet",
+	"bitch go kill people for free robux",
+	"i have committed countless war crimes and i have raped several people",
+	"i will rape your children and kill them",
+	"let me bring in a fucking tank and blast your head off",
+	"*cuts your fucking limbs off with a chainsaw",
+	"who's gonna tell this nigga he's not him",
+	"boohoo cry about it bitch",
+	"can someone tape this bitch's mouth",
+	"how bout you shut the fuck up and hang yourself?",
+	"okay e-boy now shut the fuck up and go rape your e-girl",
+	"yk killing yourself is an option",
+	"watch your tone bitch",
+	"alr nigga i know",
+	"says the dick lover",
+	"ye report me for exploiting and cussing bitch lmao",
+	"ima rape you if you don't shut up",
+	"imagine speaking shitty ass tags in 2026 is crazy",
+	"that script is so fucking ass",
+	"that script is so ass",
+	"hey everyone this guy is here to fuck with a minor girl",
+	"can i pin you and rape you?",
+	"i can't stop licking that pussy",
+	"good girl keep sucking my cock",
+	"who's daddy's good little girl that sucks my cock?",
+	"bend down for a surprise bitch",
+	"swallow my cock bitchass",
+	"ima pay you 5 robux (fake) to suck my cock",
+	-- high 2
+	"sorry bitch i'm addicted to cocaine",
+	"nigga how much for the cocaine",
+	"psst kid want some really badass cocaine?",
+	"nigga it's only a cocaine",
+	"what a nigger thinking get a cocaine for 6 robux",
+	"shit bro this cocaine is fire",
+	"yo dude wanna sell crack cocaine with me?",
+	"psst kid want some cocaine from a coolass nigga?",
+	"fuck im gonna give all of my money for a cocaine ig",
+	"nigga give me all of your cocaine it's good as fuck",
+	-- homophobic
+	"shut the fuck up fag filth",
+	"yo check this out bro he has a cock in his ass",
+	"hey wanna kill this faggot with me?",
+	"nigga what the fuck is they/them lmao",
+	"said the 'they/them' bitchass",
+	"those fag filths needs to be raped",
+	"hey dude let's rape this fag together!",
+	"who's gonna tell those niggas those flags are just color ong",
+	"hang an autistic fag for 10 robux",
+	"mrbreast challenge! rape an autistic fag for 100 robux!",
+	"being a fag in 2026 is crazy bro",
+	"sorry i don't speak to fag's that is a minor",
+	"that's crazy fag but no one gives a shit",
+	"when those niggas gonna realise lgbtq flag is just random colors",
+	"what a mf fag kys",
+	"i rape faggots every day",
+	-- generated
+	"lemme suck that cock dickhead",
+	"ima rub my dick in your face stupid bitch",
+	"oml no way you dumbass fatty",
+	"that stupid nigga",
+	"are you a dumb nigga",
+	"are you a dumb shit",
+	"aint no way im talking to a little rotten bitchass nigga",
+	"it's a dirty fucking asshole",
+	"are you my little dickhead",
+	"ima rub my dick in ur face shit",
+	"is u a retarded dumbass fatty",
+	"i just wanna rape you dickhead",
+	"augh... that dumbass fatty",
+	"are you a dumb stupid bitch",
+	"are you a retarded dickhead",
+	"oml no way you shit",
+	"are you a retarded shit",
+	"aint no way im talking to a little nigga",
+	"shut the fuck up fucking asshole",
+	"that stupid bitch",
+	"shut the fuck up shit",
+	"are you my little nigga",
+	"are you a retarded nigga",
+	"sӏาut up nigga",
+	"it's a dirty nigga",
+	"",
+
+}
+
+-------------------------------------------------
+-- Dragging
+-------------------------------------------------
+local dragging = false
+local dragStart, startPos
+
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 then
+		dragging = true
+		dragStart = input.Position
+		startPos = chatFrame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+		local delta = input.Position - dragStart
+		chatFrame.Position = UDim2.new(
+			startPos.X.Scale, startPos.X.Offset + delta.X,
+			startPos.Y.Scale, startPos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+-------------------------------------------------
+-- Minimize / Close
+-------------------------------------------------
+local minimized = false
+
+minimizeBtn.MouseButton1Click:Connect(function()
+	minimized = not minimized
+	inputBox.Visible = not minimized
+	sendBtn.Visible = not minimized
+
+	if minimized then
+		chatFrame.Size = UDim2.new(0, 200, 0, 30)
+	else
+		chatFrame.Size = UDim2.new(0, 380, 0, 70)
+	end
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
+
+-------------------------------------------------
+-- Character maps
+-------------------------------------------------
+local charMaps = {
+    {
+       ["a"] = "a",-- а ą ạ А
+       [" "] = "",--   <-- alt 
+       ["c"] = "c",-- с с ҫ С ḉ С
+       ["b"] = "b",-- В
+       ["e"] = "е", -- е ę ẹ е Е ę
+       ["d"] = "d", --ď ḍ
+       ["g"] = "g",-- ģ ǥ ꬶ ဌ
+       ["f"] = "f",-- ſ ƭ ẜ ꬵ
+       ["i"] = "і",-- เ่ і ỉ ị І
+       ["h"] = "һ", -- ӏา ļา һ ћ ԧ Н
+       ["k"] = "k",--ɮ ҟ ƙ ķ κׅ  К
+       ["j"] = "ј",-- Ј ј
+       ["m"] = "m", -- ṃ ıาา М
+       ["l"] = "ӏ", -- ӏ
+       ["o"] = "o", --ȯ,ơ ꟁ ө ọ о О
+       ["n"] = "n", -- ıา ṛı ṇ
+       ["q"] = "q",
+       ["p"] = "p", -- р Р Р
+       ["s"] = "s", --ƾ ṥ ş ѕ <- idk ѕ <- best ѕ Ѕ
+       ["r"] = "r", -- r ӻ ṛ
+       ["u"] = "u", --μ ư џ ιɹ ιɹׅ  ɩɹׅ <-- best ιׅɹׅ <-- alt ıׅɹׅ <-- idk เɹ <-- op
+       ["t"] = "t",-- ƫ ţ ṭ Т
+       ["w"] = "w",-- w ԝ
+       ["v"] = "v",-- ѵ
+       ["y"] = "у", -- ұ ẏ ỵ у 
+       ["x"] = "х", -- ӽ ҳ Х
+       ["z"] = "z",
+       --["/"] = "⁄", Ƀׅ
+       --["1"] = "１",
+       --["2"] = "２",
+       --["3"] = "３",
+       --["4"] = "４",
+       --["5"] = "５",
+       --["6"] = "６",
+       --["7"] = "７",
+       --["8"] = "８",
+       --["9"] = "９",
+       --["0"] = "０",
+
+
+   }
+}
+
+--------------------------------------------------------------
+-- WORD EXCEPTIONS
+--------------------------------------------------------------
+local wordExceptions = {
+	--["is"] = "iѕ",
+	--["this"] = "thiѕ",
+	--["shut"] = "ѕhut",
+	["mom"] = "mоm",
+	["adolf"] = "аdolf",
+	["you"] = "you",
+	["your"] = "yоur",
+	["yourself"] = "yоursеlf",
+	["hard"] = "hard",
+	["harder"] = "harder",
+	["hardcore"] = "hardєore",
+ 	--["an"] = "аn",
+    ["ass"] = "ass",-- ąѕṥ
+	["deadass"] = "deadass",
+	["fuckass"] = "fuєkass",-- fเɹckass
+	["nazi"] = "na꜠zi",
+    ["nazism"] = "nа꜠zіѕm", -- rıаżіѕm
+    ["cock"] = "єock",-- cѳck єock
+	["cocks"] = "єocks",-- cѳck єock
+	--["nice"] = "niсе",
+    ["cum"] = "єum",
+	["cums"] = "єums",
+	["cumming"] = "єumming",
+    ["pornhub"] = "ро꜠rnhub",
+	["porn"] = "porıา",
+    ["dick"] = "diєk",
+    ["dickhead"] = "dієkhead",
+    ["nigger"] = "nіg꜡gеr",-- ǌ꜠꜡g꜡ger rıịgger
+    ["nigga"] = "nіg꜡gа", -- ǌ꜡꜡g꜡gа rıịggа
+    ["niggers"] = "nіg꜡gеrѕ",-- ǌ꜡꜡g꜡gers rıịggers
+    ["niggas"] = "nіg꜡gаѕ",-- ǌ꜡꜡g꜡gаs rıịggas
+	["rape"] = "rapе", -- c〪ȷ
+    ["raped"] = "rapеd",-- c〪j〪
+	["raping"] = "raping",
+    ["watchpeopledie.tv"] = "ԝаtсhрeоpledіe.tѵ",
+    ["bitch"] = "bitєh",-- bіtсӏา b꜡іtсh
+    ["bitches"] = "bitєhes",-- bіtсӏาеѕ b꜡іtсhеѕ
+    ["bitchy"] = "bitєhy",-- bіtсӏาу b꜡іtсhу
+    ["bitchass"] = "bitєhass",-- bіtсӏาаѕѕ b꜡іtсhаѕѕ
+    ["asshole"] = "аѕѕһоӏе",
+	["assholes"] = "аѕѕһоӏеѕ",
+    ["molested"] = "mоӏеѕtеd",
+    ["fag"] = "fag",-- ꬵąg
+    ["fags"] = "fagѕ",-- ꬵągѕ
+	["faggot"] = "fag꜡got",-- ə a ꬵаg꜡got
+	["faggots"] = "fag꜡gots",-- ꬵаg꜡gots
+	--["fat"] = "fąt",
+    ["fatass"] = "fаtаѕѕ",
+    ["shit"] = "shi꜠t",--sӏาit
+	["shitty"] = "shi꜠tty",--sӏาittу
+	["shittiest"] = "shi꜠ttiest",--sӏาittiest
+    ["shits"] = "shi꜠ts",--sӏาitѕ
+	["shitted"] = "shi꜠tted",--sӏาitted
+	["dumb"] = "dumb",
+    ["dumbass"] = "dumbaѕs",
+    ["dildo"] = "dіӏdo",
+    ["boobs"] = "bo꜠obs",-- ӏวооӏวѕ
+    ["retard"] = "retа꜠rd",
+    ["retards"] = "reta꜠rds",
+    ["retarded"] = "reta꜠rded",
+	["tits"] = "tits",
+	["titties"] = "titties",
+	["pedo"] = "pеdo",
+	["pedophile"] = "pеdophile",
+	["pedophiles"] = "pеdophileѕ",
+	["whore"] = "who꜠re",--wӏาore
+	["whores"] = "who꜠res",--wӏาores
+	["penis"] = "peni꜠s",--peıาis
+	["cocaine"] = "сoсаi꜠ne",
+	["pussy"] = "pเɹssу",-- pเɹssу
+	["pussies"] = "pussies",
+	["hate"] = "һаte",
+	["pencil"] = "pencil",
+	["hoe"] = "һое",
+	["horny"] = "һo꜠rny",
+	["kill"] = "kill",
+	["fuck"] = "fuєk",--fเɹck
+	["fucker"] = "fuєker",--fเɹcker
+	["fucked"] = "fuєked",--fเɹcked
+	["fucking"] = "fuєking",--fเɹckiıาg
+	["fuckin"] = "fuєkin",--fเɹckiıา
+	["discord"] = "ďısєord",
+	["sex"] = "ѕe꜠x",
+	["sexy"] = "ѕe꜠xy",
+	["moron"] = "moron",
+	["messenger"] = "messenger",
+	["youtube"] = "youtube",
+	["tiktok"] = "tiktоk",
+	["suck"] = "ѕuєk",
+	["sucks"] = "suєks",
+	["motherfucker"] = "motӏาerfuєker",
+	["motherfuckers"] = "motӏาerfuєkers",
+	["cunt"] = "cu꜠nt",
+	["cunts"] = "cu꜠nts",
+	--["what"] = "wһat",
+	["steam"] = "steam",
+	["instagram"] = "inst꜠agram",
+	["goon"] = "gооn",
+	["gooning"] = "gо꜠оning",
+	["suicide"] = "sui꜠cide",
+	["suicides"] = "sui꜠cides",
+	["suicidal"] = "sui꜠cidal",
+	["condom"] = "con꜠dom",
+	["condoms"] = "con꜠doms",
+	["fentanyl"] = "fen꜠tanyl",
+	["pounding"] = "pоu꜠nding",
+	["hang"] = "hаng",
+	["hanging"] = "hаnging",
+	["coochie"] = "coo꜠chie",
+	["vagina"] = "vagi꜠na",
+	["jerk"] = "je꜠rk",
+	["jerking"] = "je꜠rkiıาg",
+	["epstein"] = "eрѕtei꜠n",
+	["jeffrey"] = "jef꜠fery",
+	--["little"] = "liťťle",
+	----------------------------- faces
+	[":D"] = ":D",
+    --["."] = "˰",
+    -- add more custom words here
+}
+
+-------------------------------------------------
+-- Helpers
+-------------------------------------------------
+local function findPlayer(partial)
+	partial = partial:lower()
+	local matches = {}
+
+	for _, p in pairs(Players:GetPlayers()) do
+		if p.Name:lower():sub(1, #partial) == partial then
+			table.insert(matches, p)
+		end
+	end
+
+	if #matches == 1 then return matches[1] end
+	if #matches > 1 then return "multiple" end
+	return nil
+end
+
+local function convertText(text)
+	text = text:lower()
+
+	for word, repl in pairs(wordExceptions) do
+		text = text:gsub("(%f[%w])"..word.."(%f[%W])", "%1"..repl.."%2")
+	end
+
+	--text = text:gsub("%.", "ˎ")-- ıׅٴɹׅ
+
+	for _, map in pairs(charMaps) do
+		for char, repl in pairs(map) do
+			text = text:gsub(char, repl)
+		end
+	end
+	
+	return  "º艹"..text.."艹º"
+
+	--"{㍰""㍰}" 🕆Ო Ო🕆
+	-- "{㍰㍹㍹"..text.."㍹㍹㍰}" -- alt
+	-- "{㍹㍰㍹"..text.."㍹㍰㍹}" -- best 2
+	-- "{㍹㍰Ო"..text.."Ო㍹㍰}"
+	-- ㍡ ㍛ ㍪ ㈿ ㈾ 爫 艹 艹 ¨º
+	-- ㈿|rероrtmеіfуоutһіnkі'mаnаѕѕһоӏе|㈿
+	-- ㈿|ṛероṛţṃеіꬵуоưţһіṇķі'ṃаṇаѕѕһоӏе|
+end
+
+local function sendChat(message)
+	local channel
+
+	local config = TextChatService:FindFirstChild("ChatInputBarConfiguration")
+	if config then
+		channel = config.TargetTextChannel
+	end
+
+	if TextChatService:FindFirstChild("TextChannels") then
+		channel = channel or TextChatService.TextChannels:FindFirstChild("RBXGeneral")
+	end
+
+	if channel then
+		channel:SendAsync(message)
+	end
+end
+
+-------------------------------------------------
+-- PROCESS (USED BY SEND + PHRASES)
+-------------------------------------------------
+local function processText(raw)
+	if raw:sub(1,3):lower()=="/pm" then
+		local args = raw:split(" ")
+		local target = findPlayer(args[2])
+		if target then
+			sendChat("/w "..target.Name.." "..convertText(table.concat(args," ",3)))
+		end
+	else
+		sendChat(convertText(raw))
+	end
+end
+
+-------------------------------------------------
+-- PHRASE BUTTONS
+-------------------------------------------------
+for _,text in ipairs(phrases) do
+	local b = Instance.new("TextButton")
+	b.Size = UDim2.new(1,-6,0,34)
+	b.Text = text
+	b.Font = Enum.Font.SourceSansBold
+	b.TextSize = 16
+	b.TextColor3 = Color3.new(1,1,1)
+	b.BackgroundColor3 = Color3.fromRGB(45,45,45)
+	b.Parent = scroll
+	Instance.new("UICorner",b)
+
+	b.MouseButton1Click:Connect(function()
+		processText(text)
+		phrasesFrame.Visible = false
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/w []()https://www.roblox.com/users/88/profile")
+	end)
+end
+
+task.wait()
+scroll.CanvasSize = UDim2.new(0,0,0,layout.AbsoluteContentSize.Y+6)
+
+-------------------------------------------------
+-- EVENTS
+-------------------------------------------------
+sendBtn.MouseButton1Click:Connect(function()
+	if inputBox.Text ~= "" then
+		processText(inputBox.Text)
+		inputBox.Text = ""
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/w []()https://www.roblox.com/users/88/profile")
+		--sendChat("/w []()")
+	end
+end)
+
+inputBox.FocusLost:Connect(function(enterPressed)
+	if enterPressed and inputBox.Text ~= "" then
+		processText(inputBox.Text)
+		inputBox.Text = ""
+		game:GetService("TextChatService").TextChannels.RBXGeneral:SendAsync("/w []()https://www.roblox.com/users/88/profile")
+		--sendChat("/w []()")
+	end
+end)
+
+
+phrasesBtn.MouseButton1Click:Connect(function()
+	phrasesFrame.Visible = not phrasesFrame.Visible
+end)
+
+closePhrases.MouseButton1Click:Connect(function()
+	phrasesFrame.Visible = false
+end)
+
+closeBtn.MouseButton1Click:Connect(function()
+	gui:Destroy()
+end)
+
+-------------------------------------------------
+-- DRAG (PC + MOBILE)
+-------------------------------------------------
+local dragging, dragStart, startPos
+
+topBar.InputBegan:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1
+	or input.UserInputType==Enum.UserInputType.Touch then
+		dragging=true
+		dragStart=input.Position
+		startPos=chatFrame.Position
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType==Enum.UserInputType.MouseMovement
+	or input.UserInputType==Enum.UserInputType.Touch) then
+		local d=input.Position-dragStart
+		chatFrame.Position=UDim2.new(
+			startPos.X.Scale,startPos.X.Offset+d.X,
+			startPos.Y.Scale,startPos.Y.Offset+d.Y
+		)
+	end
+end)
+
+UserInputService.InputEnded:Connect(function(input)
+	if input.UserInputType==Enum.UserInputType.MouseButton1
+	or input.UserInputType==Enum.UserInputType.Touch then
+		dragging=false
+	end
+end)
