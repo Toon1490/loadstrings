@@ -1,0 +1,43 @@
+getgenv().OxideSettings = {
+Refit = true,
+noclip = false,
+FlingEnabled = false,
+ToolFling = false, -- false = holding, true = fling
+AntiFling = false,
+Legacy = false,
+Scale = 1,
+ClientHats = {},
+CustomHats = true, -- Enable or disable custom rig feature (basically old oxide when false)
+CH = {
+        Torso = {
+        Name= "MeshPartAccessory",
+        TextureId = "4819722776",
+        Orientation= CFrame.Angles(math.rad(0),math.rad(0),math.rad(345))
+    },
+
+    LeftArm = {
+        Name= "InternationalFedora",
+        TextureId = "3360978739", 
+        Orientation= CFrame.Angles(math.rad(-90),math.rad(0),math.rad(90))
+    },
+
+    RightArm = {
+        Name= "InternationalFedora",
+        TextureId = "3033903209", 
+        Orientation= CFrame.Angles(math.rad(-90),math.rad(0),math.rad(-90))
+    },
+
+    LeftLeg = {
+        Name= "InternationalFedora",
+        TextureId = "3409604993", 
+        Orientation= CFrame.Angles(math.rad(-90),math.rad(0),math.rad(90))
+    },
+
+    RightLeg = {
+        Name= "InternationalFedora",
+        TextureId = "3033898741", 
+        Orientation= CFrame.Angles(math.rad(-90),math.rad(0),math.rad(-90))
+    }
+},
+}
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Toon1490/loadstrings/refs/heads/main/oxidemain"))()
