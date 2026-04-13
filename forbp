@@ -1,0 +1,402 @@
+--// FINAL CLEAN SCRIPT (ALLY SAVE FIXED)
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
+
+local LocalPlayer = Players.LocalPlayer
+local swing = ReplicatedStorage:WaitForChild("Remotes"):WaitForChild("Swing")
+local humansFolder = workspace:WaitForChild("Humans")
+
+--// FILE
+local allyFile = "allies.txt"
+
+--// ALLIES
+local tempAllies = {}
+local savedAllies = {}
+
+-- LOAD FILE
+pcall(function()
+	if readfile and isfile and isfile(allyFile) then
+		for name in string.gmatch(readfile(allyFile), "[^\n]+") do
+			savedAllies[name] = true
+		end
+	end
+end)
+
+local function saveAllies()
+	if writefile then
+		local str = ""
+		for name,_ in pairs(savedAllies) do
+			str = str .. name .. "\n"
+		end
+		writefile(allyFile, str)
+	end
+end
+
+local function isAlly(name)
+	return tempAllies[name] or savedAllies[name]
+end
+
+local function validTarget(model)
+	return model.Name ~= LocalPlayer.Name and not isAlly(model.Name)
+end
+
+--// GUI
+local gui = Instance.new("ScreenGui")
+gui.Parent = game.CoreGui
+
+local frame = Instance.new("Frame", gui)
+frame.Size = UDim2.new(0, 260, 0, 320)
+frame.Position = UDim2.new(0.1, 0, 0.3, 0)
+frame.BackgroundColor3 = Color3.fromRGB(30,30,30)
+frame.Active = true
+
+-- DRAG
+local dragging, dragInput, dragStart, startPos
+
+frame.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		dragStart = input.Position
+		startPos = frame.Position
+
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+frame.InputChanged:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+		dragInput = input
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if input == dragInput and dragging then
+		local delta = input.Position - dragStart
+		frame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+	end
+end)
+
+-- TOP BUTTONS
+local close = Instance.new("TextButton", frame)
+close.Size = UDim2.new(0, 30, 0, 25)
+close.Position = UDim2.new(1, -30, 0, 0)
+close.Text = "X"
+
+local minimize = Instance.new("TextButton", frame)
+minimize.Size = UDim2.new(0, 30, 0, 25)
+minimize.Position = UDim2.new(1, -60, 0, 0)
+minimize.Text = "-"
+
+-- INPUT
+local textbox = Instance.new("TextBox", frame)
+textbox.Size = UDim2.new(1, -10, 0, 30)
+textbox.Position = UDim2.new(0, 5, 0, 30)
+textbox.PlaceholderText = "Username / DisplayName"
+
+-- BUTTONS
+local toggleBtn = Instance.new("TextButton", frame)
+toggleBtn.Size = UDim2.new(1, -10, 0, 30)
+toggleBtn.Position = UDim2.new(0, 5, 0, 65)
+toggleBtn.Text = "Target Loop: OFF"
+
+local crashBtn = Instance.new("TextButton", frame)
+crashBtn.Size = UDim2.new(1, -10, 0, 30)
+crashBtn.Position = UDim2.new(0, 5, 0, 100)
+crashBtn.Text = "Toggle Crash: OFF"
+
+local killAllLoopBtn = Instance.new("TextButton", frame)
+killAllLoopBtn.Size = UDim2.new(1, -10, 0, 30)
+killAllLoopBtn.Position = UDim2.new(0, 5, 0, 135)
+killAllLoopBtn.Text = "Kill All Loop: OFF"
+
+local stompFFBtn = Instance.new("TextButton", frame)
+stompFFBtn.Size = UDim2.new(1, -10, 0, 30)
+stompFFBtn.Position = UDim2.new(0, 5, 0, 170)
+stompFFBtn.Text = "Stomp Forcefield: OFF"
+
+local dropkickFFBtn = Instance.new("TextButton", frame)
+dropkickFFBtn.Size = UDim2.new(1, -10, 0, 30)
+dropkickFFBtn.Position = UDim2.new(0, 5, 0, 205)
+dropkickFFBtn.Text = "Dropkick Forcefield: OFF"
+
+-- ALLY BUTTONS
+local allyBtn = Instance.new("TextButton", frame)
+allyBtn.Size = UDim2.new(1, -10, 0, 25)
+allyBtn.Position = UDim2.new(0, 5, 0, 240)
+allyBtn.Text = "Ally List (Current)"
+
+local ally2Btn = Instance.new("TextButton", frame)
+ally2Btn.Size = UDim2.new(1, -10, 0, 25)
+ally2Btn.Position = UDim2.new(0, 5, 0, 270)
+ally2Btn.Text = "Ally List 2 (Saved)"
+
+-- STATUS
+local status = Instance.new("TextLabel", frame)
+status.Size = UDim2.new(1, -10, 0, 20)
+status.Position = UDim2.new(0, 5, 1, -20)
+status.Text = "Status: Idle"
+status.TextColor3 = Color3.new(1,1,1)
+status.BackgroundTransparency = 1
+
+-- ALLY UI
+local listFrame = Instance.new("ScrollingFrame", frame)
+listFrame.Size = UDim2.new(1, -10, 0, 100)
+listFrame.Position = UDim2.new(0, 5, 0, 300)
+listFrame.Visible = false
+Instance.new("UIListLayout", listFrame)
+
+local saveBox = Instance.new("TextBox", frame)
+saveBox.Size = UDim2.new(1, -10, 0, 25)
+saveBox.Position = UDim2.new(0, 5, 0, 300)
+saveBox.PlaceholderText = "Enter username"
+saveBox.Visible = false
+
+local addBtn = Instance.new("TextButton", frame)
+addBtn.Size = UDim2.new(1, -10, 0, 25)
+addBtn.Position = UDim2.new(0, 5, 0, 330)
+addBtn.Text = "Add Ally"
+addBtn.Visible = false
+
+local savedFrame = Instance.new("ScrollingFrame", frame)
+savedFrame.Size = UDim2.new(1, -10, 0, 100)
+savedFrame.Position = UDim2.new(0, 5, 0, 360)
+savedFrame.Visible = false
+Instance.new("UIListLayout", savedFrame)
+
+-- STATES
+local looping = false
+local killAllLoop = false
+local stompFF = false
+local dropkickFF = false
+local crashloop = false
+
+-- FUNCTIONS
+local function findTarget(name)
+	for _, model in ipairs(humansFolder:GetChildren()) do
+		if model.Name:lower() == name:lower() then
+			return model
+		end
+		local player = Players:FindFirstChild(model.Name)
+		if player and player.DisplayName:lower() == name:lower() then
+			return model
+		end
+	end
+end
+
+local function stompTarget(model)
+	if not validTarget(model) then return end
+	local head = model:FindFirstChild("Head")
+	if head then
+		swing:FireServer("Stomp Air","Stomp Air Start")
+		swing:FireServer("Stomp Air","Stomp Air Hit",head)
+	end
+end
+
+local function crash(model)
+	if not validTarget(model) then return end
+	local head = model:FindFirstChild("Head")
+	if head then
+		swing:FireServer("Stomp Air","Stomp Air Start")
+		swing:FireServer("Stomp Air","Stomp Air Hit")
+		--swing:FireServer("Stomp Air","Stomp Air End")
+	end
+end
+
+
+local function crashing()
+	local myChar = LocalPlayer.Character
+	local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+	if not myRoot then return end
+
+	for _, model in ipairs(humansFolder:GetChildren()) do
+		if model ~= myChar and validTarget(model) then
+			local root = model:FindFirstChild("HumanoidRootPart") or model:FindFirstChild("Torso")
+			if root and (root.Position - myRoot.Position).Magnitude < 1000000 then
+				crash(model)
+			end
+		end
+	end
+end
+
+
+local function killAll()
+	local myChar = LocalPlayer.Character
+	local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+	if not myRoot then return end
+
+	for _, model in ipairs(humansFolder:GetChildren()) do
+		if model ~= myChar and validTarget(model) then
+			local root = model:FindFirstChild("HumanoidRootPart") or model:FindFirstChild("Torso")
+			if root and (root.Position - myRoot.Position).Magnitude < 1000000 then
+				stompTarget(model)
+			end
+		end
+	end
+end
+
+local function dropkick(model)
+	if not validTarget(model) then return end
+	local torso = model:FindFirstChild("Torso") or model:FindFirstChild("UpperTorso")
+	if torso then
+		swing:FireServer("Dropkick","Dropkick Start")
+		swing:FireServer("Dropkick","Dropkick Hit",torso)
+	end
+end
+
+local function crashend()
+	if crashBtn.Text == "Toggle Crash: OFF" then
+		swing:FireServer("Stomp Air","Stomp Air End")
+	end
+end
+
+-- BUTTON LOGIC
+toggleBtn.MouseButton1Click:Connect(function()
+	looping = not looping
+	toggleBtn.Text = "Target Loop: "..(looping and "ON" or "OFF")
+end)
+
+crashBtn.MouseButton1Click:Connect(crash)
+
+crashBtn.MouseButton1Click:Connect(function()
+	crashloop = not crashloop
+	crashBtn.Text = "Toggle Crash: "..(crashloop and "ON" or "OFF")
+end)
+
+killAllLoopBtn.MouseButton1Click:Connect(function()
+	killAllLoop = not killAllLoop
+	killAllLoopBtn.Text = "Kill All Loop: "..(killAllLoop and "ON" or "OFF")
+end)
+
+stompFFBtn.MouseButton1Click:Connect(function()
+	stompFF = not stompFF
+	stompFFBtn.Text = "Stomp Forcefield: "..(stompFF and "ON" or "OFF")
+end)
+
+dropkickFFBtn.MouseButton1Click:Connect(function()
+	dropkickFF = not dropkickFF
+	dropkickFFBtn.Text = "Dropkick Forcefield: "..(dropkickFF and "ON" or "OFF")
+end)
+
+-- ALLY UI
+local function refreshList()
+	for _,v in ipairs(listFrame:GetChildren()) do
+		if v:IsA("TextButton") then v:Destroy() end
+	end
+	for _,m in ipairs(humansFolder:GetChildren()) do
+		local btn = Instance.new("TextButton", listFrame)
+		btn.Size = UDim2.new(1,0,0,25)
+		btn.Text = (tempAllies[m.Name] and "✔ " or "")..m.Name
+		btn.MouseButton1Click:Connect(function()
+			tempAllies[m.Name] = not tempAllies[m.Name]
+			refreshList()
+		end)
+	end
+end
+
+local function refreshSaved()
+	for _,v in ipairs(savedFrame:GetChildren()) do
+		if v:IsA("TextButton") then v:Destroy() end
+	end
+	for name,_ in pairs(savedAllies) do
+		local btn = Instance.new("TextButton", savedFrame)
+		btn.Size = UDim2.new(1,0,0,25)
+		btn.Text = "✔ "..name
+		btn.MouseButton1Click:Connect(function()
+			savedAllies[name] = nil
+			saveAllies()
+			refreshSaved()
+		end)
+	end
+end
+
+allyBtn.MouseButton1Click:Connect(function()
+	listFrame.Visible = not listFrame.Visible
+	saveBox.Visible = false
+	addBtn.Visible = false
+	savedFrame.Visible = false
+	if listFrame.Visible then refreshList() end
+end)
+
+ally2Btn.MouseButton1Click:Connect(function()
+	local state = not saveBox.Visible
+	saveBox.Visible = state
+	addBtn.Visible = state
+	savedFrame.Visible = state
+	listFrame.Visible = false
+	if state then refreshSaved() end
+end)
+
+addBtn.MouseButton1Click:Connect(function()
+	if saveBox.Text ~= "" then
+		savedAllies[saveBox.Text] = true
+		saveAllies()
+		saveBox.Text = ""
+		refreshSaved()
+	end
+end)
+
+-- LOOP
+RunService.RenderStepped:Connect(function()
+	local myChar = LocalPlayer.Character
+	local myRoot = myChar and myChar:FindFirstChild("HumanoidRootPart")
+
+	if looping then
+		local name = textbox.Text
+		local target = findTarget(name)
+		if target then
+			status.Text = "Status: Target Found"
+			stompTarget(target)
+		else
+			status.Text = "Status: Not Found"
+		end
+	end
+
+	if killAllLoop then
+		killAll()
+	end
+
+	if crashloop then
+		crashing()
+	end
+
+	crashend()
+
+	--if crashBtn.Text == "Toggle Crash: OFF" then
+		--swing:FireServer("Stomp Air","Stomp Air End")
+	--end
+
+	if myRoot then
+		for _, model in ipairs(humansFolder:GetChildren()) do
+			if model ~= myChar and validTarget(model) then
+				local root = model:FindFirstChild("HumanoidRootPart") or model:FindFirstChild("Torso")
+				if root and (root.Position - myRoot.Position).Magnitude < 10 then
+					if stompFF then stompTarget(model) end
+					if dropkickFF then dropkick(model) end
+				end
+			end
+		end
+	end
+end)
+
+-- CLOSE / MINIMIZE
+close.MouseButton1Click:Connect(function() gui:Destroy() end)
+
+local minimized = false
+minimize.MouseButton1Click:Connect(function()
+	minimized = not minimized
+	frame.Size = minimized and UDim2.new(0,260,0,30) or UDim2.new(0,260,0,320)
+	for _,v in ipairs(frame:GetChildren()) do
+		if v ~= close and v ~= minimize then
+			v.Visible = not minimized
+		end
+	end
+end)
