@@ -354,14 +354,14 @@ else
 	fakeChar.HumanoidRootPart.CFrame = originalChar.HumanoidRootPart.CFrame
 end
 fakeChar.Name = LocalPlayer.Name .. "_Fake"
-local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
+--local signaldiedbackend = LocalPlayer.ConnectDiedSignalBackend
 local signalkill = LocalPlayer.Kill
 
 if respawncharacter then
 	LoadUi(game:GetService("Players").RespawnTime)
 	if instantrespawn then
 		if replicatesignal then
-			replicatesignal(signaldiedbackend)
+			--replicatesignal(signaldiedbackend)
 			twait(game:GetService("Players").RespawnTime - 0.05)
 			replicatesignal(signalkill)
 			LocalPlayer.CharacterAdded:Wait()
