@@ -1,0 +1,406 @@
+local plr = game.Players.LocalPlayer
+local char = plr.Character or plr.CharacterAdded:Wait()
+local hum = char:FindFirstChild("Humanoid")
+local hrp = char:FindFirstChild("HumanoidRootPart")
+--local Backpack = plr.Backpack
+-- main gui 1
+local maingui1 = Instance.new("ScreenGui")
+maingui1.Parent = plr.PlayerGui
+maingui1.Name = "im here >:0 (test)"
+maingui1.ResetOnSpawn = false
+
+-- gui 1 
+local gui1 = Instance.new("Frame")
+gui1.Parent = maingui1
+gui1.Size = UDim2.new(0, 250, 0, 300)
+gui1.Position = UDim2.new(0, 105, 0, 109)
+gui1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+-- ui corner
+local uicorner1 = Instance.new("UICorner")
+uicorner1.Parent = gui1
+
+-- gui 2
+local gui2 = Instance.new("Frame")
+gui2.Parent = gui1
+gui2.Size = UDim2.new(0, 230, 0, 280)
+gui2.Position = UDim2.new(0, 10, 0, 10)
+gui2.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+-- uicorner 2
+local uicorner2 = Instance.new("UICorner")
+uicorner2.Parent = gui2
+
+-- title
+local title = Instance.new("TextLabel")
+title.Parent = gui1
+title.Size = UDim2.new(0, 200, 0, 50)
+title.Position = UDim2.new(0, 25, 0, 23)
+title.Text = "Tooni's BP GUI!!!"
+title.TextScaled = true
+title.BackgroundTransparency = 1
+title.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+
+-- Status
+local status = Instance.new("TextLabel")
+status.Parent = gui2
+status.Position = UDim2.new(0, 20, 0, 70)
+status.Size = UDim2.new(0, 190, 0, 30)
+status.Text = "Status: None"
+status.TextScaled = true
+status.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+status.TextColor3 = Color3.fromRGB(0, 0, 0)
+status.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+-- uicorner3
+local uicorner3 = Instance.new("UICorner")
+uicorner3.Parent = status
+
+-- target
+local target = Instance.new("TextBox")
+target.Parent = gui2
+target.Position = UDim2.new(0, 20, 0, 115)
+target.Size = UDim2.new(0, 190, 0, 30)
+target.PlaceholderText = "Type Username/DisplayName"
+target.Text = ""
+target.TextScaled = true
+target.TextColor3 = Color3.fromRGB(0, 0, 0)
+target.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+target.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+-- uicorner 4
+local uicorner4 = Instance.new("UICorner")
+uicorner4.Parent = target
+
+-- fire button
+local fire = Instance.new("TextButton")
+fire.Parent = gui2
+fire.Position = UDim2.new(0, 20, 0, 160)
+fire.Size = UDim2.new(0, 190, 0, 30)
+fire.Text = "Target: OFF"
+fire.TextScaled = true
+fire.TextColor3 = Color3.fromRGB(0, 0, 0)
+fire.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+fire.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+-- uicorner 5
+local uicorner5 = Instance.new("UICorner")
+uicorner5.Parent = fire
+
+-- more button
+local more = Instance.new("TextButton")
+more.Parent = gui2
+more.Position = UDim2.new(0, 20, 0, 205)
+more.Size = UDim2.new(0, 190, 0, 30)
+more.Text = "More"
+more.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+more.TextScaled = true
+more.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+more.TextColor3 = Color3.fromRGB(0, 0, 0)
+-- uicorner 6
+local uicorner6 = Instance.new("UICorner")
+uicorner6.Parent = more
+
+-- main gui 2
+local maingui2 = Instance.new("Frame")
+maingui2.Parent = more
+maingui2.Position = UDim2.new(0, 470, 0, -215)
+maingui2.Size = UDim2.new(0, -250, 0, 300)
+maingui2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+-- uicorner 7
+local uicorner7 = Instance.new("UICorner")
+uicorner7.Parent = maingui2
+
+-- gui 3
+local gui3 = Instance.new("Frame")
+gui3.Parent = maingui2
+gui3.Position = UDim2.new(0, 10, 0, 10)
+gui3.Size = UDim2.new(0, 229, 0, 280)
+gui3.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+-- uicorner 8
+local uicorner8 = Instance.new("UICorner")
+uicorner8.Parent = gui3
+
+-- autoequip in target list
+local autoequip = Instance.new("TextButton")
+autoequip.Parent = gui3
+autoequip.Position = UDim2.new(0, 19, 0, 23)
+autoequip.Size = UDim2.new(0, 190, 0, 29)
+autoequip.Text = "Auto Grab Item: OFF"
+autoequip.TextScaled = true
+autoequip.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+autoequip.TextColor3 = Color3.fromRGB(0, 0, 0)
+autoequip.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+-- uicorner 9
+local uicorner9 = Instance.new("UICorner")
+uicorner9.Parent = autoequip
+
+-- auto heal button
+local autoheal = Instance.new("TextButton")
+autoheal.Parent = gui3
+autoheal.Position = UDim2.new(0, 19, 0, 71)
+autoheal.Size = UDim2.new(0, 190, 0, 29)
+autoheal.Text = "Auto Heal: OFF"
+autoheal.TextScaled = true
+autoheal.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+autoheal.TextColor3 = Color3.fromRGB(0, 0, 0)
+autoheal.FontFace = Font.new("rbxasset://fonts/families/PressStart2P.json")
+-- uicorner 10
+local uicorner10 = Instance.new("UICorner")
+uicorner10.Parent = autoheal
+
+-- userinputservice
+local UserInputService = game:GetService("UserInputService")
+local dragging = false
+local dragInput, mousePos, framePos
+gui1.Active = true
+gui1.InputBegan:Connect(function(input)
+	if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+		dragging = true
+		mousePos = input.Position
+		framePos = gui1.Position
+		input.Changed:Connect(function()
+			if input.UserInputState == Enum.UserInputState.End then
+				dragging = false
+			end
+		end)
+	end
+end)
+
+UserInputService.InputChanged:Connect(function(input)
+	if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+		local delta = input.Position - mousePos
+		gui1.Position = UDim2.new(
+			framePos.X.Scale,
+			framePos.X.Offset + delta.X,
+			framePos.Y.Scale,
+			framePos.Y.Offset + delta.Y
+		)
+	end
+end)
+
+maingui2.Visible = false
+
+more.MouseButton1Click:Connect(function()
+	if maingui2.Visible == false then
+		maingui2.Visible = true
+	else
+		maingui2.Visible = false
+	end
+end)
+
+-- virtual input manager
+local VirtualInputManager = game:GetService("VirtualInputManager")
+local spas12Pos = nil
+local nearestdistance = math.huge
+local weapontables = workspace.Map["Weapon Tables"]
+-- detect the nearest spas, track the proximityprompt, enable it before it disables
+
+-- backpackcheck function
+local function backpackcheck()
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character or plr.CharacterAdded:Wait()
+	local hum = char:FindFirstChild("Humanoid")
+	local hrp = char:FindFirstChild("HumanoidRootPart")
+	local health = hum.Health
+	local spas12Pos = CFrame.new(516.301025390625, 2391.78173828125, 357.0564880371094)
+	local fireaxePos = CFrame.new(563.9979248046875, 2391.78173828125, 356.562744140625)
+	local Backpack = plr.Backpack
+	if char and hum and hrp then
+		if health and health ~= 0 and not char:FindFirstChild("Spas 12") then
+			if not Backpack:FindFirstChild("Spas 12") then
+				hrp.CFrame = spas12Pos
+				VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game)	
+				if Backpack:FindFirstChild("Spas 12") or char:FindFirstChild("Spas 12") or health <= 0 then
+					VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F, false, game)
+				end
+			else
+				return
+			end
+		else
+			return
+		end
+	end
+end
+
+local autoequip1 = false
+
+autoequip.MouseButton1Click:Connect(function()
+	autoequip1 = not autoequip1
+	if autoequip.Text == "Auto Grab Item: OFF" then
+		autoequip.Text = "Auto Grab Item: ON"
+		backpackcheck()
+	else
+		autoequip.Text = "Auto Grab Item: OFF"
+	end
+end)
+
+
+-- autoheal
+
+local tping = false
+local currentPos = nil
+local healPos = workspace.Map.Tower.Traps.buttons.Heal100Brick.Position
+local function autohealin()
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character or plr.CharacterAdded:Wait()
+	local hum = char:FindFirstChild("Humanoid")
+	local hrp = char:FindFirstChild("HumanoidRootPart")
+	local health = hum.Health
+	if char and not char:GetAttribute("Ragdoll") and hum and hrp then
+		if health and health ~= 0 and health < 100 and not tping then
+			currentPos = hrp.Position
+			local targetPos = healPos + Vector3.new(0, -1, 0)
+			hrp.CFrame = CFrame.new(targetPos)
+			if (hrp.Position - targetPos).Magnitude < 5 then
+				if hrp.CFrame == CFrame.new(targetPos) then
+					tping = true
+				end
+			end
+		end
+		if tping then
+			task.wait(0.5)
+			if currentPos then
+				hrp.CFrame = CFrame.new(currentPos)
+				if hrp.CFrame == CFrame.new(currentPos) then
+					currentPos = nil
+					tping = false
+				end
+			end
+		end
+	end
+end
+
+local autohealing = false
+
+autoheal.MouseButton1Click:Connect(function()
+	autohealing = not autohealing
+	if autoheal.Text == "Auto Heal: OFF" then
+		autoheal.Text = "Auto Heal: ON"
+		autohealin()
+	else
+		autoheal.Text = "Auto Heal: OFF"
+	end
+end)
+
+
+-- shoot
+
+
+local function shoot(targethead)
+	if not targethead then return end
+	-- This code was generated by Cobalt
+	-- https://gitlab.com/upio/cobalt
+	local plr = game.Players.LocalPlayer
+	local char = plr.Character
+	local hum = char.Humanoid
+	local hrp = char.HumanoidRootPart
+	local hrppos = hrp.Position
+	local Event = game:GetService("ReplicatedStorage").Remotes.Fire
+	Event:FireServer(
+	    game:GetService("Players").LocalPlayer.Backpack["Spas 12"],
+	    "Fire",
+	    {
+	        velocity = 50000,
+	    	direction = Vector3.new(0, 0, 0),
+	        bullet = game:GetService("ReplicatedStorage").Models.Bullets.Default,
+	        origin = hrppos
+    	}
+	)
+
+	Event:FireServer(
+    	"Spas 12",
+    	"Hit",
+   		{
+    		normal = Vector3.new(0, 1, 0),
+    		bullet_cframe = hrppos,
+    		hit = targethead,
+    		velocity = Vector3.new(1645.8734130859375, -29.626148223876953, -1136.093994140625),
+    		position = hrppos
+    	}
+	)
+end
+
+local function reload()
+	-- This code was generated by Cobalt
+-- https://gitlab.com/upio/cobalt
+
+	local Event = game:GetService("ReplicatedStorage").Remotes.Reload
+	Event:InvokeServer(
+    	game:GetService("Players").LocalPlayer.Backpack["Spas 12"],
+    	"Start Reload"
+	)
+
+	Event:InvokeServer(
+    	game:GetService("Players").LocalPlayer.Backpack["Spas 12"],
+    	"Insert Shell"
+	)
+end
+
+
+-- target search function
+local toggletarget = false
+local function targetin()
+	toggletarget = true
+	local players = workspace.Humans:GetChildren()
+	local search = string.lower(target.Text)
+	local target1 = nil
+	for _, player in ipairs(players) do
+		if target.Text ~= "" then
+			local targetted = string.match(string.lower(player.Name), "^" .. search)
+			if targetted then
+				local body = player
+				local targethead = body:FindFirstChild("Head")
+				--local head = body.Head
+				if body then
+					--target.Text = player.Name
+					status.Text = "Status:" .. player.Name
+					target1 = player.Name
+					--print(target1)
+					--break
+				end
+				local plr = game.Players.LocalPlayer
+				local Backpack = plr.Backpack
+				if Backpack:FindFirstChild("Spas 12") then
+					reload()
+					shoot(targethead)
+					--break
+				--else
+					--return
+				end
+			--else
+				--return
+			end
+		else
+			--toggletarget = false
+			--status.Text = "Status: None"
+			return
+		end
+	end
+end
+
+
+
+fire.MouseButton1Click:Connect(function()
+	toggletarget = not toggletarget
+	if fire.Text == "Target: OFF" then
+		fire.Text = "Target: On"
+		targetin()
+	else
+		fire.Text = "Target: OFF"
+		status.Text = "Status: None"
+	end
+end)
+
+local RunService = game:GetService("RunService")
+local speed = 1
+RunService.RenderStepped:Connect(function()
+	local hue = (time() * speed) % 1
+	gui1.BackgroundColor3 = Color3.fromHSV(0, 0, hue)
+    maingui2.BackgroundColor3 = Color3.fromHSV(0, 0, hue)
+	if autoequip1 then
+		backpackcheck()
+	end
+	if autohealing then
+		autohealin()
+	end
+	if toggletarget then
+		targetin()
+	end
+end)
