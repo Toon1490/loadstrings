@@ -207,7 +207,9 @@ local function backpackcheck()
 		if health and health ~= 0 and not char:FindFirstChild("Spas 12") then
 			if not Backpack:FindFirstChild("Spas 12") then
 				hrp.CFrame = spas12Pos
-				VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game)	
+				VirtualInputManager:SendKeyEvent(true, Enum.KeyCode.F, false, game)
+				task.wait(0.5)
+				VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F, false, game)	
 				if Backpack:FindFirstChild("Spas 12") or char:FindFirstChild("Spas 12") or health <= 0 then
 					VirtualInputManager:SendKeyEvent(false, Enum.KeyCode.F, false, game)
 				end
@@ -263,13 +265,14 @@ local function autohealin()
 					if hum.Health >= 100 then
 						local dialogues = {
 							"nananaboo boo :3 can't catch me bum i got to the healing pad >:3",
-							"too... slow. >:P",
-							"there's no way someone can catch me while i'm healin >:3",
+							"stinky targetter >:/",
+							"stop laying ur dirty hands on me!!!",
 							"give up >:c",
 							"how dare you?!?! >:0",
-							"i can heal up all day from this :3",
+							"another normal day :)",
 							"grrr..",
-							"this is fine :D"
+							"this is fine :D",
+							"*rolls eyes* >:["
 						}
 						local randomize = math.random(1, #dialogues)
 						local dialoguess = dialogues[randomize]
@@ -324,10 +327,10 @@ local function shoot(targethead)
     	"Spas 12",
     	"Hit",
    		{
-    		normal = Vector3.new(0, 1, 0),
+    		normal = Vector3.new(0, 100000, 0),
     		bullet_cframe = targethead.Position,
     		hit = targethead,
-    		velocity = Vector3.new(1645.8734130859375, -29.626148223876953, -1136.093994140625),
+    		velocity = Vector3.new(0, 10000000000, 0), -- 10000000000
     		position = targethead.Position
     	}
 	)
@@ -367,7 +370,14 @@ local function targetin()
 					local targetted = string.match(string.lower(player.Name), "^" .. search)
 					if targetted then
 						local body = player
-						local targethead = body:FindFirstChild("Head")
+						local targethead = {
+							body:FindFirstChild("Head"),
+							body:FindFirstChild("Torso"),
+							body:FindFirstChild("Left Arm"),
+							body:FindFirstChild("Right Arm"),
+							body:FindFirstChild("Left Leg"),
+							body:FindFirstChild("Right Leg")
+						}
 						--local head = body.Head
 						if body then
 							--target.Text = player.Name
@@ -377,10 +387,14 @@ local function targetin()
 							local plr = game.Players.LocalPlayer
 							local Backpack = plr.Backpack
 							if Backpack:FindFirstChild("Spas 12") then
-								task.spawn(function()
-									shoot(targethead)
-									reload()
-								end)
+								for _, parts in ipairs(targethead) do
+									if parts then
+										task.spawn(function()
+											shoot(parts)
+											reload()
+										end)
+									end
+								end
 								--break
 							else
 								return
