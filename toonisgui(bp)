@@ -331,7 +331,7 @@ local function shoot(targethead)
     		bullet_cframe = targethead.Position,
     		hit = targethead,
     		velocity = Vector3.new(0, 10000000000, 0), -- 10000000000
-    		position = targethead.Position
+    		position = targethead
     	}
 	)
 end
