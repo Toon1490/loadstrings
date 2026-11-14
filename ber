@@ -59,13 +59,13 @@ local function transparent()
 		local v = child
 		if child:IsA("BasePart") and not v:IsA("Model") and v.Name == "Torso" or  child:IsA("BasePart") and v.Name == "Right Arm" or  child:IsA("BasePart") and v.Name == "Left Arm" or  child:IsA("BasePart") and v.Name == "Right Leg" or  child:IsA("BasePart") and v.Name == "Left Leg" then
 			if OxideSettings.TransparentRig == true then
-				child.Transparency = .5
+				child.Transparency = 1
 			else 
 				child.Transparency = 1 
 			end
 		elseif child:IsA("Accessory") and v.Name ~= "Black" then
 			if OxideSettings.TransparentRig == true then
-				child.Handle.Transparency = .5
+				child.Handle.Transparency = 1
 			else 
 				child.Handle.Transparency = 1 
 			end
@@ -859,26 +859,26 @@ local function redo2()
 				for _,v in pairs(char:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and not table.find(OxideSettings.ClientHats,v.Name) and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 						if not c:FindFirstChild(v.Name) then 
-							v.Handle.Transparency = 0.5
+							v.Handle.Transparency = 1
 						end
 					end
 				end
 				if not c:FindFirstChild("gooblet") then 
-					char["Left Arm"].Transparency = 0.5
+					char["Left Arm"].Transparency = 1
 				end 
 				if not c:FindFirstChild("fooblet") then 
 					pcall(function()
-						char["Right Arm"].Transparency = 0.5
+						char["Right Arm"].Transparency = 1
 					end)
 				end 
 				if not c:FindFirstChild("Accessory (rightleg)") then 
-					char["Right Leg"].Transparency = 0.5
+					char["Right Leg"].Transparency = 1
 				end 
 				if not c:FindFirstChild("Accessory (LLeg)") then 
-					char["Left Leg"].Transparency = 0.5
+					char["Left Leg"].Transparency = 1
 				end 
 				if not c:FindFirstChild("Tor") then 
-					char["Torso"].Transparency = 0.5
+					char["Torso"].Transparency = 1
 				end 
 			end)
 			for _,v in pairs(c:GetChildren()) do
@@ -986,26 +986,26 @@ local function redo2()
 				for _,v in pairs(char:GetChildren()) do
 					if v:IsA("Accessory") and v.Name ~= "gooblet" and not string.find(v.Name, "gooblet") and not table.find(OxideSettings.ClientHats,v.Name) and v.Name ~= "fooblet" and v.Name ~= "Black"  and v.Name ~= "Tor"  and v.Name ~= "BlueRobotArm" and v.Name ~= "GreyRobotArm"   and v.Name ~= "Tor" and v.Name ~= "PurpleRobotArm" and v.Name ~= "RobotArmTest"  and v.Name ~= "LARM" and v.Name ~= "RARM" and v.Name ~= "Accessory (rightleg)" and v.Name ~= "Accessory (LLeg)" then  
 						if not c:FindFirstChild(v.Name) then 
-							v.Handle.Transparency = 0.5
+							v.Handle.Transparency = 1
 						end
 					end
 				end
 				if not c:FindFirstChild("gooblet") then 
-					char["Left Arm"].Transparency = 0.5
+					char["Left Arm"].Transparency = 1
 				end 
 				if not c:FindFirstChild("fooblet") then 
 					pcall(function()
-						char["Right Arm"].Transparency = 0.5
+						char["Right Arm"].Transparency = 1
 					end)
 				end 
 				if not c:FindFirstChild("Accessory (rightleg)") then 
-					char["Right Leg"].Transparency = 0.5
+					char["Right Leg"].Transparency = 1
 				end 
 				if not c:FindFirstChild("Accessory (LLeg)") then 
-					char["Left Leg"].Transparency = 0.5
+					char["Left Leg"].Transparency = 1
 				end 
 				if not c:FindFirstChild("Tor") then 
-					char["Torso"].Transparency = 0.5
+					char["Torso"].Transparency = 1
 				end 
 			end)
 			for _,v in pairs(c:GetChildren()) do
@@ -1086,14 +1086,15 @@ redo()
 
 
 plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 2 , workspace.FallenPartsDestroyHeight + 300, workspace.non.HumanoidRootPart.CFrame.Z  ) 
-task.wait(2)
-local args = {
-	true
-}
 local Event = workspace.Events.SetRagdoll
 Event:InvokeServer(
     true
 )
+task.wait(2)
+local args = {
+	true
+}
+
 redo2()
 
 game:GetService("StarterGui"):SetCore("SendNotification", {
