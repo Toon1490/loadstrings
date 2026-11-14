@@ -1086,11 +1086,13 @@ redo()
 
 
 plr.Character:WaitForChild("HumanoidRootPart").CFrame =CFrame.new( workspace.non.HumanoidRootPart.CFrame.X + 2 , workspace.FallenPartsDestroyHeight + 300, workspace.non.HumanoidRootPart.CFrame.Z  ) 
+task.wait(2)
+
 local Event = workspace.Events.SetRagdoll
 Event:InvokeServer(
     true
 )
-task.wait(2)
+
 local args = {
 	true
 }
